@@ -2,6 +2,7 @@ package parkinson;
 
 import ferjorosa.io.newBifWriter;
 import org.apache.commons.io.FilenameUtils;
+import org.latlab.learner.ParallelEmLearner;
 import org.latlab.model.LTM;
 import org.latlab.util.DataSet;
 import org.latlab.util.DataSetLoader;
@@ -28,8 +29,12 @@ public class LCM_Learn {
                     //Create the DataSet
                     DataSet data = new DataSet(DataSetLoader.convert(input_path + "/" + inputFile.getName()));
 
+                    System.out.println("------------------------------------------------------------------------------");
+                    System.out.println("------------------------------------------------------------------------------");
+                    System.out.println("------------------------------------------------------------------------------");
+
                     // Learn the LTM
-                    LTM ltm = learnBestLCM(data);
+                    LTM ltm = learnBestLCMVaryingCardinality(data);
 
                     // Save it in BIF format
                     newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "LCM_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
@@ -42,28 +47,69 @@ public class LCM_Learn {
         }
     }
 
-    //
-    public static LTM learnBestLCM(DataSet dataSet){
-        Boolean bic_keep_improve = true;
-        int cardinality = 2;
+    // Learns the best LCMusing a varying cardinality, not just a greedy carinality increasement
+    public static LTM learnBestLCMVaryingCardinality(DataSet dataSet){
+        //Boolean bic_keep_improve = true;
+        int cardinality = 10;
 
-        LTM bestLCM = learnLCM(dataSet, cardinality);
+        LTM bestLCM = learnParameters(learnLCM(dataSet, cardinality), dataSet);
+        bestLCM.setName("Best LCM");
+        printResult(bestLCM, dataSet);
         LTM currentLCM = bestLCM;
 
-        while(bic_keep_improve){
-            cardinality++;
-            currentLCM = learnLCM(dataSet, cardinality);
+        while(cardinality > 1){
+            currentLCM = learnParameters(learnLCM(dataSet, cardinality), dataSet);
+            currentLCM.setName("Current LCM");
+
+            printResult(currentLCM, dataSet);
+
             if(currentLCM.getBICScore(dataSet) < bestLCM.getBICScore(dataSet))
                 bestLCM = currentLCM;
-            else
-                bic_keep_improve = false;
+
+            // Cardinality minus 1
+            cardinality--;
         }
+        System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+        System.out.println("Best LCM: ");
+        printResult(bestLCM, dataSet);
         return bestLCM;
     }
 
     private static LTM learnLCM(DataSet dataSet, int cardinality){
-        return LTM.createLCM(dataSet.getVariables(), cardinality);
+        return learnParameters(LTM.createLCM(dataSet.getVariables(), cardinality), dataSet);
+
     }
 
+    private static void printResult(LTM ltm, DataSet dataSet){
+        System.out.println("========================");
+        System.out.println(ltm.getName() + " wtih C="+ltm.getLatVarsfromTop().get(0).getCardinality());
+        System.out.println("BIC: "+ ltm.getBICScore(dataSet));
+        System.out.println("LL: "+ ltm.getLoglikelihood(dataSet));
+        System.out.println("========================");
+        System.out.println();
+    }
+
+    /**
+     *  Used to get the BIC and LL, because the parameters are deleted afterwards or not learned
+     * @param ltm
+     * @param data
+     * @return
+     */
+    private static LTM learnParameters(LTM ltm, DataSet data){
+
+        int _EmMaxSteps = 50;
+        int _EmNumRestarts = 5;
+        double _EmThreshold = 0.01;
+
+        ParallelEmLearner emLearner = new ParallelEmLearner();
+        emLearner.setLocalMaximaEscapeMethod("ChickeringHeckerman");
+        emLearner.setMaxNumberOfSteps(_EmMaxSteps);
+        emLearner.setNumberOfRestarts(_EmNumRestarts);
+        // fix starting point or not?
+        emLearner.setReuseFlag(false);
+        emLearner.setThreshold(_EmThreshold);
+
+        return (LTM) emLearner.em(ltm, data);
+    }
 
 }
