@@ -1,0 +1,92 @@
+network HLCM144 {
+}
+
+variable variable8 {
+	type discrete[2] { state0, state1 };
+}
+
+variable vVisitToAsia {
+	type discrete[2] { s0, s1 };
+}
+
+variable vTbOrCa {
+	type discrete[2] { s0, s1 };
+}
+
+variable variable12 {
+	type discrete[2] { state0, state1 };
+}
+
+variable vBronchitis {
+	type discrete[2] { s0, s1 };
+}
+
+variable vDyspnea {
+	type discrete[2] { s0, s1 };
+}
+
+variable vSmoking {
+	type discrete[2] { s0, s1 };
+}
+
+variable vTuberculosis {
+	type discrete[2] { s0, s1 };
+}
+
+variable vXRay {
+	type discrete[2] { s0, s1 };
+}
+
+variable vLungCancer {
+	type discrete[2] { s0, s1 };
+}
+
+probability ( variable8 | variable12 ) {
+	(state0) 0.10210901511073465, 0.8978909848892653;
+	(state1) 0.41738991626040706, 0.582610083739593;
+}
+
+probability ( vVisitToAsia | variable8 ) {
+	(state0) 0.94886483136629, 0.05113516863371006;
+	(state1) 0.9775431614724552, 0.022456838527544733;
+}
+
+probability ( vTbOrCa | variable8 ) {
+	(state0) 0.8457746999208886, 0.15422530007911134;
+	(state1) 0.9823513151242655, 0.017648684875734417;
+}
+
+probability ( variable12 ) {
+	table 0.6195177593756378, 0.38048224062436214;
+}
+
+probability ( vBronchitis | variable12 ) {
+	(state0) 0.8796549026994018, 0.12034509730059811;
+	(state1) 0.038539795718667315, 0.9614602042813327;
+}
+
+probability ( vDyspnea | variable12 ) {
+	(state0) 0.9524797499599529, 0.04752025004004707;
+	(state1) 0.12207111303034685, 0.8779288869696532;
+}
+
+probability ( vSmoking | variable12 ) {
+	(state0) 0.6431944029353237, 0.3568055970646763;
+	(state1) 0.41982341170007875, 0.5801765882999214;
+}
+
+probability ( vTuberculosis | variable12 ) {
+	(state0) 0.9844180887586721, 0.015581911241327897;
+	(state1) 0.9497657564362458, 0.05023424356375425;
+}
+
+probability ( vXRay | variable12 ) {
+	(state0) 0.9628385133460629, 0.037161486653937065;
+	(state1) 0.833843033260972, 0.16615696673902808;
+}
+
+probability ( vLungCancer | variable12 ) {
+	(state0) 0.9844170873720975, 0.015582912627902354;
+	(state1) 0.9246475423564506, 0.07535245764354932;
+}
+

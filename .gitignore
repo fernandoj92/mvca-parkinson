@@ -1,3 +1,5 @@
+# LTM Analysis project (discrete)#
+
 ltm-analysis/.DS_Store
 ltm-analysis/.cache-main
 ltm-analysis/.cache-tests
@@ -22,3 +24,33 @@ ltm-analysis/data-description.txt
 ltm-analysis/.idea/
 ltm-analysis/out/
 ltm-analysis/*.iml
+
+# PLTM Analysis project (continuous)#
+pltm-analysis/.DS_Store
+pltm-analysis/.cache-main
+pltm-analysis/.cache-tests
+pltm-analysis/.history
+pltm-analysis/bin
+pltm-analysis/target
+pltm-analysis/project/target
+pltm-analysis/project/project/target
+pltm-analysis/converted
+pltm-analysis/*~
+pltm-analysis/.worksheet
+pltm-analysis//.classpath
+pltm-analysis/.project
+pltm-analysis/.settings/org.eclipse.core.resources.prefs
+pltm-analysis/.settings/org.scala-ide.sdt.core.prefs
+pltm-analysis/.settings/org.eclipse.jdt.core.prefs
+pltm-analysis/exp/
+pltm-analysis/samples
+pltm-analysis/data
+pltm-analysis/data-description.txt
+
+pltm-analysis/.idea/
+pltm-analysis/out/
+pltm-analysis/*.iml
+
+# R Project
+
+.Rproj.user

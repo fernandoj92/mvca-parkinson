@@ -1,12 +1,14 @@
 package parkinson;
 
+import ferjorosa.io.newBifWriter;
+import org.apache.commons.io.FilenameUtils;
 import org.latlab.clustering.BridgedIslands;
-import org.latlab.io.bif.BifWriter;
 import org.latlab.learner.ParallelEmLearner;
 import org.latlab.model.LTM;
 import org.latlab.util.DataSet;
 import org.latlab.util.DataSetLoader;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -16,24 +18,30 @@ import java.io.UnsupportedEncodingException;
  */
 public class BI_Learn {
 
-    public static void main(String[] args){
-        try {
-            String inFileName = "Asia_train";
-            String outFileName = "Asia_train_3";
+    public static void learnAndSaveAllModels() {
+        // Seleccionamos el directorio en el que se van a recoger todos los
+        String input_path = "data/automatic_learn";
+        File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff"));
 
-            String path = "data/ " + inFileName + ".arff";
-            DataSet data = new DataSet(DataSetLoader.convert("data/"+ inFileName +".arff"));
+        String output_path = "results/automatic_learn/BridgedIslands/";
 
-            // Learn the LTM
-            LTM ltm = learnBIModel(data);
+        for (File inputFile : inputFiles) {
+            try {
+                if (inputFile.isFile()) {
+                    //Create the DataSet
+                    DataSet data = new DataSet(DataSetLoader.convert(input_path + "/" + inputFile.getName()));
 
+                    // Learn the LTM
+                    LTM ltm = learnBIModel(data);
 
-
-            // Save it in BIF format
-            saveModel(ltm, outFileName);
-
-        }catch(Exception e){
-            e.printStackTrace();
+                    // Save it in BIF format
+                    newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "BI_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    writer.write(ltm);
+                }
+            }catch(Exception e){
+                System.out.println("Error with " + inputFile.getName());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -58,7 +66,7 @@ public class BI_Learn {
         String outputPath = "results/" + fileName + ".bif";
         //ltm.saveAsBif(outputPath);
 
-        BifWriter writer = new BifWriter(new FileOutputStream(outputPath), false);
+        newBifWriter writer = new newBifWriter(new FileOutputStream(outputPath), false);
         writer.write(ltm);
     }
 

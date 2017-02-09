@@ -1,0 +1,406 @@
+net 
+{
+    node_size = (76 36);
+}
+
+node variable1086
+{
+    label = "variable1086";
+    position = (803 728);
+    states = ("state0"  "state1");
+}
+
+node scm2lue
+{
+    label = "scm2lue";
+    position = (717 525);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm4lue
+{
+    label = "scm4lue";
+    position = (899 523);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm4rue
+{
+    label = "scm4rue";
+    position = (627 526);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm20fpr
+{
+    label = "scm20fpr";
+    position = (805 525);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node variable1046
+{
+    label = "variable1046";
+    position = (427 524);
+    states = ("state0"  "state1");
+}
+
+node scm1lue
+{
+    label = "scm1lue";
+    position = (509 341);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm3lue
+{
+    label = "scm3lue";
+    position = (321 338);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node variable1050
+{
+    label = "variable1050";
+    position = (1136 526);
+    states = ("state0"  "state1");
+}
+
+node scm12fee
+{
+    label = "scm12fee";
+    position = (1086 323);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm3rue
+{
+    label = "scm3rue";
+    position = (978 330);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm2rue
+{
+    label = "scm2rue";
+    position = (865 326);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm15cha
+{
+    label = "scm15cha";
+    position = (1181 324);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node variable1070
+{
+    label = "variable1070";
+    position = (1329 324);
+    states = ("state0"  "state1");
+}
+
+node scm6post
+{
+    label = "scm6post";
+    position = (1347 140);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm16wal
+{
+    label = "scm16wal";
+    position = (1255 141);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm17han
+{
+    label = "scm17han";
+    position = (1443 138);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm14hyg
+{
+    label = "scm14hyg";
+    position = (1075 147);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm19dsv
+{
+    label = "scm19dsv";
+    position = (1547 136);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm1rue
+{
+    label = "scm1rue";
+    position = (1165 146);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node variable1060
+{
+    label = "variable1060";
+    position = (780 148);
+    states = ("state0"  "state1");
+}
+
+node scm5rise
+{
+    label = "scm5rise";
+    position = (644 15);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm11spe
+{
+    label = "scm11spe";
+    position = (756 11);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm13dre
+{
+    label = "scm13dre";
+    position = (861 9);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm10swa
+{
+    label = "scm10swa";
+    position = (959 6);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node variable1033
+{
+    label = "variable1033";
+    position = (1849 131);
+    states = ("state0"  "state1");
+}
+
+node scm9free
+{
+    label = "scm9free";
+    position = (1624 -7);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm18dpr
+{
+    label = "scm18dpr";
+    position = (1729 -11);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm21fsv
+{
+    label = "scm21fsv";
+    position = (1844 -15);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm7gait
+{
+    label = "scm7gait";
+    position = (2047 -18);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+node scm8spee
+{
+    label = "scm8spee";
+    position = (1945 -14);
+    states = ("s0"  "s1"  "s2"  "s3");
+}
+
+potential (variable1086 |)
+{
+    data = (0.71322940 0.28677060);
+}
+
+potential (scm2lue | variable1086)
+{
+    data = ((0.60144050 0.35463244 0.04171162 0.00221544)
+        (0.34338107 0.36635622 0.21521547 0.07504723));
+}
+
+potential (scm4lue | variable1086)
+{
+    data = ((0.32292774 0.55919418 0.11563039 0.00224769)
+        (0.00756172 0.19466866 0.66145395 0.13631567));
+}
+
+potential (scm4rue | variable1086)
+{
+    data = ((0.27539111 0.57495616 0.14393842 0.00571431)
+        (0.03295512 0.32060956 0.54168774 0.10474758));
+}
+
+potential (scm20fpr | variable1086)
+{
+    data = ((0.55770444 0.33883195 0.09768896 0.00577464)
+        (0.22135388 0.31719557 0.34918347 0.11226709));
+}
+
+potential (variable1046 | variable1086)
+{
+    data = ((0.98402777 0.01597223)
+        (0.02156221 0.97843779));
+}
+
+potential (scm1lue | variable1046)
+{
+    data = ((0.61292722 0.29719249 0.08373633 0.00614396)
+        (0.37299100 0.24837890 0.26159520 0.11703490));
+}
+
+potential (scm3lue | variable1046)
+{
+    data = ((0.26668666 0.56260078 0.16682777 0.00388479)
+        (0.00545990 0.11378324 0.63774521 0.24301165));
+}
+
+potential (variable1050 | variable1086)
+{
+    data = ((0.85936800 0.14063200)
+        (0.17556700 0.82443300));
+}
+
+potential (scm12fee | variable1050)
+{
+    data = ((0.45977283 0.51523569 0.02323344 0.00175804)
+        (0.03745652 0.47830742 0.41244123 0.07179484));
+}
+
+potential (scm3rue | variable1050)
+{
+    data = ((0.28489148 0.56576530 0.14416411 0.00517911)
+        (0.07609008 0.30399769 0.48285447 0.13705776));
+}
+
+potential (scm2rue | variable1050)
+{
+    data = ((0.57045247 0.35305587 0.06890131 0.00759034)
+        (0.42239169 0.35464064 0.17242174 0.05054593));
+}
+
+potential (scm15cha | variable1050)
+{
+    data = ((0.42641405 0.53358446 0.03802382 0.00197768)
+        (0.01780381 0.37690541 0.47831318 0.12697760));
+}
+
+potential (variable1070 | variable1050)
+{
+    data = ((0.03340244 0.96659756)
+        (0.90778035 0.09221965));
+}
+
+potential (scm6post | variable1070)
+{
+    data = ((0.12926710 0.34084660 0.41244990 0.11743640)
+        (0.71212805 0.24293924 0.04320789 0.00172482));
+}
+
+potential (scm16wal | variable1070)
+{
+    data = ((0.01051522 0.43533317 0.45008578 0.10406583)
+        (0.34718503 0.61977290 0.03135107 0.00169100));
+}
+
+potential (scm17han | variable1070)
+{
+    data = ((0.01634717 0.39969776 0.43496723 0.14898784)
+        (0.23236942 0.63723520 0.12108147 0.00931391));
+}
+
+potential (scm14hyg | variable1070)
+{
+    data = ((0.01677802 0.47344405 0.41570085 0.09407708)
+        (0.37045909 0.61426907 0.01362540 0.00164644));
+}
+
+potential (scm19dsv | variable1070)
+{
+    data = ((0.34711330 0.30955700 0.23350360 0.10982610)
+        (0.77660721 0.15783921 0.05680663 0.00874695));
+}
+
+potential (scm1rue | variable1070)
+{
+    data = ((0.46209832 0.25861842 0.18807976 0.09120351)
+        (0.55726413 0.28487965 0.14163015 0.01622607));
+}
+
+potential (variable1060 | variable1070)
+{
+    data = ((0.07003713 0.92996287)
+        (0.99415556 0.00584444));
+}
+
+potential (scm5rise | variable1060)
+{
+    data = ((0.69151141 0.28748251 0.01928561 0.00172047)
+        (0.12880350 0.39027150 0.31004410 0.17088090));
+}
+
+potential (scm11spe | variable1060)
+{
+    data = ((0.51829740 0.44092858 0.03434735 0.00642667)
+        (0.05813010 0.54775125 0.34781531 0.04630334));
+}
+
+potential (scm13dre | variable1060)
+{
+    data = ((0.31859541 0.62832256 0.05148060 0.00160142)
+        (0.01435083 0.35152180 0.53072685 0.10340052));
+}
+
+potential (scm10swa | variable1060)
+{
+    data = ((0.80027268 0.16912891 0.02899683 0.00160158)
+        (0.31447751 0.47554664 0.18501786 0.02495798));
+}
+
+potential (variable1033 | variable1070)
+{
+    data = ((0.98478965 0.01521035)
+        (0.06024027 0.93975973));
+}
+
+potential (scm9free | variable1033)
+{
+    data = ((0.18234210 0.34582310 0.36350190 0.10833290)
+        (0.81491080 0.16513174 0.01770939 0.00224807));
+}
+
+potential (scm18dpr | variable1033)
+{
+    data = ((0.32078960 0.35310810 0.23529950 0.09080280)
+        (0.80512244 0.15053128 0.02858083 0.01576545));
+}
+
+potential (scm21fsv | variable1033)
+{
+    data = ((0.13806360 0.27825920 0.42592910 0.15774810)
+        (0.65953061 0.26813656 0.06710808 0.00522475));
+}
+
+potential (scm7gait | variable1033)
+{
+    data = ((0.03309280 0.42555313 0.47162991 0.06972416)
+        (0.41031003 0.57132013 0.01659898 0.00177087));
+}
+
+potential (scm8spee | variable1033)
+{
+    data = ((0.03803203 0.57586727 0.33422155 0.05187915)
+        (0.44223914 0.53040350 0.02057832 0.00677904));
+}
