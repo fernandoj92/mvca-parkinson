@@ -1,4 +1,4 @@
-package parkinson;
+package parkinson.automatic;
 
 import ferjorosa.io.newBifWriter;
 import org.apache.commons.io.FilenameUtils;

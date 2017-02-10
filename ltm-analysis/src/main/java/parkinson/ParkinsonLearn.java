@@ -1,5 +1,7 @@
 package parkinson;
 
+import parkinson.automatic.LCM_Learn;
+
 /**
  * Created by equipo on 09/02/2017.
  */

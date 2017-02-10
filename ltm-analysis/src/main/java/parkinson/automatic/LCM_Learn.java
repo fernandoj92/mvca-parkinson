@@ -1,4 +1,4 @@
-package parkinson;
+package parkinson.automatic;
 
 import ferjorosa.io.newBifWriter;
 import org.apache.commons.io.FilenameUtils;
@@ -18,7 +18,7 @@ public class LCM_Learn {
     //  TODO: do not use until it is able to choose the best cardinality
     public static void learnAndSaveAllModels(){
         // Seleccionamos el directorio en el que se van a recoger todos los
-        String input_path = "data/automatic_learn";
+        String input_path = "data/automatic_learn/";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff"));
 
         String output_path = "results/automatic_learn/LCM/";
@@ -27,11 +27,13 @@ public class LCM_Learn {
             try {
                 if (inputFile.isFile()) {
                     //Create the DataSet
-                    DataSet data = new DataSet(DataSetLoader.convert(input_path + "/" + inputFile.getName()));
+                    DataSet data = new DataSet(DataSetLoader.convert(input_path + inputFile.getName()));
 
                     System.out.println("------------------------------------------------------------------------------");
                     System.out.println("------------------------------------------------------------------------------");
                     System.out.println("------------------------------------------------------------------------------");
+
+                    System.out.println("############## "+ data.getName() + " ############## \n");
 
                     // Learn the LTM
                     LTM ltm = learnBestLCMVaryingCardinality(data);
@@ -63,7 +65,7 @@ public class LCM_Learn {
 
             printResult(currentLCM, dataSet);
 
-            if(currentLCM.getBICScore(dataSet) < bestLCM.getBICScore(dataSet))
+            if(currentLCM.getBICScore(dataSet) > bestLCM.getBICScore(dataSet))
                 bestLCM = currentLCM;
 
             // Cardinality minus 1

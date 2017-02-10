@@ -1,4 +1,4 @@
-package parkinson;
+package parkinson.automatic;
 
 /**
  * Created by equipo on 09/02/2017.

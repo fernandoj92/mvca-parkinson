@@ -1,5 +1,6 @@
 package ferjorosa.ltm.augmented;
 
+import org.latlab.model.BayesNet;
 import org.latlab.model.LTM;
 import org.latlab.util.DataSet;
 import org.latlab.util.Variable;
@@ -19,7 +20,7 @@ public class AgumentLTM {
      * @param dataSet
      * @return
      */
-    public static LTM treeAugmentedLTM(LTM ltm, DataSet dataSet){
+    public static BayesNet treeAugmentedLTM(LTM ltm, DataSet dataSet){
 
         Set<Variable> manifestVariables = ltm.getManifestVars();
 
@@ -37,7 +38,7 @@ public class AgumentLTM {
      * @param dataSet
      * @return
      */
-    public static LTM superParentLTM(LTM ltm, DataSet dataSet){
+    public static BayesNet superParentLTM(LTM ltm, DataSet dataSet){
         throw new NotImplementedException();
     }
 }
