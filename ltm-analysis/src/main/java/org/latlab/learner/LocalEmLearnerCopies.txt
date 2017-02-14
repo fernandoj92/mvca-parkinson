@@ -14,11 +14,11 @@ import org.latlab.model.BeliefNode;
 import org.latlab.reasoner.CliqueTreePropagation;
 import org.latlab.reasoner.CliqueTree;
 import org.latlab.reasoner.CliqueNode;
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
-import org.latlab.util.DataSet.DataCase;
-import org.latlab.graph.Edge;
+import ferjorosa.data.DataCase;
+import ferjorosa.graph.Edge;
 
 /**
  * This class provides an implementation for the local version of the EM

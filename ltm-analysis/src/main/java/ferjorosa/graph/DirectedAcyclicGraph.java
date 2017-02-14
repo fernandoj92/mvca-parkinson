@@ -2,7 +2,7 @@
  * DirectedAcyclicGraph.java
  * Copyright (C) 2006 Tao Chen, Kin Man Poon, Yi Wang, and Nevin L. Zhang
  */
-package org.latlab.graph;
+package ferjorosa.graph;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -299,7 +299,7 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	 * Copies the nodes and edges from this graph to the given graph.
 	 * The nodes and edges in the copied graph are separate instances from
 	 * those in this graph.
-	 * @param graph	graph copied to and returned
+	 * @param copy	graph copied to and returned
 	 * @return		graph copied to
 	 */
 	private AbstractGraph copyTo(AbstractGraph copy) {

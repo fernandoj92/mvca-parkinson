@@ -1,7 +1,7 @@
 package org.latlab.clustering;
 
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataCase;
 import org.latlab.util.Variable;
 
 import java.util.ArrayList;

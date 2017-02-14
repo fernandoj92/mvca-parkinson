@@ -1,6 +1,6 @@
-package org.latlab.graph.predicates;
+package ferjorosa.graph.predicates;
 
-import org.latlab.graph.DirectedNode;
+import ferjorosa.graph.DirectedNode;
 import org.latlab.util.Predicate;
 
 /**

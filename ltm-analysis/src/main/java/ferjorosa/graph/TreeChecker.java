@@ -1,8 +1,8 @@
-package org.latlab.graph;
+package ferjorosa.graph;
 
-import org.latlab.graph.predicates.RootNodePredicate;
-import org.latlab.graph.search.DepthFirstSearch;
-import org.latlab.graph.search.TimeVisitor;
+import ferjorosa.graph.predicates.RootNodePredicate;
+import ferjorosa.graph.search.DepthFirstSearch;
+import ferjorosa.graph.search.TimeVisitor;
 import org.latlab.util.Algorithm;
 import org.latlab.util.Caster;
 
@@ -16,11 +16,28 @@ import java.util.List;
  */
 public class TreeChecker {
 
+    /**
+     * Returns whether a tree has a specific node as root.
+     *
+     * @param graph graph to check.
+     * @param node the node in question.
+     * @return wheter the node is the root of the tree.
+     */
+    public static boolean isRoot(AbstractGraph graph, AbstractNode node) {
+        // a tree can have only one root
+        List<DirectedNode> roots = Algorithm.filter(graph.getNodes(),
+                new Caster<DirectedNode>(), new RootNodePredicate());
+
+        if (roots.size() == 1 && roots.get(0).equals(node))
+            return true;
+
+        return false;
+    }
+
 	/**
 	 * Returns whether a graph is a tree.
 	 * 
-	 * @param graph
-	 *            graph to check
+	 * @param graph graph to check
 	 * @return whether the graph is a tree
 	 */
 	public static boolean isTree(AbstractGraph graph) {
@@ -47,11 +64,10 @@ public class TreeChecker {
 	 * 
 	 * The idea is: if it is not a bayesnet, there must be circles
 	 * 
-	 * @param graph
-	 * @return
+	 * @param graph the graph to check.
+	 * @return whether the graph is a bayesian network.
 	 */
-	public static boolean isBayesNet(AbstractGraph graph)
-	{	
+	public static boolean isBayesNet(AbstractGraph graph) {
 		
 		List<DirectedNode> roots = Algorithm.filter(graph.getNodes(),
 				new Caster<DirectedNode>(), new RootNodePredicate());
@@ -84,4 +100,6 @@ public class TreeChecker {
 		
 		return true;
 	}
+
+
 }

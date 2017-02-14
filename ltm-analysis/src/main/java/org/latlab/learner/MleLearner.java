@@ -4,11 +4,11 @@
  */
 package org.latlab.learner;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
 

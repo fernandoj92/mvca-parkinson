@@ -1,7 +1,7 @@
 package ferjorosa.examples.islandFinder
 
 import ferjorosa.core.information.measures.MutualInformation
-import org.latlab.util.{DataSet, DataSetLoader}
+import ferjorosa.data.{DataSet, DataSetLoader}
 
 /**
   * Created by equipo on 13/01/2017.

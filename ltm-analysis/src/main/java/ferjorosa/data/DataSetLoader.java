@@ -1,4 +1,4 @@
-package org.latlab.util;
+package ferjorosa.data;
 
 import hk.ust.cse.lantern.data.Data;
 import hk.ust.cse.lantern.data.io.FormatCatalog;

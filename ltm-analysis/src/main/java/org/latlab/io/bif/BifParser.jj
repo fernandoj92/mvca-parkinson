@@ -24,7 +24,7 @@ import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
-import org.latlab.graph.Edge;
+import ferjorosa.graph.Edge;
 
 public class BifParser extends AbstractParser {
 	public void parse(BayesNet network) throws org.latlab.io.ParseException {

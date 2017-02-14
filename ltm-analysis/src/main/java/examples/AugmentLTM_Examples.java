@@ -1,12 +1,11 @@
 package examples;
 
 import org.latlab.clustering.BridgedIslands;
-import org.latlab.learner.EmLearner;
 import org.latlab.learner.ParallelEmLearner;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSetLoader;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataSetLoader;
 import org.latlab.util.Variable;
 
 import java.io.IOException;

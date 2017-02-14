@@ -1,12 +1,16 @@
 package org.latlab.clustering;
 
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.Edge;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataCase;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.Edge;
 import org.latlab.learner.ParallelEmLearner;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
-import org.latlab.util.*;
-import org.latlab.util.DataSet.DataCase;
+import org.latlab.util.Function;
+import org.latlab.util.ScoreCalculator;
+import org.latlab.util.Utils;
+import org.latlab.util.Variable;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;

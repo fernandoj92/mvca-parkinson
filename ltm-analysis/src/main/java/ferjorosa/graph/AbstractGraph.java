@@ -2,7 +2,7 @@
  * AbstractGraph.java
  * Copyright (C) 2006 Tao Chen, Kin Man Poon, Yi Wang, and Nevin L. Zhang
  */
-package org.latlab.graph;
+package ferjorosa.graph;
 
 import java.util.*;
 
@@ -16,14 +16,14 @@ import java.util.*;
 public abstract class AbstractGraph implements Cloneable {
 
 	/**
-	 * the list of nodes in this graph. we use <code>LinkedList</code> for fast
-	 * iteration.
+	 * the list of nodes in this graph. we use <code>LinkedList</code> for fast add
+	 * iteration (array copies for example).
 	 */
 	protected LinkedList<AbstractNode> _nodes;
 
 	/**
-	 * the list of edges in this graph. we use <code>LinkedList</code> for fast
-	 * iteration.
+	 * the list of edges in this graph. we use <code>LinkedList</code> for fast add
+	 * iteration (array copies for example).
 	 */
 	protected LinkedList<Edge> _edges;
 

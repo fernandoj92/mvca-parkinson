@@ -1,10 +1,11 @@
 package org.latlab.analysis;
 
+import ferjorosa.data.DataSet;
 import org.latlab.model.BayesNet;
 import org.latlab.model.LTM;
 import org.latlab.reasoner.CliqueTreePropagation;
 import org.latlab.util.*;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataCase;
 
 import java.io.*;
 import java.util.*;

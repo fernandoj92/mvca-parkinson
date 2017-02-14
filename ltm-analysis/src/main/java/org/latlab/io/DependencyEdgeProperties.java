@@ -1,6 +1,6 @@
 package org.latlab.io;
 
-import org.latlab.graph.Edge;
+import ferjorosa.graph.Edge;
 
 import java.util.HashMap;
 

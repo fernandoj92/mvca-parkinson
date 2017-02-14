@@ -4,10 +4,10 @@
  */
 package org.latlab.reasoner;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.Edge;
-import org.latlab.graph.UndirectedGraph;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.Edge;
+import ferjorosa.graph.UndirectedGraph;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;

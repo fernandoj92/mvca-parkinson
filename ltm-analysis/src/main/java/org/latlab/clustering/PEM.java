@@ -1,9 +1,11 @@
 package org.latlab.clustering;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.Edge;
-import org.latlab.graph.UndirectedGraph;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataSetLoader;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.Edge;
+import ferjorosa.graph.UndirectedGraph;
 import org.latlab.io.Parser;
 import org.latlab.io.bif.BifParser;
 import org.latlab.learner.ParallelEmLearner;
@@ -12,7 +14,7 @@ import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
 import org.latlab.reasoner.CliqueTreePropagation;
 import org.latlab.util.*;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataCase;
 
 import java.io.*;
 import java.util.*;

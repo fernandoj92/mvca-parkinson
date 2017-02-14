@@ -2,7 +2,7 @@
  * Edge.java
  * Copyright (C) 2006 Tao Chen, Kin Man Poon, Yi Wang, and Nevin L. Zhang
  */
-package org.latlab.graph;
+package ferjorosa.graph;
 
 /**
  * This class provides an implementation for edges in graphs.

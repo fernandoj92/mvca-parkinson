@@ -2,7 +2,7 @@ package ferjorosa.ltm.augmented;
 
 import org.latlab.model.BayesNet;
 import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Variable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

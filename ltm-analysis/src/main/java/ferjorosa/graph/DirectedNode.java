@@ -2,7 +2,7 @@
  * DirectedNode.java
  * Copyright (C) 2006 Tao Chen, Kin Man Poon, Yi Wang, and Nevin L. Zhang
  */
-package org.latlab.graph;
+package ferjorosa.graph;
 
 import java.util.Collection;
 import java.util.HashMap;

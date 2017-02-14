@@ -1,6 +1,6 @@
 package ferjorosa.information;
 
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Function;
 import org.latlab.util.Utils;
 import org.latlab.util.Variable;

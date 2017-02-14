@@ -1,6 +1,6 @@
 //package org.latlab.util;
 //
-//import org.latlab.util.DataSet.DataCase;
+//import ferjorosa.data.DataCase;
 //import org.latlab.model.*;
 //import org.latlab.reasoner.*;
 //
@@ -32,14 +32,15 @@
 
 package org.latlab.util;
 
-import org.latlab.graph.AbstractNode;
+import ferjorosa.data.DataSet;
+import ferjorosa.graph.AbstractNode;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
 import org.latlab.reasoner.CliqueNode;
 import org.latlab.reasoner.CliqueTree;
 import org.latlab.reasoner.CliqueTreePropagation;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataCase;
 
 import java.util.*;
 

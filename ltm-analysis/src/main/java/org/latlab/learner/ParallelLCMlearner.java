@@ -2,7 +2,7 @@
 package org.latlab.learner;
 
 import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Variable;
 
 import java.io.File;

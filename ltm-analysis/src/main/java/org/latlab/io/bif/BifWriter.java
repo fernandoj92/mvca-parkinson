@@ -1,12 +1,12 @@
 package org.latlab.io.bif;
 
-import org.latlab.graph.AbstractNode;
+import ferjorosa.graph.AbstractNode;
 import org.latlab.io.BeliefNodeProperties;
 import org.latlab.io.BeliefNodeProperty;
 import org.latlab.io.Writer;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Function;
 import org.latlab.util.FunctionIterator;
 import org.latlab.util.Variable;

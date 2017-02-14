@@ -4,7 +4,10 @@
  */
 package org.latlab.reasoner;
 
-import org.latlab.graph.*;
+import ferjorosa.graph.*;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.UndirectedGraph;
+import ferjorosa.graph.UndirectedNode;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
 

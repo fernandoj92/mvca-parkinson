@@ -1,7 +1,9 @@
 package ferjorosa.ltm;
 
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.UndirectedGraph;
+import ferjorosa.data.DataCase;
+import ferjorosa.data.DataSet;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.UndirectedGraph;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
 import org.latlab.reasoner.CliqueTreePropagation;
@@ -20,14 +22,14 @@ public class MWST {
      * USELESS in PEM version But keep it for future use if we need soft
      * assignment or to keep record
      */
-    private Map<Variable, Map<DataSet.DataCase, Function>> _latentPosts;
+    private Map<Variable, Map<DataCase, Function>> _latentPosts;
 
     private Collection<LTM> islands;
 
     private DataSet dataSet;
 
     public MWST(Collection<LTM> islands, DataSet dataSet){
-        this._latentPosts = new HashMap<Variable, Map<DataSet.DataCase, Function>>();
+        this._latentPosts = new HashMap<Variable, Map<DataCase, Function>>();
         this.islands = islands;
         this.dataSet = dataSet;
         for(LTM partition : islands){
@@ -36,9 +38,10 @@ public class MWST {
     }
 
     public UndirectedGraph learnMWST(){
+        // hierarchies are simply the islands with their associated LV
         Map<Variable, LTM> hierarchies = new HashMap<>();
-        for(LTM partition: islands){
-            hierarchies.put(partition.getRoot().getVariable(), partition);
+        for(LTM island: islands){
+            hierarchies.put(island.getRoot().getVariable(), island);
         }
         return learnMaximumSpanningTree(hierarchies, dataSet);
     }
@@ -139,19 +142,19 @@ public class MWST {
         int viIdx = -1, vjIdx = -1;
 
         // retrieve P(Y|d) for latent variables and locate manifest variables
-        Map<DataSet.DataCase, Function> viPosts = _latentPosts.get(vi);
+        Map<DataCase, Function> viPosts = _latentPosts.get(vi);
         if (viPosts == null) {
             viIdx = Arrays.binarySearch(vars, vi);
         }
 
-        Map<DataSet.DataCase, Function> vjPosts = _latentPosts.get(vj);
+        Map<DataCase, Function> vjPosts = _latentPosts.get(vj);
         if (vjPosts == null) {
             vjIdx = Arrays.binarySearch(vars, vj);
         }
 
         Function empDist = Function.createFunction(varPair);
 
-        for (DataSet.DataCase datum : _data.getData()) {
+        for (DataCase datum : _data.getData()) {
             int[] states = datum.getStates();
 
             // If there is missing data, continue;
@@ -198,7 +201,7 @@ public class MWST {
             _latentPosts.remove(((BeliefNode) child).getVariable());
         }
 
-        Map<DataSet.DataCase, Function> latentPosts = new HashMap<DataSet.DataCase, Function>();
+        Map<DataCase, Function> latentPosts = new HashMap<DataCase, Function>();
 
         CliqueTreePropagation ctp = new CliqueTreePropagation(subModel);
 
@@ -209,7 +212,7 @@ public class MWST {
         int[] subStates = new int[nSubVars];
 
         // update for every data case
-        for (DataSet.DataCase dataCase : _data.getData()) {
+        for (DataCase dataCase : _data.getData()) {
             // project states
             int[] states = dataCase.getStates();
             for (int i = 0; i < nSubVars; i++) {

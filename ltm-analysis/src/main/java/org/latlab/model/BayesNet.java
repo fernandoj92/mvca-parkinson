@@ -4,8 +4,12 @@
  */
 package org.latlab.model;
 
-import org.latlab.graph.*;
-import org.latlab.graph.predicates.RootNodePredicate;
+import ferjorosa.data.DataSet;
+import ferjorosa.graph.*;
+import ferjorosa.graph.DirectedAcyclicGraph;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.predicates.RootNodePredicate;
 import org.latlab.util.*;
 
 import java.io.*;

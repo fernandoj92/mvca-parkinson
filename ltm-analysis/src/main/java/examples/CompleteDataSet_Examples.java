@@ -2,8 +2,8 @@ package examples;
 
 import org.latlab.learner.EmLearner;
 import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSetLoader;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataSetLoader;
 import org.latlab.util.ScoreCalculator;
 
 /**

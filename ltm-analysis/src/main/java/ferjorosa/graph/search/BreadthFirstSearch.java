@@ -1,10 +1,10 @@
-package org.latlab.graph.search;
+package ferjorosa.graph.search;
 
-import org.latlab.graph.AbstractGraph;
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.Edge;
-import org.latlab.graph.predicates.RootNodePredicate;
+import ferjorosa.graph.AbstractGraph;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.Edge;
+import ferjorosa.graph.predicates.RootNodePredicate;
 import org.latlab.util.Algorithm;
 import org.latlab.util.Caster;
 import org.latlab.util.Pair;

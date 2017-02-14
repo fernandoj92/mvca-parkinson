@@ -1,7 +1,7 @@
-package org.latlab.graph.search;
+package ferjorosa.graph.search;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.Edge;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.Edge;
 
 import java.util.Collection;
 

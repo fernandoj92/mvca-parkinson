@@ -3,8 +3,8 @@ package examples;
 import org.latlab.clustering.BridgedIslands;
 import org.latlab.clustering.IslandFinder;
 import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSetLoader;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataSetLoader;
 
 import java.util.Collection;
 

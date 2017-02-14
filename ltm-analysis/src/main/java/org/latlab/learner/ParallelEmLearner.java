@@ -4,12 +4,12 @@
  */
 package org.latlab.learner;
 
-import org.latlab.graph.AbstractNode;
+import ferjorosa.graph.AbstractNode;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
 import org.latlab.reasoner.CliqueTreePropagation;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataCase;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
 

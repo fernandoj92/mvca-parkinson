@@ -2,8 +2,9 @@ package ferjorosa.core.information.measures
 
 import java.util
 
+import ferjorosa.data.DataSet
 import org.latlab.clustering.EmpiricalMiComputerForBinaryData
-import org.latlab.util.{DataSet, Variable}
+import org.latlab.util.Variable
 
 import scala.collection.convert.WrapAsJava
 

@@ -1,6 +1,7 @@
 package ferjorosa.information;
 
-import org.latlab.util.DataSet;
+import ferjorosa.data.DataCase;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Variable;
 
 import java.util.ArrayList;
@@ -44,9 +45,9 @@ public class FrequencyCounter {
         System.out.println("Initialized the map");
 
 
-        ArrayList<DataSet.DataCase> cases = data.getData();
+        ArrayList<DataCase> cases = data.getData();
         for (int caseIndex = start; caseIndex < end; caseIndex++) {
-            DataSet.DataCase c = cases.get(caseIndex);
+            DataCase c = cases.get(caseIndex);
             int[] states = c.getStates();
             double weight = c.getWeight();
 

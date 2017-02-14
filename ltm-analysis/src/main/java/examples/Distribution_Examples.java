@@ -3,8 +3,8 @@ package examples;
 import org.latlab.learner.MleLearner;
 import org.latlab.model.BayesNet;
 import org.latlab.model.BeliefNode;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSetLoader;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataSetLoader;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
 

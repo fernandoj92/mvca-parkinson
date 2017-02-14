@@ -1,9 +1,9 @@
 package org.latlab.model;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
-import org.latlab.graph.Edge;
-import org.latlab.util.DataSet;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
+import ferjorosa.graph.Edge;
+import ferjorosa.data.DataSet;
 import org.latlab.util.Function;
 import org.latlab.util.Variable;
 

@@ -2,7 +2,7 @@
  * UndirectedNode.java
  * Copyright (C) 2006 Tao Chen, Kin Man Poon, Yi Wang, and Nevin L. Zhang
  */
-package org.latlab.graph;
+package ferjorosa.graph;
 
 import java.util.Collection;
 
@@ -89,7 +89,7 @@ public class UndirectedNode extends AbstractNode {
 		stringBuffer.append("undirected node {\n");
 
 		stringBuffer.append(whiteSpace);
-		stringBuffer.append("\tname = \"" + _name + "\";\n");
+		stringBuffer.append("\tname = \"" + this.getName() + "\";\n");
 
 		stringBuffer.append(whiteSpace);
 		stringBuffer.append("\tdegree = " + getDegree() + ";\n");
@@ -98,7 +98,7 @@ public class UndirectedNode extends AbstractNode {
 		stringBuffer.append("\tneighbors = { ");
 
 		for (AbstractNode neighbor : getNeighbors()) {
-			stringBuffer.append("\"" + neighbor._name + "\" ");
+			stringBuffer.append("\"" + neighbor.getName() + "\" ");
 		}
 
 		stringBuffer.append("};\n");

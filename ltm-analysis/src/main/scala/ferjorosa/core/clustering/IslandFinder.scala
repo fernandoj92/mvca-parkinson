@@ -3,10 +3,9 @@ package ferjorosa.core.clustering
 import java.util
 
 import ferjorosa.core.information.measures.MutualInformation
+import ferjorosa.data.DataSet
 import org.latlab.model.LTM
-import org.latlab.util.{DataSet, Variable}
-
-import scala.collection.convert.WrapAsJava
+import org.latlab.util.Variable
 
 /**
   * Created by equipo on 13/01/2017.

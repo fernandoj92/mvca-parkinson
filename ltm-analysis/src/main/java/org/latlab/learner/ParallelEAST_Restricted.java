@@ -1,14 +1,14 @@
 package org.latlab.learner;
 
-import org.latlab.graph.AbstractNode;
-import org.latlab.graph.DirectedNode;
+import ferjorosa.graph.AbstractNode;
+import ferjorosa.graph.DirectedNode;
 import org.latlab.model.BeliefNode;
 import org.latlab.model.LTM;
 import org.latlab.reasoner.CliqueNode;
 import org.latlab.reasoner.CliqueTree;
 import org.latlab.reasoner.CliqueTreePropagation;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataCase;
 import org.latlab.util.Function;
 import org.latlab.util.MessagesForLocalEM;
 import org.latlab.util.Variable;

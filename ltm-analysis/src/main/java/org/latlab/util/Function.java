@@ -6,7 +6,8 @@ package org.latlab.util;
 
 import cern.jet.random.Uniform;
 import cern.jet.random.engine.MersenneTwister;
-import org.latlab.util.DataSet.DataCase;
+import ferjorosa.data.DataSet;
+import ferjorosa.data.DataCase;
 
 import java.util.*;
 
