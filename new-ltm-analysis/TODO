@@ -1,0 +1,9 @@
+Hay demasiado código repetido. Seria interesante generar 2 tipos de clases de datos:
+- Data: con Instances, DataFeatures
+    * Las Instances son siempre valores Double
+    * En el caso de features discretas, se almacenan con los indices, pero se puede devolver su nombre tmb (las 2 posibilidades)
+- DataSet: con DataCases
+    * Solo permite Datas con features discretas (hasta que se añada el MixedDataSet y se haga la distincion)
+
+
+Eliminar algun formato complicado como el GZIP ARFF e implementar nuestro propio reader y writer arff

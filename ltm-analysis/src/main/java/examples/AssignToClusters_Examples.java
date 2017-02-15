@@ -6,6 +6,9 @@ import ferjorosa.data.DataSetLoader;
 import ferjorosa.ltm.learning.parameters.LTM_Learner;
 import org.latlab.clustering.BridgedIslands;
 import org.latlab.model.LTM;
+import org.latlab.util.Function;
+
+import java.util.ArrayList;
 
 /**
  * Created by equipo on 14/02/2017.
@@ -29,8 +32,14 @@ public class AssignToClusters_Examples {
             System.out.println("AIC: "+ ltm.getLoglikelihood(data));
             System.out.println("LL: "+ ltm.getAICScore(data));
 
-            AssignToClusters.assignDataCaseToClusters(data, ltm);
+            ArrayList<ArrayList<Function>> clusterAssignments = AssignToClusters.assignDataCaseToClusters(data, ltm);
 
+            int[] dataCaseIndexes = data.getDatacaseIndex("data/Asia_train.arff");
+
+            // Reconstruimos el dataset pero esta vez añadiendo los datos sobre las particiones
+            for(int index: dataCaseIndexes){
+
+            }
 
         }catch(Exception e) {
             e.printStackTrace();

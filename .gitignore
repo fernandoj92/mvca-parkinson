@@ -26,6 +26,7 @@ ltm-analysis/out/
 ltm-analysis/*.iml
 
 # PLTM Analysis project (continuous)#
+
 pltm-analysis/.DS_Store
 pltm-analysis/.cache-main
 pltm-analysis/.cache-tests
@@ -50,6 +51,33 @@ pltm-analysis/data-description.txt
 pltm-analysis/.idea/
 pltm-analysis/out/
 pltm-analysis/*.iml
+
+# New LTM analysis #
+
+new-ltm-analysis/.DS_Store
+new-ltm-analysis/.cache-main
+new-ltm-analysis/.cache-tests
+new-ltm-analysis/.history
+new-ltm-analysis/bin
+new-ltm-analysis/target
+new-ltm-analysis/project/target
+new-ltm-analysis/project/project/target
+new-ltm-analysis/converted
+new-ltm-analysis/*~
+new-ltm-analysis/.worksheet
+new-ltm-analysis//.classpath
+new-ltm-analysis/.project
+new-ltm-analysis/.settings/org.eclipse.core.resources.prefs
+new-ltm-analysis/.settings/org.scala-ide.sdt.core.prefs
+new-ltm-analysis/.settings/org.eclipse.jdt.core.prefs
+new-ltm-analysis/exp/
+new-ltm-analysis/samples
+new-ltm-analysis/data
+new-ltm-analysis/data-description.txt
+
+new-ltm-analysis/.idea/
+new-ltm-analysis/out/
+new-ltm-analysis/*.iml
 
 # R Project
 
