@@ -19,7 +19,7 @@ public class CliqueTreePropagationGroup {
 	public final int capacity;
 
 	public static CliqueTreePropagationGroup constructFromTemplate(
-			CliqueTreePropagation template, BayesNet model, int capacity) {
+            CliqueTreePropagation template, BayesNet model, int capacity) {
 		CliqueTreePropagationGroup group =
 				new CliqueTreePropagationGroup(model, capacity);
 

@@ -27,7 +27,7 @@ public abstract class AbstractVisitor implements Visitor {
      * Returns the original ordering.
      */
     public Collection<Edge> order(
-			AbstractNode current, Collection<Edge> edges) {
+            AbstractNode current, Collection<Edge> edges) {
         return orderer == null? edges : orderer.order(current, edges);
     }
     

@@ -1,5 +1,8 @@
 package voltric.data.dataset;
 
+import voltric.data.DataInstance;
+import voltric.variables.VariableCollection;
+
 /**
  * This class provides an implementation for data cases.
  *
@@ -113,6 +116,15 @@ public class DiscreteDataCase implements Comparable<DiscreteDataCase> {
     public DiscreteDataSet getDataSet(){
         return _dataSet;
     }
+
+    public DataInstance toDataInstance(){
+        double[] instanceValues = new double[_states.length];
+        for(int i=0; i<instanceValues.length;i++)
+            instanceValues[i] = (double) _states[i];
+
+        return new DataInstance(new VariableCollection(this._dataSet.getVariableList()), instanceValues);
+    }
+
     /**
      * Simply return a line containing the states of the DiscreteDataCase
      *

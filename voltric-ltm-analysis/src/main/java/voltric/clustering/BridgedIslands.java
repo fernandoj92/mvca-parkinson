@@ -973,7 +973,7 @@ public class BridgedIslands {
     }
 
     private static Map<DiscreteVariable, Map<DiscreteVariable, Double>> processMi(List<DiscreteVariable> bestPair,
-                                                                  List<double[]> miArray, List<DiscreteVariable> vars) {
+                                                                                  List<double[]> miArray, List<DiscreteVariable> vars) {
         // convert the array to map
 
         // initialize the data structure for pairwise MI

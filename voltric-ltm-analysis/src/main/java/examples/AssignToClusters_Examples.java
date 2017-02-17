@@ -3,7 +3,9 @@ package examples;
 
 import ferjorosa.analysis.AssignToClusters;
 import ferjorosa.ltm.learning.parameters.LTM_Learner;
+import scala.Array;
 import voltric.clustering.BridgedIslands;
+import voltric.data.dataset.DiscreteDataCase;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
 import voltric.model.LTM;
@@ -22,23 +24,26 @@ public class AssignToClusters_Examples {
 
     private static void assignAsiaDataSet(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet dataSet = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
 
             BridgedIslands bi = new BridgedIslands();
             // Learns the structure of the LTM with the Bridged Islands algorithm and finishes the job
             // by learning its parameters with a full set of iterations of the EM algorithm.
-            LTM ltm = LTM_Learner.learnParameters(bi.learnLTM(data), data);
+            LTM ltm = LTM_Learner.learnParameters(bi.learnLTM(dataSet), dataSet);
             //System.out.println(ltm.toString(1));
-            System.out.println("BIC: "+ ltm.getBICScore(data));
-            System.out.println("AIC: "+ ltm.getLoglikelihood(data));
-            System.out.println("LL: "+ ltm.getAICScore(data));
+            System.out.println("BIC: "+ ltm.getBICScore(dataSet));
+            System.out.println("AIC: "+ ltm.getLoglikelihood(dataSet));
+            System.out.println("LL: "+ ltm.getAICScore(dataSet));
 
-            ArrayList<ArrayList<Function>> clusterAssignments = AssignToClusters.assignDataCaseToClusters(data, ltm);
+            ArrayList<ArrayList<Function>> clusterAssignments = AssignToClusters.assignDataCaseToClusters(dataSet, ltm);
 
-            int[] dataCaseIndexes = data.getDatacaseIndex("data/Asia_train.arff");
-
+            // Basicamente lee el archivo y le asigna a cada instancia su data case correspondiente
+            int[] dataCaseIndexes = dataSet.getDatacaseIndex("data/Asia_train.arff");
+            ArrayList<DiscreteDataCase> dataCases = dataSet.getData();
             // Reconstruimos el dataset pero esta vez añadiendo los datos sobre las particiones
+            // en formato ARFF
             for(int index: dataCaseIndexes){
+                dataCases.get(index);
 
             }
 

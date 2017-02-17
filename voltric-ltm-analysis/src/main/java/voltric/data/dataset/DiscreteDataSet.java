@@ -552,6 +552,10 @@ public final class DiscreteDataSet {
 		return _variables;
 	}
 
+	public List<DiscreteVariable> getVariableList(){
+		return Arrays.asList(_variables);
+	}
+
 	/**
 	 * Returns <code>true</code> if this data set contains missing values.
 	 * 

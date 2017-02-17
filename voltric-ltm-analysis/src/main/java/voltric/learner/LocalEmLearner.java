@@ -67,7 +67,7 @@ public final class LocalEmLearner extends EmLearner {
 	 * @return the CTPs for the best starting point.
 	 */
 	private CliqueTreePropagation multipleRestarts(BayesNet bayesNet,
-			DiscreteDataSet dataSet) {
+                                                   DiscreteDataSet dataSet) {
 		CliqueTreePropagation[] ctps = new CliqueTreePropagation[_nRestarts];
 
 		for (int i = 0; i < _nRestarts; i++) {

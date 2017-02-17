@@ -60,7 +60,7 @@ public class PathFindingVisitor extends AbstractVisitor {
 	 * @return				path from source to destination in the graph
 	 */
 	public static List<AbstractNode> findPath(AbstractGraph graph,
-                                              AbstractNode source, AbstractNode destintation) {
+											  AbstractNode source, AbstractNode destintation) {
 		DepthFirstSearch search = new DepthFirstSearch(graph);
 		PathFindingVisitor visitor = new PathFindingVisitor(destintation);
 		search.perform(source, visitor);

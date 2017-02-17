@@ -263,8 +263,8 @@ public final class ParallelLocalEmLearner extends ParallelEmLearner {
 			public final int splitThreshold;
 
 			public Context(DiscreteDataSet data, CliqueTreePropagationGroup ctps,
-                           Map<DiscreteDataCase, Set<MessagesForLocalEM>> repository,
-                           DiscreteVariable[] mutableVars) {
+					Map<DiscreteDataCase, Set<MessagesForLocalEM>> repository,
+					DiscreteVariable[] mutableVars) {
 				this.data = data;
 				this.ctps = ctps;
 				this.repository = repository;
