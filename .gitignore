@@ -79,6 +79,33 @@ new-ltm-analysis/.idea/
 new-ltm-analysis/out/
 new-ltm-analysis/*.iml
 
+# Voltric LTM analysis #
+
+voltric-ltm-analysis/.DS_Store
+voltric-ltm-analysis/.cache-main
+voltric-ltm-analysis/.cache-tests
+voltric-ltm-analysis/.history
+voltric-ltm-analysis/bin
+voltric-ltm-analysis/target
+voltric-ltm-analysis/project/target
+voltric-ltm-analysis/project/project/target
+voltric-ltm-analysis/converted
+voltric-ltm-analysis/*~
+voltric-ltm-analysis/.worksheet
+voltric-ltm-analysis//.classpath
+voltric-ltm-analysis/.project
+voltric-ltm-analysis/.settings/org.eclipse.core.resources.prefs
+voltric-ltm-analysis/.settings/org.scala-ide.sdt.core.prefs
+voltric-ltm-analysis/.settings/org.eclipse.jdt.core.prefs
+voltric-ltm-analysis/exp/
+voltric-ltm-analysis/samples
+voltric-ltm-analysis/data
+voltric-ltm-analysis/data-description.txt
+
+voltric-ltm-analysis/.idea/
+voltric-ltm-analysis/out/
+voltric-ltm-analysis/*.iml
+
 # R Project
 
 .Rproj.user
