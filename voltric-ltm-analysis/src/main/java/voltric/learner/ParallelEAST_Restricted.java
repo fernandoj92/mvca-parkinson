@@ -235,7 +235,7 @@ public class ParallelEAST_Restricted {
 	 * @return
 	 */
 	private LTM restrictedAdjust(LTM model, DiscreteVariable originalVar,
-			DiscreteVariable newVar, DiscreteDataSet data) {
+                                 DiscreteVariable newVar, DiscreteDataSet data) {
 		LTM bestModel = model;
 		LTM nextBestModel = null;
 
@@ -265,7 +265,7 @@ public class ParallelEAST_Restricted {
 	 * good as current model.
 	 */
 	private LTM oneStepRestriAdjust(LTM model, DiscreteVariable oldVar,
-			DiscreteVariable newVar, DiscreteDataSet data) {
+                                    DiscreteVariable newVar, DiscreteDataSet data) {
 		LTM bestModel = model;
 		computeCtps(bestModel, data);
 
@@ -288,7 +288,7 @@ public class ParallelEAST_Restricted {
 	 * @return
 	 */
 	public LTM refineStructureAndState(LTM model, DiscreteDataSet data,
-			Map<DiscreteVariable, DiscreteVariable> map) {
+                                       Map<DiscreteVariable, DiscreteVariable> map) {
 
 		// re-consider the cardinality.
 		model = reconsiderCardinality(model, data, map);
@@ -524,7 +524,7 @@ public class ParallelEAST_Restricted {
 	 */
 
 	public LTM reconsiderStructure(LTM model, DiscreteDataSet data,
-			Map<DiscreteVariable, DiscreteVariable> map) {
+                                   Map<DiscreteVariable, DiscreteVariable> map) {
 		System.out.println("Begin to do structure adjustment! This may take a while, please wait....");
 
 		for (DiscreteVariable manifest : map.keySet()) {
@@ -618,7 +618,7 @@ public class ParallelEAST_Restricted {
 	 * @return
 	 */
 	private LTM reconsiderCardinality(LTM model, DiscreteDataSet data,
-			Map<DiscreteVariable, DiscreteVariable> map) {
+                                      Map<DiscreteVariable, DiscreteVariable> map) {
 
 		Map<DiscreteVariable, Integer> variablesNeedSI =
 				new HashMap<DiscreteVariable, Integer>();
@@ -893,7 +893,7 @@ public class ParallelEAST_Restricted {
 	 */
 
 	public LTM bestModelRestriNR(LTM model, DiscreteVariable parent,
-			DiscreteVariable destinationVar, DiscreteDataSet data) {
+                                 DiscreteVariable destinationVar, DiscreteDataSet data) {
 		ArrayList<LTM> sortedModelList = new ArrayList<LTM>();
 		// Note the reuse sign
 		setLocalEMLearner(true);
@@ -1108,7 +1108,7 @@ public class ParallelEAST_Restricted {
 	 * compared according to BIC score.
 	 */
 	private void addModel2SortedListBIC(LTM newModel,
-			ArrayList<LTM> sortedModelArrayList, DiscreteDataSet data) {
+                                        ArrayList<LTM> sortedModelArrayList, DiscreteDataSet data) {
 
 		// find the position of the first model whose score is smaller than
 		// newModel

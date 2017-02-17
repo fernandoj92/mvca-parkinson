@@ -91,7 +91,7 @@ public class EmLearner {
 	 * @return the CTP for the best starting point.
 	 */
 	private CliqueTreePropagation chickeringHeckermanRestart(BayesNet bayesNet,
-                                                             DiscreteDataSet dataSet) {
+															 DiscreteDataSet dataSet) {
 		// generates random starting points and CTPs for them
 		CliqueTreePropagation[] ctps = new CliqueTreePropagation[_nRestarts];
 		double[] lastStepCtps = new double[_nRestarts];

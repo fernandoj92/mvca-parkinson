@@ -71,7 +71,7 @@ public final class MleLearner {
 	 *            smoothing factor to incorporate.
 	 */
 	public final static void computeMle(BayesNet bayesNet, DiscreteDataSet dataSet,
-			double alpha) {
+                                        double alpha) {
 		for (AbstractNode node : bayesNet.getNodes()) {
 			BeliefNode bNode = (BeliefNode) node;
 
@@ -113,7 +113,7 @@ public final class MleLearner {
 	 *            marginal prior to incorporate.
 	 */
 	public final static void computeMleMargPrior(BayesNet bayesNet,
-			DiscreteDataSet dataSet, double pseudoCount) {
+                                                 DiscreteDataSet dataSet, double pseudoCount) {
 		for (AbstractNode node : bayesNet.getNodes()) {
 			BeliefNode bNode = (BeliefNode) node;
 

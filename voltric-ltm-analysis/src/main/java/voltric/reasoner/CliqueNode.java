@@ -139,7 +139,7 @@ public class CliqueNode extends UndirectedNode {
 	 *            specify the name of this node.
 	 */
 	CliqueNode(AbstractGraph graph, LinkedHashSet<DiscreteVariable> variables,
-			String name) {
+               String name) {
 		super(graph, name);
 
 		_variables = variables;

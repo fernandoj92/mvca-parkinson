@@ -95,7 +95,7 @@ public class ParallelEmLearner {
 	 * @return the CTP for the best starting point.
 	 */
 	protected CliqueTreePropagationGroup chickeringHeckermanRestart(
-			BayesNet bayesNet, DiscreteDataSet dataSet) {
+            BayesNet bayesNet, DiscreteDataSet dataSet) {
 		// generates random starting points and CTPs for them
 		CliqueTreePropagationGroup[] ctps =
 				new CliqueTreePropagationGroup[_nRestarts];

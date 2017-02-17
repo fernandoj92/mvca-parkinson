@@ -190,7 +190,7 @@ public class Function implements Cloneable {
 	 *         indicated by the arguments.
 	 */
 	public final static Function createIndicatorFunction(
-			ArrayList<DiscreteVariable> variables, ArrayList<Integer> states) {
+            ArrayList<DiscreteVariable> variables, ArrayList<Integer> states) {
 		Function f = createFunction(variables);
 		f.setCell(variables, states, 1.0);
 
@@ -245,7 +245,7 @@ public class Function implements Cloneable {
 	 *         actually an instance of Function1D.
 	 */
 	public final static Function createDeterCondDistribution(
-			DiscreteVariable variable1, DiscreteVariable variable2) {
+            DiscreteVariable variable1, DiscreteVariable variable2) {
 
 		assert variable1.getCardinality() == variable2.getCardinality();
 

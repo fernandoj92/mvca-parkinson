@@ -80,7 +80,7 @@ public final class CliqueTreePropagation implements Cloneable {
 	 *            To define the focusedsubtree.
 	 */
 	public CliqueTreePropagation(LTM model, DiscreteVariable[] families,
-								 DiscreteVariable[] variables) {
+                                 DiscreteVariable[] variables) {
 		_bayesNet = model;
 		_cliqueTree = new CliqueTree(model, families, variables);
 		_evidence = new HashMap<DiscreteVariable, Integer>();
