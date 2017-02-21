@@ -5,6 +5,7 @@ import voltric.clustering.IslandFinder;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
 import voltric.model.LTM;
+import voltric.variables.DiscreteVariable;
 
 import java.util.Collection;
 
@@ -20,7 +21,7 @@ public class BI_Examples {
 
     private static void islandFinderExample(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff", DiscreteVariable.class));
 
             IslandFinder islandFinder = new IslandFinder();
             Collection<LTM> ltms = islandFinder.find(data);
@@ -34,7 +35,7 @@ public class BI_Examples {
 
     private static void BIExample(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff", DiscreteVariable.class));
 
             BridgedIslands bi = new BridgedIslands();
             LTM ltm = bi.learnLTM(data);

@@ -10,7 +10,7 @@ import java.util.List;
     // el problema del type erasure en el constructor.
 	//TODO: Creo que la solución es hacer la clase generica, y sino generar varios tipos de colecciones de variables y generar una nuvea jerarquia.
 public class VariableCollectionFactory {
-
+/*
     public static VariableCollection createFromGeneric(List<Variable> variables){
         return new VariableCollection(variables);
     }
@@ -22,5 +22,5 @@ public class VariableCollectionFactory {
 
     public static VariableCollection createFromConinuous(List<ContinuousVariable> variables){
         return new VariableCollection(variables);
-    }
+    }*/
 }

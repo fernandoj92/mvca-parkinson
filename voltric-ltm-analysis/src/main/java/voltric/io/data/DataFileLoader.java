@@ -1,7 +1,8 @@
 package voltric.io.data;
 
 import voltric.data.Data;
-import voltric.io.data.arff.ArffFileReader;
+import voltric.io.data.arff.GenericArffFileReader;
+import voltric.variables.IVariable;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +13,9 @@ import java.io.UncheckedIOException;
  */
 public class DataFileLoader {
 
-    public static Data loadData(String filePathString){
+    public static <V extends IVariable> Data<V> loadData(String filePathString, Class<V> dataType){
         try {
-            return selectDataFileReader(filePathString).readData(filePathString);
+            return selectDataFileReader(filePathString).readData(filePathString, dataType);
         }catch(IOException ex){
             throw new UncheckedIOException(ex);
         }
@@ -28,7 +29,7 @@ public class DataFileLoader {
         String[] parts = filePathString.split("\\.");
         String fileExtension = parts[parts.length - 1];
         if(fileExtension.equals("arff"))
-            return new ArffFileReader();
+            return new GenericArffFileReader();
         else
             throw new IllegalArgumentException("File extension not supported");
     }

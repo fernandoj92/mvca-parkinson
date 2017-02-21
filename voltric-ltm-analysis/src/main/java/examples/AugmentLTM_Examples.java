@@ -23,7 +23,7 @@ public class AugmentLTM_Examples {
 
     private static void asiaExamplesLCM(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff", DiscreteVariable.class));
 
             System.out.println("------------------------------");
             System.out.println("-------- Asia LCM (2) --------");

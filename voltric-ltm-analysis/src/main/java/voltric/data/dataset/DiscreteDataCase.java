@@ -1,6 +1,7 @@
 package voltric.data.dataset;
 
 import voltric.data.DataInstance;
+import voltric.variables.DiscreteVariable;
 import voltric.variables.VariableCollection;
 
 /**
@@ -122,7 +123,7 @@ public class DiscreteDataCase implements Comparable<DiscreteDataCase> {
         for(int i=0; i<instanceValues.length;i++)
             instanceValues[i] = (double) _states[i];
 
-        return new DataInstance(new VariableCollection(this._dataSet.getVariableList()), instanceValues);
+        return new DataInstance(new VariableCollection<>(this._dataSet.getVariableList()), instanceValues);
     }
 
     /**

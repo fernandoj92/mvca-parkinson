@@ -1,6 +1,7 @@
 package voltric.io.data;
 
 import voltric.data.Data;
+import voltric.variables.IVariable;
 
 import java.io.IOException;
 
@@ -9,5 +10,5 @@ import java.io.IOException;
  */
 public interface DataFileWriter {
 
-    void writeToFile(Data data, String filePathString) throws IOException;
+    <V extends IVariable> void writeToFile(Data<V> data, String filePathString) throws IOException;
 }

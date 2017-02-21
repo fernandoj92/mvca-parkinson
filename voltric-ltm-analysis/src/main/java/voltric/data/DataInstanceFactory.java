@@ -1,9 +1,6 @@
 package voltric.data;
 
-import voltric.variables.DiscreteVariable;
-import voltric.variables.SingularContinuousVariable;
-import voltric.variables.Variable;
-import voltric.variables.VariableCollection;
+import voltric.variables.*;
 
 /**
  * Created by equipo on 16/02/2017.
@@ -13,7 +10,7 @@ public class DataInstanceFactory {
 
     private static final double MISSING = Double.NaN;
 
-    public static DataInstance fromArffDataLine(String dataLine, final VariableCollection variables, int dataLineIndex){
+    public static <V extends IVariable> DataInstance<V> fromArffDataLine(String dataLine, final VariableCollection<V> variables, int dataLineIndex){
         String[] parts = dataLine.split(",");
 
         if(parts.length != variables.size())
@@ -22,7 +19,7 @@ public class DataInstanceFactory {
         double[] values = new double[variables.size()];
         for(int i=0; i<parts.length; i++){
 
-            Variable variable = variables.get(i);
+            V variable = variables.get(i);
 
             if(parts[i] == null || parts[i].equals("?"))
                 values[i] = MISSING;
@@ -33,6 +30,6 @@ public class DataInstanceFactory {
             else
                 throw new IllegalArgumentException("Illegal type of Variable: " + variable.getName());
         }
-        return new DataInstance(variables, values);
+        return new DataInstance<V>(variables, values);
     }
 }

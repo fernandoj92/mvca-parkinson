@@ -7,6 +7,7 @@ import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
 import voltric.learner.ParallelEmLearner;
 import voltric.model.LTM;
+import voltric.variables.DiscreteVariable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,7 @@ public class BI_Learn {
             try {
                 if (inputFile.isFile()) {
                     //Create the DiscreteDataSet
-                    DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData(input_path + "/" + inputFile.getName()));
+                    DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData(input_path + "/" + inputFile.getName(), DiscreteVariable.class));
 
                     // Learn the LTM
                     LTM ltm = learnBIModel(data);

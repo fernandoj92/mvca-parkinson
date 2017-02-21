@@ -233,7 +233,7 @@ public final class DiscreteDataSet {
 		_data = new ArrayList<DiscreteDataCase>();
 	}
  
-	public DiscreteDataSet(Data data){
+	public DiscreteDataSet(Data<DiscreteVariable> data){
 
 		// Checks if there are any non-discrete variables in the Data
 		for(Variable variable : data.getVariables())
@@ -244,7 +244,7 @@ public final class DiscreteDataSet {
 		this._name = data.getName();
 
 		// Set the variables
-		List<DiscreteVariable> discreteVariablesList = data.getVariables().stream().map(x -> (DiscreteVariable) x).collect(Collectors.toList());
+		List<DiscreteVariable> discreteVariablesList = data.getVariables();
 
 		// TODO: the list is transformed into an array to avoid refactoring more code
 		this._variables = new DiscreteVariable[discreteVariablesList.size()];

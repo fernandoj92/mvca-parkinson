@@ -1,5 +1,7 @@
 package voltric.variables;
 
+import voltric.variables.visitor.VariableVisitor;
+
 import java.util.Collections;
 import java.util.Set;
 

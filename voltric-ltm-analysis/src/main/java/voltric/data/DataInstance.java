@@ -1,6 +1,7 @@
 package voltric.data;
 
 import voltric.variables.DiscreteVariable;
+import voltric.variables.IVariable;
 import voltric.variables.Variable;
 import voltric.variables.VariableCollection;
 
@@ -10,12 +11,12 @@ import java.util.List;
 /**
  * Created by Fernando on 2/15/2017.
  */
-public class DataInstance implements Comparable<DataInstance>{
+public class DataInstance<A extends IVariable> implements Comparable<DataInstance>{
 
     private double[] values;
-    private final VariableCollection variables;
+    private final VariableCollection<A> variables;
 
-    public DataInstance(final VariableCollection variables, double[] values){
+    public DataInstance(final VariableCollection<A> variables, double[] values){
         this.variables = variables;
         this.values = values;
     }
@@ -68,7 +69,7 @@ public class DataInstance implements Comparable<DataInstance>{
             return values[index] + "";
     }
 
-    public double getNumericValue(Variable variable){
+    public double getNumericValue(A variable){
         return getNumericValue(variables.indexOf(variable));
     }
 

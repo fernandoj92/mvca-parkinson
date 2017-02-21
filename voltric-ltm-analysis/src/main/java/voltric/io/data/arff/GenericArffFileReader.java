@@ -4,33 +4,27 @@ import voltric.data.Data;
 import voltric.data.DataInstanceCollection;
 import voltric.data.DataInstanceFactory;
 import voltric.io.data.DataFileReader;
-import voltric.variables.DiscreteVariable;
-import voltric.variables.SingularContinuousVariable;
-import voltric.variables.Variable;
-import voltric.variables.VariableCollection;
+import voltric.variables.*;
+import voltric.variables.util.VariableUtil;
+import voltric.variables.util.IllegalVariableCastException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * Dado que es imposible devolver una clase statica, la clase tendrá un unico constructor (el de por defecto) y resemblará
- * de la forma más parecida posible a un Object en Scala (no usará campos privados)
+ * Created by equipo on 21/02/2017.
  */
-// TODO: Algun dia implementarlo tambien con InputStream (de momento no merece la pena)
-    // TODO: pasarle el Path object a todos los metodos privados (evitar repeticion)
-public class ArffFileReader implements DataFileReader {
+// This class returns the specific Data type
+public class GenericArffFileReader implements DataFileReader{
 
-    public Data readData(String filePathString){
+    public <V extends IVariable> Data<V> readData(String filePathString, Class<V> dataType){
 
         // Get the Path object from the provided string
         Path pathFile = Paths.get(filePathString);
@@ -39,14 +33,16 @@ public class ArffFileReader implements DataFileReader {
             //
             String relationName = getRelationName(pathFile);
             //
-            VariableCollection attributes = getAttributes(pathFile);
+            VariableCollection<V> attributes = getAttributes(pathFile, dataType);
             //
-            DataInstanceCollection instances = getDataInstances(pathFile, attributes);
+            DataInstanceCollection<V> instances = getDataInstances(pathFile, attributes);
             //
-            return new Data(relationName, attributes, instances);
+            return new Data<V>(relationName, attributes, instances);
 
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
+        } catch (IllegalVariableCastException ivcEx){
+            throw new IllegalArgumentException("the specified type doesn't coincide with the types of the ARFF attributes.");
         }
     }
 
@@ -68,7 +64,7 @@ public class ArffFileReader implements DataFileReader {
         return atRelation.get();
     }
 
-    private VariableCollection getAttributes(Path pathFile) throws IOException{
+    private <V extends IVariable> VariableCollection<V> getAttributes(Path pathFile, Class<V> dataType) throws IOException, IllegalVariableCastException {
 
         int dataLineCount = getDataLineCount(pathFile);
 
@@ -80,14 +76,19 @@ public class ArffFileReader implements DataFileReader {
                 .filter(line -> line.startsWith("@attribute"))
                 .collect(Collectors.toList());
 
-        List<Variable> atts = IntStream.range(0,attLines.size())
+        // Creamos los atributos con el supertipo Variable
+        List<IVariable> atts = IntStream.range(0,attLines.size())
                 .mapToObj( i -> createAttributeFromLine(i, attLines.get(i)))
                 .collect(Collectors.toList());
 
-        return new VariableCollection(atts);
+        // Primero check pasando el tipo generico que se obtiene a partir de la coleccion
+        // Despues hacemos "cast" (solo para el compilador porque la informacion se pierde en runtime) y creamos la colección especifica
+        List<V> castedAttributes = VariableUtil.castVariables(atts, dataType);
+
+        return new VariableCollection<V>(castedAttributes);
     }
 
-    private DataInstanceCollection getDataInstances(Path pathFile, VariableCollection variables) throws IOException{
+    private  <V extends IVariable> DataInstanceCollection<V> getDataInstances(Path pathFile, VariableCollection<V> variables) throws IOException{
 
         int dataLineCount = getDataLineCount(pathFile);
 
@@ -98,7 +99,7 @@ public class ArffFileReader implements DataFileReader {
                 .filter(w -> !w.isEmpty());
 
         int dataLineIndex = 1;
-        DataInstanceCollection dataInstances = new DataInstanceCollection();
+        DataInstanceCollection<V> dataInstances = new DataInstanceCollection<V>();
         Iterator<String> dataLinesIterator = dataLines.iterator();
         while(dataLinesIterator.hasNext()){
             dataInstances.add(DataInstanceFactory.fromArffDataLine(dataLinesIterator.next(), variables, dataLineIndex));
@@ -126,7 +127,7 @@ public class ArffFileReader implements DataFileReader {
     }
 
     // TODO: El index no se utiliza
-    private Variable createAttributeFromLine(int index, String line){
+    private IVariable createAttributeFromLine(int index, String line){
         String[] parts = line.split("\\s+|\t+");
 
         if (!parts[0].trim().startsWith("@attribute"))

@@ -10,6 +10,7 @@ import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
 import voltric.model.LTM;
 import voltric.util.Function;
+import voltric.variables.DiscreteVariable;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class AssignToClusters_Examples {
 
     private static void assignAsiaDataSet(){
         try {
-            DiscreteDataSet dataSet = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet dataSet = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff", DiscreteVariable.class));
 
             BridgedIslands bi = new BridgedIslands();
             // Learns the structure of the LTM with the Bridged Islands algorithm and finishes the job

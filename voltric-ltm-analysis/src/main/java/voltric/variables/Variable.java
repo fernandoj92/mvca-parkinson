@@ -2,10 +2,11 @@ package voltric.variables;
 
 import voltric.util.counter.Counter;
 import voltric.util.counter.CounterInstance;
+import voltric.variables.visitor.VariableVisitor;
 
 import java.util.Collection;
 
-public abstract class Variable implements Comparable<Variable> {
+public abstract class Variable implements IVariable, Comparable<Variable>{
 
     private static Counter counter = new Counter("variable");
 

@@ -59,7 +59,7 @@ public class EM_Example {
 
     private static void mleSprinklerFull(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for(DiscreteVariable v: data.getVariables())
@@ -95,7 +95,7 @@ public class EM_Example {
     private static void emSprinklerFull() {
 
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for (DiscreteVariable v : data.getVariables())
@@ -128,7 +128,7 @@ public class EM_Example {
 
     private static void mleSprinklerRainCloudy(){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300_rain_cloudy.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300_rain_cloudy.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for (DiscreteVariable v : data.getVariables())
@@ -156,7 +156,7 @@ public class EM_Example {
     private static void emSprinklerRainLatentCloudy(){
 
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300_rain.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300_rain.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for (DiscreteVariable v : data.getVariables())
@@ -195,7 +195,7 @@ public class EM_Example {
     private static void emSprinklerLatentCloudy(){
 
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerDataHidden.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerDataHidden.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for (DiscreteVariable v : data.getVariables())

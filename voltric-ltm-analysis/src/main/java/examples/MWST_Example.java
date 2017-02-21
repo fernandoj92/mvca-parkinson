@@ -7,6 +7,7 @@ import voltric.graph.AbstractNode;
 import voltric.graph.UndirectedGraph;
 import voltric.io.data.DataFileLoader;
 import voltric.model.LTM;
+import voltric.variables.DiscreteVariable;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ public class MWST_Example {
 
     public static void main(String[] args){
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/Asia_train.arff", DiscreteVariable.class));
 
             IslandFinder islandFinder = new IslandFinder();
             Collection<LTM> ltms = islandFinder.find(data);

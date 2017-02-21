@@ -7,6 +7,7 @@ import voltric.io.data.DataFileLoader;
 import voltric.learner.ParallelEmLearner;
 import voltric.model.BayesNet;
 import voltric.model.LTM;
+import voltric.variables.DiscreteVariable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,7 +33,7 @@ public class nms30Learn {
             try {
                 if (inputFile.isFile()) {
                     //Create the DiscreteDataSet
-                    DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData(input_path + inputFile.getName()));
+                    DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData(input_path + inputFile.getName(), DiscreteVariable.class));
 
                     System.out.println("------------------------------------------------------------------------------");
                     System.out.println("------------------------------------------------------------------------------");

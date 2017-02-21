@@ -3,10 +3,7 @@ package voltric.io.data.arff;
 import voltric.data.Data;
 import voltric.data.DataInstance;
 import voltric.io.data.DataFileWriter;
-import voltric.variables.DiscreteVariable;
-import voltric.variables.StateSpaceType;
-import voltric.variables.Variable;
-import voltric.variables.VariableCollection;
+import voltric.variables.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,28 +13,28 @@ import java.util.List;
 // tenemos que seleccionar el output con un loader como al leer, por lo que si es facil de hacer los métodos estaticos.
 public class ArffFileWriter implements DataFileWriter {
 
-    public void writeToFile(Data data, String filePathString) throws IOException{
+    public <V extends IVariable> void writeToFile(Data<V> data, String filePathString) throws IOException{
         FileWriter fw = new FileWriter(filePathString);
 
         // Writes the ARFF @relation line that identifies the Data
         fw.write("@relation " + data.getName()+ "\n\n");
 
         // Writes the ARFF attributes
-        for (Variable att : data.getVariables()){
+        for (V att : data.getVariables()){
             fw.write(attributeToArffString(att)+"\n");
         }
 
         // Writes the ARFF data instances
         fw.write("\n\n@data\n\n");
 
-        for(DataInstance instance :data.getInstances())
+        for(DataInstance<V> instance :data.getInstances())
             fw.write(dataInstanceToARFFString(data.getVariables(), instance));
 
         // Closes the file
         fw.close();
     }
 
-    private String attributeToArffString(Variable attribute){
+    private <V extends IVariable> String attributeToArffString(V attribute){
         if(attribute.getStateSpaceType() == StateSpaceType.REAL)
             return "@attribute " + attribute.getName() + " real";
         else if(attribute.getStateSpaceType() == StateSpaceType.FINITE) {
@@ -60,24 +57,24 @@ public class ArffFileWriter implements DataFileWriter {
             throw new IllegalArgumentException("Unknown SateSapaceType");
     }
 
-    private String dataInstanceToARFFString(VariableCollection atts, DataInstance dataInstance){
+    private <V extends IVariable> String dataInstanceToARFFString(VariableCollection<V> atts, DataInstance<V> dataInstance){
         StringBuilder builder = new StringBuilder();
 
         // Append all the columns of the DataInstance with  the separator except the last one
         for(int i=0; i<atts.size()-1;i++) {
-            Variable att = atts.get(i);
+            V att = atts.get(i);
             builder.append(dataInstanceToARFFString(att,dataInstance, atts, ","));
         }
 
         // Append the last column of the data instance
-        Variable att = atts.get(atts.size()-1);
+        V att = atts.get(atts.size()-1);
         builder.append(dataInstanceToARFFString(att,dataInstance, atts, ""));
 
         return builder.toString();
     }
 
     // TODO: quizas es mejor hacerlo todo en el mismo metodo en vez de llmar a un metodo extra con varios appends???
-    private String dataInstanceToARFFString(Variable att, DataInstance dataInstance, VariableCollection variables, String separator) {
+    private <V extends IVariable> String dataInstanceToARFFString(V att, DataInstance<V> dataInstance, VariableCollection<V> variables, String separator) {
         StringBuilder builder = new StringBuilder();
         if(dataInstance.getNumericValue(variables.indexOf(att)) == Double.NaN)
             // Value is MISSING

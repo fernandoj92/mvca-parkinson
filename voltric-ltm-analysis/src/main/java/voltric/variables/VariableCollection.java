@@ -11,50 +11,30 @@ import java.util.List;
  * 
  */
 // TODO: Permitir diferente tipo de Collections? (implements Collection<Variable>)
-public class VariableCollection extends AbstractList<Variable> {
+public class VariableCollection<A extends IVariable> extends AbstractList<A> {
 
 	private static final long serialVersionUID = -291636629108998675L;
 	
-	private final List<Variable> variables;
+	private final List<A> variables;
 
 	public VariableCollection() {
-		variables = new ArrayList<Variable>();
+		variables = new ArrayList<A>();
 	}
 
 	public VariableCollection(int initialCapacity) {
-		variables = new ArrayList<Variable>(initialCapacity);
+		variables = new ArrayList<A>(initialCapacity);
 	}
 	
 	public VariableCollection(VariableCollection variables) {
-		this.variables = new ArrayList<Variable>(variables);
+		this.variables = new ArrayList<A>(variables);
 	}
 
-	public VariableCollection(List<Variable> _variables) {
+	public VariableCollection(List<A> _variables) {
         this.variables =_variables;
     }
 
-	/**
-	 * Checks whether this collection of getVariables is of the same kind of
-	 * getVariables.
-	 * 
-	 * @param <T>
-	 *            type of the variable to check against
-	 * @param c
-	 *            class object of the variable to check against
-	 * @return whether this collection of the same type as specified
-	 */
-	public <T extends Variable> boolean isSameKind(Class<T> c) {
-		for (Variable v : this) {
-			if (v.getClass() != c) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	@Override
-	public Variable get(int index) {
+	public A get(int index) {
 		return variables.get(index);
 	}
 
@@ -64,17 +44,17 @@ public class VariableCollection extends AbstractList<Variable> {
 	}
 
 	@Override
-	public Variable set(int index, Variable varaible) {
-		return variables.set(index, varaible);
+	public A set(int index, A variable) {
+		return variables.set(index, variable);
 	}
 
 	@Override
-	public void add(int index, Variable variable) {
+	public void add(int index, A variable) {
 		variables.add(index, variable);
 	}
 
 	@Override
-	public Variable remove(int index) {
+	public A remove(int index) {
 		return variables.remove(index);
 	}
 }

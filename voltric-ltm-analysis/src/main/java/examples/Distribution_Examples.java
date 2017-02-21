@@ -88,7 +88,7 @@ public class Distribution_Examples {
         BayesNet network = new BayesNet("network");
 
         try {
-            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff"));
+            DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData("data/sprinklerData300.arff", DiscreteVariable.class));
 
             Map<String, DiscreteVariable> variableNamesMap = new HashMap<>();
             for(DiscreteVariable v: data.getVariables())
