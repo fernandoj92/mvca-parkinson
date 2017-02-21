@@ -13,7 +13,6 @@ import voltric.variables.Variable;
 import java.io.*;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class provides an implementation for data sets.
@@ -48,6 +47,10 @@ public final class DiscreteDataSet {
 	 */
 	private DiscreteVariable[] _variables;
 
+    /**
+     *
+     */
+    private Map<String, DiscreteVariable> variableNameMap;
 
 	/**
 	 * the list of distinct data cases. we use <code>ArrayList</code> for
@@ -200,6 +203,14 @@ public final class DiscreteDataSet {
 		}
 
 		_count++;
+
+        // Extra: VariableNameMap for quick access using its name
+        variableNameMap = new HashMap<>();
+        for(DiscreteVariable variable: _variables)
+            if(variableNameMap.get(variable.getName()) != null)
+                throw new IllegalArgumentException("Variable names should not be repeated");
+            else
+                variableNameMap.put(variable.getName(), variable);
 	}
 
 	/**
@@ -231,6 +242,15 @@ public final class DiscreteDataSet {
 	    Arrays.sort(_variables);
 
 		_data = new ArrayList<DiscreteDataCase>();
+
+        // Extra: VariableNameMap for quick access using its name
+        variableNameMap = new HashMap<>();
+        for(DiscreteVariable variable: _variables)
+            if(variableNameMap.get(variable.getName()) != null)
+                throw new IllegalArgumentException("Variable names should not be repeated");
+            else
+                variableNameMap.put(variable.getName(), variable);
+        _count++;
 	}
  
 	public DiscreteDataSet(Data<DiscreteVariable> data){
@@ -272,6 +292,14 @@ public final class DiscreteDataSet {
 		}
 
 		_count++;
+
+        // Extra: VariableNameMap for quick access using its name
+        variableNameMap = new HashMap<>();
+        for(DiscreteVariable variable: _variables)
+            if(variableNameMap.get(variable.getName()) != null)
+                throw new IllegalArgumentException("Variable names should not be repeated");
+            else
+                variableNameMap.put(variable.getName(), variable);
 	}
 
 	/**
@@ -295,6 +323,14 @@ public final class DiscreteDataSet {
 	   }
 
 		_data = new ArrayList<DiscreteDataCase>();
+
+        // Extra: VariableNameMap for quick access using its name
+        variableNameMap = new HashMap<>();
+        for(DiscreteVariable variable: _variables)
+            if(variableNameMap.get(variable.getName()) != null)
+                throw new IllegalArgumentException("Variable names should not be repeated");
+            else
+                variableNameMap.put(variable.getName(), variable);
 	}
 	/**
 	 * Adds the specified data case with the specified weight to this data set.
@@ -1038,4 +1074,8 @@ public final class DiscreteDataSet {
 			
 		return AfterSample;		
 	}
+
+	public DiscreteVariable getVariable(String name){
+        return variableNameMap.get(name);
+    }
 }

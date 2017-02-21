@@ -1,5 +1,6 @@
 package parkinson;
 
+import parkinson.automatic.BI_Learn;
 import parkinson.automatic.LCM_Learn;
 
 /**
@@ -11,5 +12,14 @@ public class ParkinsonLearn {
 
         //BI_Learn.learnAndSaveAllModels();
         LCM_Learn.learnAndSaveAllModels();
+    }
+
+    private static void learnAndSaveAllAutomaticModels(){
+        BI_Learn.learnAndSaveAllModels();
+        LCM_Learn.learnAndSaveAllModels();
+    }
+
+    private static void learnAndSaveAllManualModels(){
+
     }
 }

@@ -63,10 +63,7 @@ public class FlatLTM_creator {
                     BeliefNode newParent = latentTree.getNode(parent.getVariable());
 
                     latentTree.addEdge(newNode, newParent);
-                    newNode.setCpt(bNode.getCpt().clone()); // copy the
-                    // parameters of
-                    // manifest
-                    // variables
+                    newNode.setCpt(bNode.getCpt().clone()); // copy the parameters of manifest variables
                 } else {
                     latentTree.getNodeByName(node.getName()).setCpt(bNode.getCpt().clone());
                 }
