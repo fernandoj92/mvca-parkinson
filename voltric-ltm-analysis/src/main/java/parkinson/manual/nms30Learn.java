@@ -2,6 +2,7 @@ package parkinson.manual;
 
 import ferjorosa.io.newBifWriter;
 import ferjorosa.ltm.creator.FlatLTM_creator;
+import ferjorosa.ltm.learning.parameters.LTM_Learner;
 import org.apache.commons.io.FilenameUtils;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
@@ -44,7 +45,7 @@ public class nms30Learn {
                     System.out.println("############## "+ data.getName() + " ############## \n");
 
                     // Learn the LTM
-                    //LTM ltm = learnParameters(createDomainsLTM(data), data);
+                    LTM ltm = LTM_Learner.learnParameters(createDomainsLTM(data), data);
 
                     // Save it in BIF format
                     newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "DomSym_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);

@@ -5,7 +5,10 @@
 package voltric.graph;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * This class provides an implementation for directed acyclic graphs (DAGs).
@@ -220,6 +223,25 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 
 		((DirectedNode) edge.getHead()).detachInEdge(edge);
 		((DirectedNode) edge.getTail()).detachOutEdge(edge);
+	}
+
+	/**
+	 * Removes the specified edge from this graph
+	 *
+	 * @param head the head of the edge.
+	 * @param tail the tail of the edge.
+	 */
+	@Override
+	public void removeEdge(AbstractNode head, AbstractNode tail){
+        // First we search for the edges that contain the head
+        List<Edge> headEdges = this._edges.stream().filter(x-> x._head.equals(head)).collect(Collectors.toList());
+        // Then we find the edge
+        Optional<Edge> possibleEdge = headEdges.stream().filter(x-> x._tail.equals(tail)).findFirst();
+        // Finally we remove it if it is present
+        if(!possibleEdge.isPresent())
+            throw new IllegalArgumentException("Edge doesn´t exist");
+        else
+            removeEdge(possibleEdge.get());
 	}
 
 	/**

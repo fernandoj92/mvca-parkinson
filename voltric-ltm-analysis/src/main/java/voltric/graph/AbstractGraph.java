@@ -227,6 +227,14 @@ public abstract class AbstractGraph implements Cloneable {
 	public abstract void removeEdge(Edge edge);
 
 	/**
+	 * Removes the specified edge from this graph
+     *
+	 * @param head the head of the edge.
+	 * @param tail the tail of the edge.
+	 */
+	public abstract void removeEdge(AbstractNode head, AbstractNode tail);
+
+	/**
 	 * Removes the specified node from this graph. <b>A node is removed from
 	 * this graph means two things: First, this graph no longer contains this
 	 * node, Second, this node has no place(graph) to live. Therefore, we need

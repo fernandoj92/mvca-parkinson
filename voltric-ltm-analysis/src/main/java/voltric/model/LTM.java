@@ -800,5 +800,124 @@ public class LTM extends BayesNet {
 	{
 		_modelModified = modified;
 	}
-	
+
+	/******************************************************************************************************************/
+    /******************************************************************************************************************/
+    /******************************************************************************************************************/
+
+    /**
+     *
+     * @param latentVar
+     * @param amount
+     * @return
+     */
+	// TODO: Remove edges?
+	public LTM increaseCardinality(DiscreteVariable latentVar, int amount) {
+
+        int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
+
+        if(latentVarIndex == -1)
+            throw new IllegalArgumentException("The latent variable doesn't belong to this LTM");
+
+        LTM candModel = this.clone();
+
+        BeliefNode latentVarNode = candModel.getNode(latentVar);
+        BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() + amount));
+
+		for (DirectedNode child : latentVarNode.getChildren()) {
+			BeliefNode beliefChild = (BeliefNode) child;
+            candModel.removeEdge(child, latentVarNode);
+			candModel.addEdge(beliefChild, newLatentVarNode);
+			// Be careful. ctp need work.
+			// But now I find no need
+			// beliefChild.randomlyParameterize();
+		}
+        /** Remove the node after all its edges have been removed */
+        candModel.removeNode(latentVarNode);
+		// Be careful. ctp need work.
+		// But now I find no need
+		// newRootNode.randomlyParameterize();
+
+		return candModel;
+	}
+
+    /**
+     *
+     * @param latentVar
+     * @param amount
+     * @return
+     */
+    // TODO: Remove edges?
+	public LTM decreaseCardinality(DiscreteVariable latentVar, int amount) {
+        int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
+
+        if(latentVarIndex == -1)
+            throw new IllegalArgumentException("The latent variable doesn't belong to this LTM");
+        if((latentVar.getCardinality() - amount) < 2)
+            throw new IllegalArgumentException("The resulting cardinality cannot be lower than 2");
+
+		LTM candModel = this.clone();
+
+		BeliefNode latentVarNode = candModel.getNode(latentVar);
+		BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() - amount));
+
+		for (DirectedNode child : latentVarNode.getChildren()) {
+			BeliefNode beliefChild = (BeliefNode) child;
+            candModel.removeEdge(child, latentVarNode);
+			candModel.addEdge(beliefChild, newLatentVarNode);
+			// Be careful. ctp need work.
+			// But now I find no need
+			// beliefChild.randomlyParameterize();
+		}
+		/** Remove the node after all its edges have been removed */
+        candModel.removeNode(latentVarNode);
+		// Be careful. ctp need work.
+		// But now I find no need
+		// newRootNode.randomlyParameterize();
+
+		return candModel;
+	}
+
+    /**
+     *
+     * @param latentVar
+     * @return
+     */
+	// A new ltm is created with cloned nodes where only the variables under the provided latentVar (and the latentVar)
+    // are contained
+    // TODO: Inefficient because of a full LTM clone
+	public LTM getSubTree(DiscreteVariable latentVar){
+        int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
+
+        if(latentVarIndex == -1)
+            throw new IllegalArgumentException("The latent variable doesn't belong to this LTM");
+
+        LTM clonedLTM = this.clone();
+        LTM subTree = new LTM();
+        BeliefNode latentVarNode = clonedLTM.getNode(latentVar);
+        subTree.addNode(latentVar);
+
+        for (DirectedNode child : latentVarNode.getChildren()) {
+            BeliefNode beliefChild = (BeliefNode) child;
+            subTree.addNode(beliefChild.getVariable());
+            subTree.addEdge(beliefChild, latentVarNode);
+            // Recursively add nodes and edges to the new LTM
+            addToSubTree(subTree, beliefChild);
+        }
+        return subTree;
+    }
+
+    /**
+     *
+     * @param ltm
+     * @param node
+     */
+    // create subTree recursively
+    private void addToSubTree(LTM ltm, BeliefNode node){
+        for (DirectedNode child : node.getChildren()) {
+            BeliefNode beliefChild = (BeliefNode) child;
+            ltm.addNode(beliefChild.getVariable());
+            ltm.addEdge(beliefChild, node);
+        }
+    }
 }

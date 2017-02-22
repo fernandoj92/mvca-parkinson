@@ -19,7 +19,6 @@ public class testReadDataGeneric {
 
     private static void test(){
         GenericArffFileReader reader = new GenericArffFileReader();
-        Data<SingularContinuousVariable> d =  reader.readData("data/Asia_train.arff");
         Data<SingularContinuousVariable> d1 = DataFileLoader.loadData("", SingularContinuousVariable.class);
     }
 }
