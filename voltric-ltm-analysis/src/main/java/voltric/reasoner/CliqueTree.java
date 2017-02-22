@@ -191,7 +191,7 @@ public class CliqueTree extends UndirectedGraph {
 	 */
 	public CliqueTree(LTM model, DiscreteVariable[] families, DiscreteVariable[] variables) {
 		this(model);
-		assert variables.length != 0 || families.length != 0;
+		asser variables.length != 0 || families.length != 0;
 		_focusedSubtree = new LinkedHashSet<CliqueNode>();
 		for (DiscreteVariable var : variables) {
 			if (_variableCliques.containsKey(var))
@@ -575,7 +575,7 @@ public class CliqueTree extends UndirectedGraph {
 					head_ = cliqueTree.getVariableClique(hVar);
 				}
 				Function message = tail_.getMessageTo(head_);
-				assert message != null;
+				asser message != null;
 				tail.setMessageTo(head, message);
 
 				Double normalizationDouble = tail_.getNormalizationTo(head_);
@@ -606,7 +606,7 @@ public class CliqueTree extends UndirectedGraph {
 					head_ = cliqueTree.getVariableClique(hVar);
 				}
 				Function message = tail_.getMessageTo(head_);
-				assert message != null;
+				asser message != null;
 				tail.setMessageTo(head, message);
 
 				Double normalizationDouble = tail_.getNormalizationTo(head_);

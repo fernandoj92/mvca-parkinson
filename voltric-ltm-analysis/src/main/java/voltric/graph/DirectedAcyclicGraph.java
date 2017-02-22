@@ -44,7 +44,7 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 
 	/**
 	 * Adds an edge that connects the two specified nodes to this graph and
-	 * returns the edge. There is going to be a run time assert exception if the
+	 * returns the edge. There is going to be a run time asser exception if the
 	 * resulting graph will contain cycle.
 	 * 
 	 * @param head
@@ -56,18 +56,20 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	@Override
 	public Edge addEdge(AbstractNode head, AbstractNode tail) {
 		// this graph must contain both nodes
-		assert containsNode(head) && containsNode(tail);
+        if(!containsNode(head) || !containsNode(tail))
+            throw new IllegalArgumentException("The graph must contain both nodes");
 
 		// nodes must be distinct; otherwise, self loop will be introduced.
-		assert head != tail;
+        if(head.equals(tail))
+            throw new IllegalArgumentException("Both nodes must be distinct; otherwise, a self loop will be introduced");
 
-		// nodes cannot be neighbors; otherwise, either duplicated edge or
-		// directed cycle will be introduced.
-		assert !head.hasNeighbor(tail);
+        // nodes cannot be neighbors; otherwise, a duplicated edge will be introduced
+        if(head.hasNeighbor(tail))
+            throw new IllegalArgumentException("Nodes cannot be neighbours; otherwise either a duplicated edge or a directed cycle will be introduced");
 
-		// this graph cannot contain directed path from head to tail; otherwise,
-		// a directed cycle will be introduced.
-		assert !containsPath(head, tail);
+        // This graph cannot contain a directed path from the head to the tail; otherwise a directed cycle will be introduced
+        if(this.containsPath(head, tail))
+            throw new IllegalArgumentException("This graph cannot contain a directed path from the head to the tail; otherwise a directed cycle will be introduced");
 
 		// creates the edge
 		Edge edge = new Edge(head, tail);
@@ -97,10 +99,12 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+        if(name.length() <= 0)
+            throw new IllegalArgumentException("Name cannot be blank");
 
 		// name must be unique in this graph
-		assert !containsNode(name);
+        if(this.containsNode(name))
+            throw new IllegalArgumentException("Node names must be unique.");
 
 		// creates node
 		DirectedNode node = new DirectedNode(this, name);
@@ -185,7 +189,8 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	public final int depthFirstSearch(AbstractNode node, int time,
                                       Map<AbstractNode, Integer> d, Map<AbstractNode, Integer> f) {
 		// this graph must contain the argument node
-		assert containsNode(node);
+		if(!this.containsNode(node))
+		    throw new IllegalArgumentException("The graph must contain the argument node");
 
 		// discovers the argument node
 		d.put(node, time++);
@@ -211,8 +216,10 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	 */
 	@Override
 	public void removeEdge(Edge edge) {
+
 		// this graph must contain the argument edge
-		assert containsEdge(edge);
+		if(this.containsEdge(edge))
+		    throw new IllegalArgumentException("The graph must contain the argument edge");
 
 		// removes edge from the list of edges in this graph
 		_edges.remove(edge);
@@ -350,7 +357,8 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	@Override
 	public String toString(int amount) {
 		// amount must be non-negative
-		assert amount >= 0;
+		if(amount <= 0)
+            throw new IllegalArgumentException("The amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

@@ -22,8 +22,8 @@ public class DataInstance<A extends IVariable> implements Comparable<DataInstanc
     }
 
     public int compareTo(DataInstance o) {
-        assert values.length == o.values.length;
-        assert variables == o.variables;
+        asser values.length == o.values.length;
+        asser variables == o.variables;
 
         for (int i = 0; i < values.length; i++) {
             if (values[i] != o.values[i])

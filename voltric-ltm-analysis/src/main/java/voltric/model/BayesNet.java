@@ -108,7 +108,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+		if(name.length() <= 0)
+			throw new IllegalArgumentException("Node name cannot be blank");
 
 		_name = name;
 		_variables = new HashMap<DiscreteVariable, BeliefNode>();
@@ -144,7 +145,7 @@ public class BayesNet extends DirectedAcyclicGraph {
 	 * This implementation is no long supported in <code>BayesNet</code>. Use
 	 * <code>addNode(DiscreteVariable)</code> instead.
 	 * 
-	 * @see addNode(DiscreteVariable)
+	 * @see BayesNet#addNode(DiscreteVariable)
 	 */
 	public final BeliefNode addNode(String name)
 			throws UnsupportedOperationException {
@@ -163,7 +164,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 		// name must be unique in this BN. note that the name is unique implies
 		// that the variable is unique, too. note also that the name of a
 		// variable has already been trimmed.
-		assert !containsNode(variable.getName());
+		if(this.containsNode(variable.getName()))
+			throw new IllegalArgumentException("Node names must be unique.");
 
 		// creates node
 		BeliefNode node = new BeliefNode(this, variable);
@@ -272,7 +274,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 		// TODO We will deal with the expiring case later.
 		double logL = this.getLoglikelihood(data);
 
-		assert logL != Double.NaN;
+		if(logL == Double.NaN)
+		    throw new IllegalStateException("log-likelihood == Double.NaN");
 
 		// c.f. http://en.wikipedia.org/wiki/Akaike_information_criterion
 		int k = computeDimension();
@@ -292,7 +295,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 		// TODO We will deal with the expiring case later.
 		double logL = this.getLoglikelihood(data);
 
-		assert logL != Double.NaN;
+        if(logL == Double.NaN)
+            throw new IllegalStateException("log-likelihood == Double.NaN");
 
 		return logL - this.computeDimension();
 	}
@@ -311,7 +315,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 		// TODO We will deal with the expiring case later.
 		double logL = this.getLoglikelihood(data);
 
-		assert logL != Double.NaN;
+        if(logL == Double.NaN)
+            throw new IllegalStateException("log-likelihood == Double.NaN");
 
 		return logL - this.computeDimension() * Math.log(data.getTotalWeight())
 				/ 2.0;
@@ -631,7 +636,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 					// "table" and the other fills in cells one by one.
 					if (value == StreamTokenizer.TT_WORD) {
 						// we only accept "table" but not "default"
-						assert tokenizer.sval.equals("table");
+						if(!tokenizer.sval.equals("table"))
+                            throw new IllegalStateException("'default' is not accept, only 'table'");
 
 						// probability values
 						ArrayList<Double> values = new ArrayList<Double>();
@@ -712,7 +718,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 	 */
 	public final void randomlyParameterize(Collection<BeliefNode> mutableNodes) {
 		// mutable nodes must be in this BN
-		assert _nodes.containsAll(mutableNodes);
+        if(!_nodes.containsAll(mutableNodes))
+            throw new IllegalArgumentException("All the mutable nodes must be in this BN");
 
 		for (BeliefNode node : mutableNodes) {
 			node.randomlyParameterize();
@@ -957,7 +964,8 @@ public class BayesNet extends DirectedAcyclicGraph {
 	 */
 	public final void setLoglikelihood(DiscreteDataSet dataSet, double loglikelihood) {
 		// loglikelihood must be non-positive
-		assert loglikelihood <= 0.0;
+        if(loglikelihood > 0 )
+            throw new IllegalStateException("log-likelihood must be <= 0");
 
 		_loglikelihoods.put(dataSet, loglikelihood);
 	}
@@ -971,8 +979,9 @@ public class BayesNet extends DirectedAcyclicGraph {
 	public final void setName(String name) {
 		name = name.trim();
 
-		// name cannot be blank
-		assert name.length() > 0;
+        // name cannot be blank
+        if(name.length() <= 0)
+            throw new IllegalArgumentException("Node name cannot be blank");
 
 		_name = name;
 	}
@@ -986,8 +995,9 @@ public class BayesNet extends DirectedAcyclicGraph {
 	 * @return a string representation of this BN.
 	 */
 	public String toString(int amount) {
-		// amount must be non-negative
-		assert amount >= 0;
+        // amount cannot be non-negative
+        if(amount <= 0)
+            throw new IllegalArgumentException("The amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

@@ -101,7 +101,7 @@ public class Function implements Cloneable {
 	 */
 	public final static Function createFunction(DiscreteDataSet dataSet) {
 		// missing values will confuse this conversion
-		assert !dataSet.hasMissingValues();
+		asser !dataSet.hasMissingValues();
 
 		// passes deep copy so that the function is independent of the data set.
 		// note that the variables in function and data set are in the same
@@ -212,7 +212,7 @@ public class Function implements Cloneable {
 	public final static Function createIndicatorFunction(DiscreteVariable variable,
                                                          int state) {
 		// state must be valid
-		assert variable.isValid(state);
+		asser variable.isValid(state);
 
 		Function f = new Function1D(new DiscreteVariable[] { variable });
 		f._cells[state] = 1.0;
@@ -247,7 +247,7 @@ public class Function implements Cloneable {
 	public final static Function createDeterCondDistribution(
 			DiscreteVariable variable1, DiscreteVariable variable2) {
 
-		assert variable1.getCardinality() == variable2.getCardinality();
+		asser variable1.getCardinality() == variable2.getCardinality();
 
 		ArrayList<DiscreteVariable> variables = new ArrayList<DiscreteVariable>(2);
 		variables.add(variable1);
@@ -345,7 +345,7 @@ public class Function implements Cloneable {
 	 */
 	public final Function addVariable(DiscreteVariable variable) {
 		// variable name must be unique in new function
-		assert !contains(variable.getName());
+		asser !contains(variable.getName());
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() + 1;
@@ -510,8 +510,8 @@ public class Function implements Cloneable {
 	 */
 	public Function combine(DiscreteVariable var, int si, int sj, DiscreteVariable newVar) {
 
-		assert contains(var);
-		assert var.isValid(si) && var.isValid(sj);
+		asser contains(var);
+		asser var.isValid(si) && var.isValid(sj);
 
 		int dimension = getDimension();
 
@@ -648,8 +648,8 @@ public class Function implements Cloneable {
 	 */
 	public Function averageCombine(DiscreteVariable var, int si, int sj, DiscreteVariable newVar) {
 
-		assert contains(var);
-		assert var.isValid(si) && var.isValid(sj);
+		asser contains(var);
+		asser var.isValid(si) && var.isValid(sj);
 
 		int dimension = getDimension();
 
@@ -713,8 +713,8 @@ public class Function implements Cloneable {
 	 */
 	public Function split(DiscreteVariable var, int s, DiscreteVariable newVar) {
 
-		assert contains(var);
-		assert var.isValid(s);
+		asser contains(var);
+		asser var.isValid(s);
 
 		int dimension = getDimension();
 
@@ -772,8 +772,8 @@ public class Function implements Cloneable {
 	 */
 	public Function stateCopy(DiscreteVariable var, int s, DiscreteVariable newVar) {
 
-		assert contains(var);
-		assert var.isValid(s);
+		asser contains(var);
+		asser var.isValid(s);
 
 		int dimension = getDimension();
 
@@ -828,7 +828,7 @@ public class Function implements Cloneable {
 	 * @return
 	 */
 	public Function replaceVar(DiscreteVariable var, DiscreteVariable newVar) {
-		assert contains(var);
+		asser contains(var);
 
 		int dimension = getDimension();
 		int indexVar = indexOf(var);
@@ -1016,7 +1016,7 @@ public class Function implements Cloneable {
 		int domainSize = getDomainSize();
 
 		// argument variables should be exactly what this function involes
-		assert containsAll(variables) && dimension == variables.size();
+		asser containsAll(variables) && dimension == variables.size();
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
@@ -1121,7 +1121,7 @@ public class Function implements Cloneable {
 	 */
 	public final Function marginalize(Collection<DiscreteVariable> variables) {
 		// argument variables must be involved in this function
-		assert containsAll(variables);
+		asser containsAll(variables);
 
 		if (variables.size() == getDimension()) {
 			// retains all variables
@@ -1151,7 +1151,7 @@ public class Function implements Cloneable {
 		int index = indexOf(variable);
 
 		// argument variable must be involved in this function
-		assert index >= 0;
+		asser index >= 0;
 
 		if (getDimension() == 1) {
 			// retains the only variable
@@ -1247,7 +1247,7 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		assert variableIndex >= 0;
+		asser variableIndex >= 0;
 
 		int cardinality = variable.getCardinality();
 		int subdomainSize = getDomainSize() / cardinality;
@@ -1321,7 +1321,7 @@ public class Function implements Cloneable {
 	 */
 	public final void plus(Function function) {
 		// two functions must involve the same set of variables
-		assert Arrays.equals(_variables, function._variables);
+		asser Arrays.equals(_variables, function._variables);
 
 		// variables in two functions are both in order of their birthdays. so
 		// simply adds up two one-dimensional arrays of cells.
@@ -1351,10 +1351,10 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		assert variableIndex >= 0;
+		asser variableIndex >= 0;
 
 		// state must be valid
-		assert variable.isValid(state);
+		asser variable.isValid(state);
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() - 1;
@@ -1425,7 +1425,7 @@ public class Function implements Cloneable {
 	 */
 	public Function project(ArrayList<DiscreteVariable> vars, ArrayList<Integer> states) {
 		// variables must match states
-		assert vars.size() == states.size();
+		asser vars.size() == states.size();
 
 		// repeat projection
 		Function f = this;
@@ -1481,10 +1481,10 @@ public class Function implements Cloneable {
 	 */
 	public int sample() {
 		// can only sample from single-variate function
-		assert getDimension() == 1;
+		asser getDimension() == 1;
 
 		// ensure the distribution sum up to one
-		assert sumUp() == 1.0;
+		asser sumUp() == 1.0;
 
 		// randomly generate a double within (0, 1)
 		double rand = rndGenerator.nextDouble();
@@ -1520,14 +1520,14 @@ public class Function implements Cloneable {
 		int dimension = getDimension();
 
 		// argument variables should be exactly what this function involes
-		assert containsAll(variables) && dimension == variables.size()
+		asser containsAll(variables) && dimension == variables.size()
 				&& dimension == states.size();
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
 		for (int i = 0; i < dimension; i++) {
 			// state must be valid
-			assert variables.get(i).isValid(states.get(i));
+			asser variables.get(i).isValid(states.get(i));
 
 			map[i] = indexOf(variables.get(i));
 		}
@@ -1560,7 +1560,7 @@ public class Function implements Cloneable {
 		int domainSize = getDomainSize();
 
 		// argument variables should be exactly what this function involes
-		assert containsAll(variables) && dimension == variables.size()
+		asser containsAll(variables) && dimension == variables.size()
 				&& domainSize == cells.size();
 
 		// maps from argument variables to internal array
@@ -1599,7 +1599,7 @@ public class Function implements Cloneable {
 		int domainSize = getDomainSize();
 
 		// argument variables should be exactly what this function involes
-		assert containsAll(variables) && dimension == variables.size()
+		asser containsAll(variables) && dimension == variables.size()
 				&& domainSize == cells.length;
 
 		// maps from argument variables to internal array
@@ -1643,7 +1643,7 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		assert variableIndex >= 0;
+		asser variableIndex >= 0;
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() - 1;
@@ -2083,7 +2083,7 @@ public class Function implements Cloneable {
 	 */
 	public String toString(int amount) {
 		// amount must be non-negative
-		assert amount >= 0;
+		asser amount >= 0;
 
 		int dimension = getDimension();
 		int domainSize = getDomainSize();

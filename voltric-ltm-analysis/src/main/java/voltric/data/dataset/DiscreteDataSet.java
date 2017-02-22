@@ -624,7 +624,7 @@ public final class DiscreteDataSet {
 			map[i] = Arrays.binarySearch(_variables, varArray[i]);
 
 			// argument variable must be involved in this data set
-			assert map[i] >= 0;
+			asser map[i] >= 0;
 		}
     */
 		////////////////////////////////////////////////////////////////
@@ -701,7 +701,7 @@ public final class DiscreteDataSet {
 			map[i] = Arrays.binarySearch(_variables, varArray[i]);
 
 			// argument variable must be involved in this data set
-			assert map[i] >= 0;
+			asser map[i] >= 0;
 		}
     */
 		////////////////////////////////////////////////////////////////
@@ -885,7 +885,7 @@ public final class DiscreteDataSet {
 		name = name.trim();
 
 		// getName cannot be blank
-		assert name.length() > 0;
+		asser name.length() > 0;
 
 		_name = name;
 	}

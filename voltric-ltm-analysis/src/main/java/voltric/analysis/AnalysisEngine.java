@@ -635,18 +635,21 @@ public class AnalysisEngine {
 	 *            The new maximum CMI percent.
 	 */
 	public void setMaxCmiPercent(double maxCmiPercent) {
-		assert maxCmiPercent > 0.0 && maxCmiPercent <= 1.0;
+		if(maxCmiPercent < 0.0 || maxCmiPercent > 1.0)
+			throw new IllegalArgumentException("maxCmiPercent > 0.0 && maxCmiPercent <= 1.0");
+
 		_maxCmiPercent = maxCmiPercent;
 	}
 
 	/**
 	 * Sets the number of samples for approximating CMI.
 	 * 
-	 * @param sampleSize
-	 *            The new number of samples for approximating CMI.
+	 * @param sampleSize The new number of samples for approximating CMI.
 	 */
 	public void setSampleSize(int sampleSize) {
-		assert sampleSize > 0;
+		if(sampleSize <= 0)
+			throw new IllegalArgumentException("sample size > 0");
+
 		_sampleSize = sampleSize;
 	}
 

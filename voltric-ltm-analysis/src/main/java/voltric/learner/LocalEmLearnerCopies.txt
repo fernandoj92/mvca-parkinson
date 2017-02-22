@@ -199,7 +199,7 @@ public final class LocalEmLearnerCopies extends EmLearner {
 
 				message = tailInRepository.getMessageTo(headInRepository);
 
-				assert message != null;
+				asser message != null;
 
 				tail.setMessageTo(head, message);
 			} else if (ctInCtp.inFocusedSubtree(tail)
@@ -218,7 +218,7 @@ public final class LocalEmLearnerCopies extends EmLearner {
 
 				message = headInRepository.getMessageTo(tailInRepository);
 
-				assert message != null;
+				asser message != null;
 				head.setMessageTo(tail, message);
 			}
 		}

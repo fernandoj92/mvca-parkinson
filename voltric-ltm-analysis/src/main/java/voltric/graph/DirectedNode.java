@@ -70,7 +70,7 @@ public class DirectedNode extends AbstractNode {
 	 * @param edge
 	 *            incoming edge to be attached to this node.
 	 * @see DirectedAcyclicGraph#addEdge(AbstractNode, AbstractNode)
-	 * @see org.latlab.model.BeliefNode#attachInEdge(Edge)
+	 * @see voltric.model.BeliefNode#attachInEdge(Edge)
 	 */
 	protected void attachInEdge(Edge edge) {
 
@@ -114,7 +114,7 @@ public class DirectedNode extends AbstractNode {
 	 * @param edge
 	 *            incoming edge to be detached from this node.
 	 * @see DirectedAcyclicGraph#removeEdge(Edge)
-	 * @see org.latlab.model.BeliefNode#detachInEdge(Edge)
+	 * @see voltric.model.BeliefNode#detachInEdge(Edge)
 	 */
 	protected void detachInEdge(Edge edge) {
 		// removes tail from the collection of parents of this node
@@ -252,8 +252,9 @@ public class DirectedNode extends AbstractNode {
 	 * @return <code>true</code> if the specified node is a child of this node.
 	 */
 	public final boolean hasChild(AbstractNode node) {
-		// two nodes must be in same graph
-		assert _graph.containsNode(node);
+		// Both nodes must be in same graph
+		if(!_graph.containsNode(node))
+			throw new IllegalArgumentException("Both nodes must be on the same graph");
 
 		return _children.containsKey(node);
 	}
@@ -266,8 +267,9 @@ public class DirectedNode extends AbstractNode {
 	 * @return <code>true</code> if the specified node is a parent of this node.
 	 */
 	public final boolean hasParent(AbstractNode node) {
-		// two nodes must be in same graph
-		assert _graph.containsNode(node);
+		// Both nodes must be in same graph
+		if(!_graph.containsNode(node))
+			throw new IllegalArgumentException("Both nodes must be on the same graph");
 
 		return _parents.containsKey(node);
 	}
@@ -301,7 +303,8 @@ public class DirectedNode extends AbstractNode {
 	@Override
 	public String toString(int amount) {
 		// amount must be non-negative
-		assert amount >= 0;
+		if(amount <= 0)
+			throw new IllegalArgumentException("Amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

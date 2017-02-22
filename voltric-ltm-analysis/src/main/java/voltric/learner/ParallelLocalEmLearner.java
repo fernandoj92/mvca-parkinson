@@ -362,10 +362,8 @@ public final class ParallelLocalEmLearner extends ParallelEmLearner {
 	 * Runs one localEm step on the BN using the specified Ctp as the inference
 	 * algorithm.
 	 * 
-	 * @param ctp
-	 *            Inference engine.
-	 * @param dataSet
-	 *            data set to be used.
+	 * @param ctps the inference engine.
+	 * @param dataSet  data set to be used.
 	 */
 	private void localEmStep(CliqueTreePropagationGroup ctps, DiscreteDataSet dataSet) {
 		ForkComputation.Context context =
@@ -418,12 +416,13 @@ public final class ParallelLocalEmLearner extends ParallelEmLearner {
 
 	/**
 	 * Replaces the maximum number of steps allowed in this EM algorithm.
-	 * 
-	 * @param nMaxSteps
-	 *            new maximum number of steps.
+	 *
+	 * @param nContinuedSteps new maximum number of steps.
 	 */
 	public final void setNumberOfContinuedSteps(int nContinuedSteps) {
-		assert nContinuedSteps > 0;
+		if(nContinuedSteps <= 0)
+			throw new IllegalArgumentException("The number of continued steps must be > 0");
+
 		_nContinuedSteps = nContinuedSteps;
 	}
 

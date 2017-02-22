@@ -55,7 +55,7 @@ public class BreadthFirstSearch {
 	 */
 	public void perform(AbstractNode start, Visitor visitor) {
 		// this graph must contain the argument node
-		assert graph.containsNode(start);
+		asser graph.containsNode(start);
 
 		queue.clear();
 		queue.add(new Pair<AbstractNode, Edge>(start, null));

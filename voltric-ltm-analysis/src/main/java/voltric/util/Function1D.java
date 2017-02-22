@@ -117,7 +117,7 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.normailize(Variable) executed");
 
 		// argument variable must be the one involved in this function
-		assert variable == _x;
+		asser variable == _x;
 
 		// reduces to normalization over all variable(s)
 		return (normalize() == 0.0 ? true : false);
@@ -135,10 +135,10 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.project(Variable, int) executed");
 
 		// argument variable must be the one involved in this function
-		assert variable == _x;
+		asser variable == _x;
 
 		// state must be valid
-		assert variable.isValid(state);
+		asser variable.isValid(state);
 
 		// result is a zero-dimensional function. the only cell is selected by
 		// the argument state.
@@ -161,7 +161,7 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.sumOut(Variable) executed");
 
 		// argument variable must be the one involved in this function
-		assert variable == _x;
+		asser variable == _x;
 
 		// result is a zero-dimensional function. the only cell contains the sum
 		// of the cells in this function.

@@ -63,8 +63,9 @@ public final class Edge {
 	 * @return the opposite to the specified end.
 	 */
 	public final AbstractNode getOpposite(AbstractNode end) {
-		// the argument end must be incident to this edge
-		assert end == _head || end == _tail;
+		// The argument node must belong to this edge
+		if(!end.equals(_head) && !end.equals(_tail))
+			throw new IllegalArgumentException("The argument node must belong to this edge");
 
 		return end == _head ? _tail : _head;
 	}
@@ -99,8 +100,9 @@ public final class Edge {
 	 * @return a string representation of this edge.
 	 */
 	public String toString(int amount) {
-		// amount must be non-negative
-		assert amount >= 0;
+        // amount must be non-negative
+        if(amount <= 0)
+            throw new IllegalArgumentException("Amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

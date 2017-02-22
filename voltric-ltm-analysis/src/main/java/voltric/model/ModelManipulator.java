@@ -66,8 +66,12 @@ public class ModelManipulator {
 	 */
 	public static void rootWalkByStep(BayesNet model, BeliefNode root,
                                       BeliefNode newRoot) {
-		assert root.getParents().size() == 0;
-		assert newRoot.getParent() == root;
+
+        if(root.getParents().size() != 0)
+            throw new IllegalArgumentException("Root parents size must be == 0");
+
+        if(newRoot.getParent() == root)
+            throw new IllegalArgumentException("new root's parent must be the old 'root'");
 
 		// assume the old root and new root are X and Y respectively,
 		// we need to compute P(X|Y) and P(Y)

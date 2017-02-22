@@ -383,9 +383,8 @@ public class EmLearner {
 	 *         "MultipleRestarts"
 	 */
 	public void setLocalMaximaEscapeMethod(String methodOption) {
-
-		assert methodOption.equals("ChickeringHeckerman")
-				|| methodOption.equals("MultipleRestarts");
+		if(methodOption.equals("ChickeringHeckerman") && methodOption.equals("MultipleRestarts"))
+			throw new IllegalArgumentException("Local maxima escape method not supported");
 
 		_localMaximaEscapeMethod = methodOption;
 	}
@@ -397,7 +396,8 @@ public class EmLearner {
 	 */
 	public void setNumberOfPreSteps(int nPreSteps) {
 		// the number of steps must be positive
-		assert nPreSteps > 0;
+		if(nPreSteps <= 0)
+			throw new IllegalArgumentException("The number of steps must be > 0");
 
 		_nPreSteps = nPreSteps;
 	}
@@ -409,8 +409,9 @@ public class EmLearner {
 	 *            new maximum number of steps.
 	 */
 	public final void setMaxNumberOfSteps(int nMaxSteps) {
-		// maximum number of steps must be positive
-		assert nMaxSteps > 0;
+        // the number of steps must be positive
+        if(nMaxSteps <= 0)
+            throw new IllegalArgumentException("The number of steps must be > 0");
 
 		_nMaxSteps = nMaxSteps;
 	}
@@ -422,8 +423,9 @@ public class EmLearner {
 	 *            new number of restarts.
 	 */
 	public final void setNumberOfRestarts(int nRestarts) {
-		// number of restarts must be positive
-		assert nRestarts > 0;
+        // the number of restarts must be positive
+        if(nRestarts <= 0)
+            throw new IllegalArgumentException("The number of restarts must be > 0");
 
 		_nRestarts = nRestarts;
 	}
@@ -446,8 +448,9 @@ public class EmLearner {
 	 *            new threshold.
 	 */
 	public final void setThreshold(double threshold) {
-		// threshold must be non-negative
-		assert threshold >= 0.0;
+        // The threshold must be positive
+        if(threshold < 0)
+            throw new IllegalArgumentException("Threshold must be >= 0");
 
 		_threshold = threshold;
 	}
@@ -458,7 +461,8 @@ public class EmLearner {
 	 * @param numInitIterations new threshold.
 	 */
 	public final void setNumInitIterations(int numInitIterations) {
-		assert numInitIterations >= 0;
+		if(numInitIterations <= 0)
+		    throw new IllegalArgumentException("The number of iterations must be > 0");
 		_numInitIterations = numInitIterations;
 	}
 	

@@ -137,7 +137,7 @@ public class Function2D extends Function {
 	public final boolean normalize(DiscreteVariable variable) {
 
 		// argument variable must be either of the variables in this function
-		assert variable == _x || variable == _y;
+		asser variable == _x || variable == _y;
 
 		boolean hasZero = false;
 
@@ -219,10 +219,10 @@ public class Function2D extends Function {
 		// System.out.println("Function2D.project(Variable, int) executed");
 
 		// argument variable must be either of the variables in this function
-		assert variable == _x || variable == _y;
+		asser variable == _x || variable == _y;
 
 		// state must be valid
-		assert variable.isValid(state);
+		asser variable.isValid(state);
 
 		// result is an one-dimensional function
 		DiscreteVariable[] variables;
@@ -265,7 +265,7 @@ public class Function2D extends Function {
 		// System.out.println("Function2D.sumOut(Variable) executed");
 
 		// argument variable must be either of the variables in this function
-		assert variable == _x || variable == _y;
+		asser variable == _x || variable == _y;
 
 		// result is an one-dimensional function
 		DiscreteVariable[] variables;

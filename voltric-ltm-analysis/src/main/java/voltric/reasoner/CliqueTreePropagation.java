@@ -228,7 +228,9 @@ public final class CliqueTreePropagation implements Cloneable {
 	public Function computeBelief(DiscreteVariable var) {
 		// associated BN must contain var
 		BeliefNode node = _bayesNet.getNode(var);
-		assert node != null;
+
+		if (node == null)
+			throw new IllegalArgumentException("The model does not contain a Belief node associated to the variable under query");
 
 		Function belief = null;
 
@@ -280,8 +282,11 @@ public final class CliqueTreePropagation implements Cloneable {
 	 */
 	public Function computeBelief(Collection<DiscreteVariable> vars,
                                   Set<CliqueNode> subtree) {
-		assert !vars.isEmpty();
-		assert _bayesNet.containsVars(vars);
+		if(vars.isEmpty())
+		    throw new IllegalArgumentException("The collection of variables under query in empty");
+
+        if(!_bayesNet.containsVars(vars))
+            throw new IllegalArgumentException("Some of the variables under query are not present in the model");
 
 		// collects hidden and observed variables in query nodes
 		LinkedList<DiscreteVariable> hdnVars = new LinkedList<DiscreteVariable>();
@@ -356,8 +361,12 @@ public final class CliqueTreePropagation implements Cloneable {
 	 *         collection of variables.
 	 */
 	public Function computeBelief(Collection<DiscreteVariable> vars) {
-		assert !vars.isEmpty();
-		assert _bayesNet.containsVars(vars);
+
+        if(vars.isEmpty())
+            throw new IllegalArgumentException("The collection of variables under query in empty");
+
+        if(!_bayesNet.containsVars(vars))
+            throw new IllegalArgumentException("Some of the variables under query are not present in the model");
 
 		// collects hidden and observed variables in query nodes
 		LinkedList<DiscreteVariable> hdnVars = new LinkedList<DiscreteVariable>();
@@ -434,7 +443,11 @@ public final class CliqueTreePropagation implements Cloneable {
 	 */
 	public Function computeFamilyBelief(DiscreteVariable var) {
 		// associated BN must contain var
-		assert _bayesNet.containsVar(var);
+        if(var == null)
+            throw new IllegalArgumentException("Variable cannot be null");
+
+        if(!_bayesNet.containsVar(var))
+            throw new IllegalArgumentException("The variable under query is not present in the model");
 
 		// collects hidden and observed variables in family
 		LinkedList<DiscreteVariable> hdnVars = new LinkedList<DiscreteVariable>();
@@ -741,7 +754,9 @@ public final class CliqueTreePropagation implements Cloneable {
 		normalization *= n;
 		logNormalization += Math.log(n);
 
-		assert normalization >= Double.MIN_NORMAL;
+		//assert normalization >= Double.MIN_NORMAL;
+        if(normalization < Double.MIN_NORMAL)
+            throw new IllegalStateException("normlization value lower than Double.MIN_NORMAL");
 
 		// saves message and normalization
 		source.setMessageTo(destination, message);
@@ -854,7 +869,9 @@ public final class CliqueTreePropagation implements Cloneable {
 		normalization *= n;
 		logNormalization += Math.log(n);
 
-		assert normalization >= Double.MIN_NORMAL;
+        //assert normalization >= Double.MIN_NORMAL;
+        if(normalization < Double.MIN_NORMAL)
+            throw new IllegalStateException("normlization value lower than Double.MIN_NORMAL");
 
 		// saves message and normalization
 		source.setMessageTo(destination, message);
@@ -863,7 +880,9 @@ public final class CliqueTreePropagation implements Cloneable {
 	}
 
 	public void setEvidence(DiscreteVariable[] variables, int[] states) {
-		assert variables.length == states.length;
+
+        if(variables.length != states.length)
+            throw new IllegalArgumentException("The variables and evidence sizes must coincide");
 
 		_evidence.clear();
 
@@ -874,8 +893,11 @@ public final class CliqueTreePropagation implements Cloneable {
 
 			DiscreteVariable var = variables[i];
 
-			assert _bayesNet.containsVar(var);
-			assert variables[i].isValid(states[i]);
+			if(!_bayesNet.containsVar(var))
+			    throw new IllegalArgumentException("The Bayes net does not contain the variable: " + variables[i].getName());
+
+            if(!variables[i].isValid(states[i]))
+			    throw new IllegalArgumentException("the state with index [" + i + "] is not valid for the variable: " + variables[i].getName());
 
 			_evidence.put(var, states[i]);
 		}
@@ -888,9 +910,11 @@ public final class CliqueTreePropagation implements Cloneable {
 	public void addEvidence(DiscreteVariable variable, int state) {
 		BeliefNode node = _bayesNet.getNode(variable);
 
-		assert node != null;
+		if(node == null)
+		    throw new IllegalArgumentException("The Bayes net does not contain a Belief node for the variable: " + variable.getName());
 
-		assert variable.isValid(state);
+		if(!variable.isValid(state))
+		    throw new IllegalArgumentException("Illegal state evidence for the variable: " + variable.getName());
 
 		if (state == DiscreteDataSet.MISSING_VALUE) {
 			_evidence.remove(node);
@@ -902,7 +926,8 @@ public final class CliqueTreePropagation implements Cloneable {
 	public int getEvidence(DiscreteVariable variable) {
 		BeliefNode node = _bayesNet.getNode(variable);
 
-		assert node != null;
+        if(node == null)
+            throw new IllegalArgumentException("The Bayes net does not contain a Belief node for the variable: " + variable.getName());
 
 		if (_evidence.containsKey(node)) {
 			return _evidence.get(node);

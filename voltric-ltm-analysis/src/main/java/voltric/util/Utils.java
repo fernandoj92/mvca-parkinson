@@ -23,13 +23,13 @@ public class Utils {
 	public static double computeConditionalMutualInformation(Function dist,
 			DiscreteVariable condVar) {
 		// ensure the distribution contains three variables
-		assert dist.getDimension() == 3;
+		asser dist.getDimension() == 3;
 
 		// ensure the distribution contains the conditional variable
-		assert dist.contains(condVar);
+		asser dist.contains(condVar);
 
 		// ensure the distribution sum up to one
-		assert dist.sumUp() == 1.0;
+		asser dist.sumUp() == 1.0;
 
 		// I(X;Y|Z) = sum_X,Y,Z P(X,Y,Z) log P(X,Y|Z)/P(X|Z)P(Y|Z)
 		// = sum_X,Y,Z P(X,Y,Z) log P(X,Y,Z)P(Z)/P(X,Z)P(Y,Z)
@@ -73,10 +73,10 @@ public class Utils {
 	 */
 	public static double computeMutualInformation(Function dist) {
 		// ensure the distribution contains a pair of variables
-		assert dist.getDimension() == 2;
+		asser dist.getDimension() == 2;
 
 		// ensure the distribution sum up to one
-		assert dist.sumUp() == 1.0;
+		asser dist.sumUp() == 1.0;
 
 		// cells of joint and two marginal distributions
 		double[] cells = dist._cells;
@@ -109,10 +109,10 @@ public class Utils {
 	 */
 	public static double computePointwiseMutualInformation(Function dist) {
 		// ensure the distribution contains a pair of variables
-		assert dist.getDimension() == 2;
+		asser dist.getDimension() == 2;
 
 		// ensure the distribution sum up to one
-		assert dist.sumUp() == 1.0;
+		asser dist.sumUp() == 1.0;
 
 		// cells of joint and two marginal distributions
 		double[] cells = dist._cells;
@@ -134,7 +134,7 @@ public class Utils {
 	 */
 	public static double computeEntropy(Function dist) {
 		// ensure the distribution sum up to one
-		assert dist.sumUp() == 1.0;
+		asser dist.sumUp() == 1.0;
 
 		// H(X) = - sum_X P(X) log P(X)
 		double ent = 0.0;
@@ -160,7 +160,7 @@ public class Utils {
 	 */
 	public static double computeKl(Function p, Function q) {
 		// ensure two functions over same domain
-		assert Arrays.equals(p._variables, q._variables);
+		asser Arrays.equals(p._variables, q._variables);
 
 		double kl = 0.0;
 		double[] pCells = p.getCells();

@@ -5,7 +5,10 @@
 package voltric.graph;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * This class provides an implementation for undirected graphs (UGs).
@@ -13,6 +16,8 @@ import java.util.Map;
  * @author Yi Wang
  * 
  */
+// TODO: Revisar esta clase
+// TODO: removeEdge(head, tail) requiere una revision, principalmente por
 public class UndirectedGraph extends AbstractGraph {
 
 	/**
@@ -27,15 +32,18 @@ public class UndirectedGraph extends AbstractGraph {
 	 */
 	@Override
 	public Edge addEdge(AbstractNode head, AbstractNode tail) {
-		// this graph must contain both nodes
-		assert containsNode(head) && containsNode(tail);
 
-		// nodes must be distinct; otherwise, self loop will be introduced.
-		assert head != tail;
+        // this graph must contain both nodes
+        if(!containsNode(head) || !containsNode(tail))
+            throw new IllegalArgumentException("The graph must contain both nodes (" + head.getName() +" && "+tail.getName()+")");
 
-		// nodes cannot be neighbors; otherwise, duplicated edge will be
-		// introduced.
-		assert !head.hasNeighbor(tail);
+        // nodes must be distinct; otherwise, self loop will be introduced.
+        if(head.equals(tail))
+            throw new IllegalArgumentException("Both nodes must be distinct; otherwise, a self loop will be introduced");
+
+        // nodes cannot be neighbors; otherwise, a duplicated edge will be introduced
+        if(head.hasNeighbor(tail))
+            throw new IllegalArgumentException("Nodes cannot be neighbours; otherwise either a duplicated edge or a directed cycle will be introduced");
 
 		// creates edge
 		Edge edge = new Edge(head, tail);
@@ -62,10 +70,12 @@ public class UndirectedGraph extends AbstractGraph {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+        if(name.length() <= 0)
+            throw new IllegalArgumentException("Node name cannot be blank");
 
-		// name must be unique in this graph
-		assert !containsNode(name);
+        // name must be unique in this graph
+        if(this.containsNode(name))
+            throw new IllegalArgumentException("Node names must be unique.");
 
 		// creates node
 		UndirectedNode node = new UndirectedNode(this, name);
@@ -121,7 +131,8 @@ public class UndirectedGraph extends AbstractGraph {
 	public final int depthFirstSearch(AbstractNode node, int time,
                                       Map<AbstractNode, Integer> d, Map<AbstractNode, Integer> f) {
 		// this graph must contain node
-		assert containsNode(node);
+        if(!this.containsNode(node))
+            throw new IllegalArgumentException("The graph must contain the node "+ node.getName());
 
 		// discovers node
 		d.put(node, time++);
@@ -147,8 +158,9 @@ public class UndirectedGraph extends AbstractGraph {
 	 *            node to be eliminated.
 	 */
 	public final void eliminateNode(AbstractNode node) {
-		// this graph must contain node
-		assert containsNode(node);
+        // this graph must contain node
+        if(!this.containsNode(node))
+            throw new IllegalArgumentException("The graph must contain the node "+ node.getName());
 
 		// marries broken neighbors
 		for (AbstractNode neighbor1 : node.getNeighbors()) {
@@ -210,7 +222,8 @@ public class UndirectedGraph extends AbstractGraph {
 	@Override
 	public final void removeEdge(Edge edge) {
 		// this graph must contains the edge
-		assert containsEdge(edge);
+        if(!this.containsEdge(edge))
+            throw new IllegalArgumentException("the graph must contain the argument edge");
 
 		// removes edge from the list of edges in this graph
 		_edges.remove(edge);
@@ -218,6 +231,26 @@ public class UndirectedGraph extends AbstractGraph {
 		// detachs edge from both ends
 		edge.getHead().detachEdge(edge);
 		edge.getTail().detachEdge(edge);
+	}
+
+	/**
+	 *
+	 * @param head the head of the edge.
+	 * @param tail the tail of the edge.
+	 */
+	//TODO: los edges se consideran dirigidos pero los nodos añaden dichos edges de forma no-dirigida (no tiene sentido)
+    // TODO: Quizas eliminar la Illegal argument exception
+	@Override
+	public void removeEdge(AbstractNode head, AbstractNode tail) {
+        // First we search for the edges that contain the head
+        List<Edge> headEdges = this._edges.stream().filter(x-> x._head.equals(head)).collect(Collectors.toList());
+        // Then we find the edge
+        Optional<Edge> possibleEdge = headEdges.stream().filter(x-> x._tail.equals(tail)).findFirst();
+        // Finally we remove it if it is present
+        if(!possibleEdge.isPresent())
+            throw new IllegalArgumentException("Edge doesn´t exist");
+        else
+            removeEdge(possibleEdge.get());
 	}
 
 	/**
@@ -230,8 +263,9 @@ public class UndirectedGraph extends AbstractGraph {
 	 */
 	@Override
 	public String toString(int amount) {
-		// amount cannot be negative
-		assert amount >= 0;
+        // amount cannot be non-negative
+        if(amount <= 0)
+            throw new IllegalArgumentException("The amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

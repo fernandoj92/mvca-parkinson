@@ -344,7 +344,7 @@ public final class LocalEmLearner extends EmLearner {
 	 *            new maximum number of steps.
 	 */
 	public final void setNumberOfContinuedSteps(int nContinuedSteps) {
-		assert nContinuedSteps > 0;
+		asser nContinuedSteps > 0;
 		_nContinuedSteps = nContinuedSteps;
 	}
 	

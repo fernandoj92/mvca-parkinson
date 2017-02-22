@@ -44,7 +44,7 @@ public class PathFindingVisitor extends AbstractVisitor {
 		// if the destination has not been discovered, rewind the path
 		if (!discovered) {
 			AbstractNode last = path.remove(path.size() - 1);
-			assert last == node;
+			asser last == node;
 		}
 	}
 	

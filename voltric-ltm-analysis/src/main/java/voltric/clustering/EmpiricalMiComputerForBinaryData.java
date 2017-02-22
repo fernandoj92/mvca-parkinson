@@ -74,7 +74,7 @@ public class EmpiricalMiComputerForBinaryData{
 				
 					results.get(i)[j] = mi;
 					results.get(j)[i] = mi;
-				assert !Double.isNaN(mi);
+				asser !Double.isNaN(mi);
 			}
 		}
 		return results;

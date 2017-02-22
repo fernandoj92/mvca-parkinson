@@ -74,7 +74,7 @@ public class UndirectedNode extends AbstractNode {
 	@Override
 	public String toString(int amount) {
 		// amount must be non-negative
-		assert amount >= 0;
+		asser amount >= 0;
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

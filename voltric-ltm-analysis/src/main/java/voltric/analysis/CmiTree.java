@@ -183,7 +183,7 @@ public class CmiTree {
 			// two cases: (1) opening parenthesis of the block for the next
 			// child; and (2) closing parenthesis of the block for this node
 			String token = iterator.next();
-			assert token.equals("(") || token.equals(")");
+			asser token.equals("(") || token.equals(")");
 
 			// in the 2nd case, push back the closing parenthesis and break
 			if (token.equals(")")) {
@@ -197,7 +197,7 @@ public class CmiTree {
 
 			// delimiter
 			token = iterator.next();
-			assert token.equals(",");
+			asser token.equals(",");
 
 			// CMI value attached to the child
 			token = iterator.next();
@@ -211,7 +211,7 @@ public class CmiTree {
 
 			// closing parenthesis of the block for the child
 			token = iterator.next();
-			assert token.equals(")");
+			asser token.equals(")");
 		}
 	}
 
@@ -247,7 +247,7 @@ public class CmiTree {
 	 *            The new CMI values to be attached to the specified path.
 	 */
 	void putPathValues(List<DiscreteVariable> path, List<Double> cmiSeq) {
-		assert path.size() == cmiSeq.size();
+		asser path.size() == cmiSeq.size();
 
 		// start from the root
 		Node current = _root;

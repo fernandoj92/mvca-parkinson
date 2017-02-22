@@ -98,7 +98,8 @@ public abstract class AbstractGraph implements Cloneable {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+		if(name.length() <= 0)
+		    throw new IllegalArgumentException("Node name cannot be blank");
 
 		return _names.containsKey(name);
 	}
@@ -129,7 +130,8 @@ public abstract class AbstractGraph implements Cloneable {
 	 */
 	public final boolean containsPath(AbstractNode start, AbstractNode end) {
 		// this graph must contain both start and end
-		assert containsNode(start) && containsNode(end);
+        if(!this.containsNode(start) || !this.containsNode(end))
+            throw new IllegalArgumentException("The graph must contain both the start and the end nodes that are passed as arguments");
 
 		// discovering and finishing time
 		HashMap<AbstractNode, Integer> d = new HashMap<AbstractNode, Integer>();
@@ -184,7 +186,8 @@ public abstract class AbstractGraph implements Cloneable {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+		if(name.length() <= 0)
+		    throw new IllegalArgumentException("Node name cannot be blank");
 
 		return _names.get(name);
 	}
@@ -245,7 +248,8 @@ public abstract class AbstractGraph implements Cloneable {
 	 */
 	public void removeNode(AbstractNode node) {
 		// this graph must contain the argument node
-		assert containsNode(node);
+        if(!this.containsNode(node))
+            throw new IllegalArgumentException("The graph must contain the argument node");
 
 		// removes incident edges.
 		// Needed to make a copy, otherwise it modifies the

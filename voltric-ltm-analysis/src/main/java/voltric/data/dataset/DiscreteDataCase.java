@@ -55,17 +55,17 @@ public class DiscreteDataCase implements Comparable<DiscreteDataCase> {
      * on the states of two data cases.
      * </p>
      *
-     * @param object
+     * @param dataCase
      *            the object to be compared.
      * @return a negative or a positive integer if the states of this data
      *         case procedes or succeeds that of the specified data case;
      *         zero if their states are identical.
      */
-    public int compareTo(DiscreteDataCase object) {
-        DiscreteDataCase dataCase = object;
+    public int compareTo(DiscreteDataCase dataCase) {
 
         // two data cases must belong to the same data set
-        assert _dataSet == dataCase.getDataSet();
+        if(!_dataSet.equals(dataCase.getDataSet()))
+            throw new IllegalArgumentException("Data cases belong to different data sets");
 
         for (int i = 0; i < _states.length; i++) {
             if (_states[i] < dataCase._states[i]) {
@@ -104,7 +104,8 @@ public class DiscreteDataCase implements Comparable<DiscreteDataCase> {
      */
     public void setWeight(double weight) {
         // weight must be positive
-        assert weight > 0.0;
+        if(weight <= 0.0)
+            throw new IllegalArgumentException("Weight must be positive");
 
         _weight = weight;
     }

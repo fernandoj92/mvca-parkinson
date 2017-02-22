@@ -62,7 +62,7 @@ public class BeliefNode extends DirectedNode {
 	 *            graph to contain this node.
 	 * @param variable
 	 *            variable to be attached to this node.
-	 * @see BayesNet#addNode(Variable)
+	 * @see BayesNet#addNode(DiscreteVariable)
 	 */
 	protected BeliefNode(AbstractGraph graph, DiscreteVariable variable) {
 		super(graph, variable.getName());
@@ -324,7 +324,8 @@ public class BeliefNode extends DirectedNode {
 	 */
 	public final void setCpt(Function cpt) {
 		// CPT must be valid
-		assert isValidCpt(cpt);
+		if(!isValidCpt(cpt))
+			throw new IllegalArgumentException("CPT mut be valid");
 
 		_cpt = cpt;
 

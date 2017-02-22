@@ -142,7 +142,8 @@ public class LTM extends BayesNet {
 		LTM equiModel = clone();
 		BeliefNode newRoot = equiModel.getNode(var);
 
-		assert newRoot != null && !newRoot.isLeaf();
+        if(newRoot == null || newRoot.isLeaf())
+            throw new IllegalArgumentException("Illegal root change");
 
 		// collect all (copies) of latent nodes from
 		// newRootInModel to root (excluding root) into Stack
@@ -208,8 +209,9 @@ public class LTM extends BayesNet {
 	 */
 	public LTM manipulation_NodeIntroduction(DiscreteVariable latVar, DiscreteVariable v1,
                                              DiscreteVariable v2, DiscreteVariable newVar) {
-		assert getNode(latVar) != null && getNode(v1) != null
-				&& getNode(v2) != null;
+
+        if(this.getNode(latVar) == null || getNode(v1) == null || getNode(v2) == null )
+            throw new IllegalArgumentException("Illegal node introduction");
 
 		LTM template = clone();
 		ArrayList<BeliefNode> mutableNodesInTemplate = new ArrayList<BeliefNode>();
@@ -279,7 +281,8 @@ public class LTM extends BayesNet {
 		BeliefNode n2Delete = candModel.getNode(v2Delete);
 		BeliefNode dockNode = candModel.getNode(dockVar);
 
-		assert dockNode.hasNeighbor(n2Delete);
+		if(!dockNode.hasNeighbor(n2Delete))
+		    throw new IllegalArgumentException("Illegal node deletion");
 
 		Set<DirectedNode> children = new HashSet<DirectedNode>();
 		for (DirectedNode child : n2Delete.getChildren())
@@ -406,7 +409,9 @@ public class LTM extends BayesNet {
 
 	public boolean isCardRegular(DiscreteVariable var) {
 
-		assert getNode(var) != null;
+        if(this.getNode(var) == null)
+            throw new IllegalArgumentException("Variable cannot be null");
+
 		BeliefNode node = getNode(var);
 		if (node.isLeaf())
 			return true;
@@ -493,10 +498,11 @@ public class LTM extends BayesNet {
 	 */
 	public LTM introduceParent4Siblings(BeliefNode child1, BeliefNode child2) {
 
-		assert this.containsNode(child1);
-		assert this.containsNode(child2);
-		assert child1.getParent().isRoot();
-		assert child2.getParent().isRoot();
+        if(!this.containsNode(child1) || !this.containsNode(child2))
+            throw new IllegalArgumentException("Both child nodes must belong to the LTM");
+
+		if(!child1.getParent().isRoot() || !child2.getParent().isRoot())
+		    throw new IllegalArgumentException("child's parents must be the root");
 
 		LTM candModel = this.clone();
 		child1 = candModel.getNode(child1.getVariable());
@@ -562,14 +568,17 @@ public class LTM extends BayesNet {
 	/**
 	 * v1->X->v2, or v1<-X<-v2, or v1<-X->v2.
 	 * 
-	 * @param v1
-	 * @param v2
+	 * @param var1
+	 * @param var2
 	 * @return
 	 */
 	public boolean twoEdgeNeighbors(DiscreteVariable var1, DiscreteVariable var2) {
 
-		assert getNode(var1) != null && getNode(var2) != null;
-		assert var1 != var2;
+        if(this.getNode(var1) == null  || this.getNode(var2) == null)
+            throw new IllegalArgumentException("Both var1 and var2 cannot be null");
+
+        if(var1.equals(var2))
+            throw new IllegalArgumentException("var1 cannot be the same as var2");
 
 		BeliefNode n1 = getNode(var1);
 		BeliefNode n2 = getNode(var2);
@@ -600,7 +609,11 @@ public class LTM extends BayesNet {
 	 */
 	public ArrayList<BeliefNode> computePath(DiscreteVariable var1, DiscreteVariable var2) {
 
-		assert getNode(var1) != null && getNode(var2) != null;
+        if(this.getNode(var1) == null  || this.getNode(var2) == null)
+            throw new IllegalArgumentException("Both var1 and var2 cannot be null");
+
+        if(var1.equals(var2))
+            throw new IllegalArgumentException("var1 cannot be the same as var2");
 
 		Stack<BeliefNode> NodeOne2Root = path2Root(getNode(var1));
 		Stack<BeliefNode> NodeTwo2Root = path2Root(getNode(var2));
@@ -643,7 +656,8 @@ public class LTM extends BayesNet {
 	 */
 	public Stack<BeliefNode> path2Root(BeliefNode node) {
 
-		assert this.containsNode(node);
+		if(!this.containsNode(node))
+            throw new IllegalArgumentException("Node does not belong to the LTM");
 
 		Stack<BeliefNode> path = new Stack<BeliefNode>();
 		path.add(node);

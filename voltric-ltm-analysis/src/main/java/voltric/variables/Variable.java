@@ -30,7 +30,7 @@ public abstract class Variable implements IVariable, Comparable<Variable>{
         _name = name.trim();
 
         // getName cannot be blank
-        assert _name.length() > 0;
+        asser _name.length() > 0;
 
         _index = counter.nextIndex();
 
@@ -91,7 +91,7 @@ public abstract class Variable implements IVariable, Comparable<Variable>{
         name = name.trim();
 
         // getName cannot be blank
-        assert name.length() > 0;
+        asser name.length() > 0;
 
         _name = name;
     }

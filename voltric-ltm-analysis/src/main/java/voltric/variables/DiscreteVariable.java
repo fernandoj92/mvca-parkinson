@@ -45,7 +45,7 @@ public class DiscreteVariable extends Variable {
         super(name);
 
         // states cannot be empty
-        assert !states.isEmpty();
+        asser !states.isEmpty();
 
         _states = states;
     }
@@ -160,7 +160,7 @@ public class DiscreteVariable extends Variable {
      */
     public final String toString(int amount) {
         // amount must be non-negative
-        assert amount >= 0;
+        asser amount >= 0;
 
         // prepares white space for indent
         StringBuffer whiteSpace = new StringBuffer();
@@ -192,7 +192,7 @@ public class DiscreteVariable extends Variable {
      *            the states, of which the index are held as items.
      */
     public void reorderStates(int[] order) {
-        assert order.length == _states.size();
+        asser order.length == _states.size();
         List<String> clone = new ArrayList<String>(_states);
         for (int i = 0; i < _states.size(); i++) {
             _states.set(i, clone.get(order[i]));
@@ -221,7 +221,7 @@ public class DiscreteVariable extends Variable {
      */
     private final static ArrayList<String> createDefaultStates(int cardinality) {
 
-        assert cardinality > 0;
+        asser cardinality > 0;
 
         ArrayList<String> states = new ArrayList<String>();
 

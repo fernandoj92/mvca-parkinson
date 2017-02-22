@@ -162,8 +162,11 @@ public abstract class AbstractNode {
 	 * @return
 	 */
 	public Edge getEdge(AbstractNode node) {
-		// two nodes must be in same graph
-		assert _graph.containsNode(node);
+
+		// Both nodes must be in same graph
+		if(!_graph.containsNode(node))
+			throw new IllegalArgumentException("Both nodes must be on the same graph");
+
 		return _neighbors.get(node);
 	}
 
@@ -197,8 +200,10 @@ public abstract class AbstractNode {
 	 *         node.
 	 */
 	public final boolean hasNeighbor(AbstractNode node) {
-		// two nodes must be in same graph
-		assert _graph.containsNode(node);
+
+		// Both nodes must be in same graph
+		if(!_graph.containsNode(node))
+			throw new IllegalArgumentException("Both nodes must be on the same graph");
 
 		return _neighbors.containsKey(node);
 	}
@@ -213,10 +218,12 @@ public abstract class AbstractNode {
 		name = name.trim();
 
 		// name cannot be blank
-		assert name.length() > 0;
+		if(name.length() <= 0)
+			throw new IllegalArgumentException("Name cannot be blank");
 
 		// name must be unique in graph
-		assert !_graph.containsNode(name);
+		if(_graph.containsNode(name))
+			throw new IllegalArgumentException("Node names must be unique in the graph");
 
 		_graph._names.remove(_name);
 

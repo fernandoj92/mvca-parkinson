@@ -313,7 +313,7 @@ public class ParallelEmLearner {
 				double likelihoodDataCase = ctp.propagate();
 				double loglikelihoodAlternativeDataCase =
 						ctp.getLastLogLikelihood();
-				assert likelihoodDataCase > Double.MIN_NORMAL;
+				asser likelihoodDataCase > Double.MIN_NORMAL;
 				// if (likelihoodDataCase <= 1e-20) {
 				// System.out.printf(
 				// "In ParallelEm, improper loglikelihood in : %e "
@@ -502,7 +502,7 @@ public class ParallelEmLearner {
 	 */
 	public void setLocalMaximaEscapeMethod(String methodOption) {
 
-		assert methodOption.equals("ChickeringHeckerman")
+		asser methodOption.equals("ChickeringHeckerman")
 				|| methodOption.equals("MultipleRestarts");
 
 		_localMaximaEscapeMethod = methodOption;
@@ -515,7 +515,7 @@ public class ParallelEmLearner {
 	 */
 	public void setNumberOfPreSteps(int nPreSteps) {
 		// the number of steps must be positive
-		assert nPreSteps > 0;
+		asser nPreSteps > 0;
 
 		_nPreSteps = nPreSteps;
 	}
@@ -528,7 +528,7 @@ public class ParallelEmLearner {
 	 */
 	public final void setMaxNumberOfSteps(int nMaxSteps) {
 		// maximum number of steps must be positive
-		assert nMaxSteps > 0;
+		asser nMaxSteps > 0;
 
 		_nMaxSteps = nMaxSteps;
 	}
@@ -541,7 +541,7 @@ public class ParallelEmLearner {
 	 */
 	public final void setNumberOfRestarts(int nRestarts) {
 		// number of restarts must be positive
-		assert nRestarts > 0;
+		asser nRestarts > 0;
 
 		_nRestarts = nRestarts;
 	}
@@ -565,7 +565,7 @@ public class ParallelEmLearner {
 	 */
 	public final void setThreshold(double threshold) {
 		// threshold must be non-negative
-		assert threshold >= 0.0;
+		asser threshold >= 0.0;
 
 		_threshold = threshold;
 	}
@@ -577,7 +577,7 @@ public class ParallelEmLearner {
 	 *            new threshold.
 	 */
 	public final void setNumInitIterations(int numInitIterations) {
-		assert numInitIterations >= 0;
+		asser numInitIterations >= 0;
 		_numInitIterations = numInitIterations;
 	}
 
