@@ -1,4 +1,4 @@
-package parkinson.manual;
+package parkinson.manual.nms30;
 
 import ferjorosa.io.newBifWriter;
 import ferjorosa.ltm.creator.FlatLTM_creator;
@@ -6,20 +6,19 @@ import ferjorosa.ltm.learning.parameters.LTM_Learner;
 import org.apache.commons.io.FilenameUtils;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
-import voltric.learner.ParallelEmLearner;
 import voltric.model.BayesNet;
+import voltric.model.BeliefNode;
 import voltric.model.LTM;
 import voltric.variables.DiscreteVariable;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by equipo on 10/02/2017.
  */
-public class nms30Learn {
+public class nms30DomainsLearn {
 
     // Los datasets utilizados en este script deberian ser variantes del NMS30 con 12 estados, ya que se da por supuesto
     // que contará con una serie de atributos
@@ -44,8 +43,11 @@ public class nms30Learn {
 
                     System.out.println("############## "+ data.getName() + " ############## \n");
 
-                    // Learn the LTM
-                    LTM ltm = LTM_Learner.learnParameters(createDomainsLTM(data), data);
+                    // Produce an island (view) for each domain
+                    ArrayList<LTM> domainIslands = createDomainIslands(data);
+
+                    // Create a flat LTM and learn its parameters
+                    LTM flatLTM = LTM_Learner.learnParameters(createDomainsFlatLTM(domainIslands, data), data);
 
                     // Save it in BIF format
                     newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "DomSym_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
@@ -58,8 +60,7 @@ public class nms30Learn {
         }
     }
 
-    // Chow Liu with best root, hierarchical LTM
-    private static LTM createDomainsLTM(DiscreteDataSet dataSet){
+    private static ArrayList<LTM> createDomainIslands(DiscreteDataSet dataSet){
         /** first we create the domains islands */
         ArrayList<LTM> domainIslands = new ArrayList<>();
 
@@ -138,19 +139,86 @@ public class nms30Learn {
         LTM d9Island = LTM.createLCM(d9Variables, 2);
         domainIslands.add(d9Island);
 
-        /** then we produce a flat LTM after applying the chow-liu algorithm on the islands roots */
-        return FlatLTM_creator.applyChowLiuWithBestRoot(domainIslands, dataSet);
+        return domainIslands;
     }
 
+    /** =============================================================================== */
+    /** ======================== LTM creation Strategies ============================== */
+    /** =============================================================================== */
+
+    /**
+     *
+     * @param domainIslands
+     * @param dataSet
+     * @return
+     */
+    // Chow Liu with best root, flat LTM
+    // TODO: ALL THE LVS HAVE CARDINALITY = 2
+    private static LTM createDomainsFlatLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
+        LTM flatLTM = FlatLTM_creator.applyChowLiuWithBestRoot(domainIslands, dataSet);
+
+
+
+        return flatLTM;
+    }
+
+    /**
+     *
+     * @param domainIslands
+     * @return
+     */
+    // Basicamente es una multi-level de 2 niveles:
+    // El primer nivel es la variable latente maxima cuyos hijos son las LVs del segundo nivel
+    // Y el segundo nivel esta formado por las diferentes islas, donde los hijos de cada LV son MVs
+    private static LTM createManualMultiLevelLTM(ArrayList<LTM> domainIslands){
+
+        LTM multiLevelLTM = new LTM();
+        DiscreteVariable level1Root = new DiscreteVariable(2); // start with cardinality = 2
+        BeliefNode level1RootBeliefNode = multiLevelLTM.addNode(level1Root);
+
+        for(LTM island: domainIslands) {
+            multiLevelLTM.addDisconnectedLTM(island);
+            String islandRootName = island.getRoot().getName();
+            multiLevelLTM.addEdge(multiLevelLTM.getNode(islandRootName), level1RootBeliefNode);
+        }
+
+        // Una vez ya hemos generado el LTM multi-level, aplicamos una búsqueda local de la cardinalidad
+        // que va de abajo a arriba, es decir, busca primero la mejor cardinalidad de cada isla por separado
+        // y luego busca la mejor cardinalidad del primer nivel
+        // TODO: En este caso como no hemos resuelto aun el problema de completar los datos tipo EM, el primer nivel utiliza EM global
+
+
+
+        return multiLevelLTM;
+    }
+
+    /**
+     *
+     * @param domainIslands
+     * @param dataSet
+     * @return
+     */
     private static BayesNet createDomainsAugmentedLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         return null;
     }
 
+    /**
+     *
+     * @param domainIslands
+     * @param dataSet
+     * @return
+     */
     // Chow Liu Forest, with best Root in LTMs, no arcs between attributes
     private static BayesNet createDomainsLFM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         return null;
     }
 
+    /**
+     *
+     * @param domainIslands
+     * @param dataSet
+     * @return
+     */
     private static BayesNet createDomainsAugmentedLFM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         return null;
     }

@@ -2,6 +2,11 @@ package ferjorosa.ltm.learning.structure;
 
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.model.LTM;
+import voltric.variables.DiscreteVariable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Este metodo basicamente tiene 3 metodos que son:
@@ -20,6 +25,19 @@ public class LTM_CardinalitySearch {
         return null;
     }
 
+    public static LTM multiLevelBestcardinalityChange(LTM ltm, DiscreteDataSet dataSet){
+
+        // Reverse the latVarsFrom
+        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
+        Collections.reverse(latVarsFrombottom);
+
+        for(DiscreteVariable latentVar: latVarsFrombottom){
+            ltm.getSubTree(latentVar);
+        }
+
+        return null;
+    }
+
     /**
      * From 2 to max. Search for the best cardinality value
      *
@@ -29,6 +47,7 @@ public class LTM_CardinalitySearch {
      * @return
      */
     public static LTM globalBestCardinalityChange(LTM ltm, DiscreteDataSet dataSet, int max) {
+
         return null;
     }
 
@@ -42,9 +61,21 @@ public class LTM_CardinalitySearch {
      * @return
      */
     public static LTM localBestCardinalityChange(LTM ltm, DiscreteDataSet dataSet, int max) {
+
         return null;
 
     }
 
+    // Busca la mejor cardinalidad para un LCM desde 2 al max
+    private static LTM searchBestCardinalityLCM(LTM lcm, DiscreteDataSet dataSet, int max){
 
+        if(lcm.getLatVars().size() > 1)
+            throw new IllegalArgumentException("It has to be a LCM. Only 1 latent var allowed (the root)");
+
+        LTM bestLCM = new LTM();
+
+        for(int i = 2; 2 <= max ; i++ ){
+
+        }
+    }
 }

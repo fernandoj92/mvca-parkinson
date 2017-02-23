@@ -271,7 +271,7 @@ public class Function2D extends Function {
         // argument variable must be either of the variables in this function
         if(!variable.equals(_x) && !variable.equals(_y))
             throw new IllegalArgumentException("Argument variable must be either of the variables in this function");
-        
+
 		// result is an one-dimensional function
 		DiscreteVariable[] variables;
 		double[] cells;

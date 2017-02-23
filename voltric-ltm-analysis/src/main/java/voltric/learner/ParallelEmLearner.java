@@ -314,8 +314,8 @@ public class ParallelEmLearner {
 				double loglikelihoodAlternativeDataCase =
 						ctp.getLastLogLikelihood();
 
-				if(likelihoodDataCase > Double.MIN_NORMAL)
-					throw new InternalError("likelihoodDataCase <= Double.MIN_NORMAL");
+				if(likelihoodDataCase <= Double.MIN_NORMAL)
+					throw new InternalError("likelihoodDataCase should be > Double.MIN_NORMAL");
 
 				// if (likelihoodDataCase <= 1e-20) {
 				// System.out.printf(

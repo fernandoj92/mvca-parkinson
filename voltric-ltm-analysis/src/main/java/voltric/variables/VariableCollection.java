@@ -11,30 +11,30 @@ import java.util.List;
  * 
  */
 // TODO: Permitir diferente tipo de Collections? (implements Collection<Variable>)
-public class VariableCollection<A extends IVariable> extends AbstractList<A> {
+public class VariableCollection<V extends IVariable> extends AbstractList<V> {
 
 	private static final long serialVersionUID = -291636629108998675L;
 	
-	private final List<A> variables;
+	private final List<V> variables;
 
 	public VariableCollection() {
-		variables = new ArrayList<A>();
+		variables = new ArrayList<V>();
 	}
 
 	public VariableCollection(int initialCapacity) {
-		variables = new ArrayList<A>(initialCapacity);
+		variables = new ArrayList<V>(initialCapacity);
 	}
 	
 	public VariableCollection(VariableCollection variables) {
-		this.variables = new ArrayList<A>(variables);
+		this.variables = new ArrayList<V>(variables);
 	}
 
-	public VariableCollection(List<A> _variables) {
+	public VariableCollection(List<V> _variables) {
         this.variables =_variables;
     }
 
 	@Override
-	public A get(int index) {
+	public V get(int index) {
 		return variables.get(index);
 	}
 
@@ -44,17 +44,18 @@ public class VariableCollection<A extends IVariable> extends AbstractList<A> {
 	}
 
 	@Override
-	public A set(int index, A variable) {
+	public V set(int index, V variable) {
 		return variables.set(index, variable);
 	}
 
 	@Override
-	public void add(int index, A variable) {
+	public void add(int index, V variable) {
 		variables.add(index, variable);
 	}
 
 	@Override
-	public A remove(int index) {
+	public V remove(int index) {
 		return variables.remove(index);
 	}
+
 }

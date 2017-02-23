@@ -1577,8 +1577,7 @@ public class Function implements Cloneable {
 	 * @param cells
 	 *            new values of cells.
 	 */
-	public final void setCells(ArrayList<DiscreteVariable> variables,
-			ArrayList<Double> cells) {
+	public final void setCells(ArrayList<DiscreteVariable> variables, ArrayList<Double> cells) {
 		int dimension = getDimension();
 		int domainSize = getDomainSize();
 
@@ -1586,8 +1585,11 @@ public class Function implements Cloneable {
         if(!this.containsAll(variables))
             throw new IllegalArgumentException("Illegal set of variables");
 
-        if(dimension != variables.size() || dimension != cells.size())
+        if(dimension != variables.size())
             throw new IllegalArgumentException("Dimension must coincide to the variables size and the cells size");
+
+        if(domainSize != cells.size())
+            throw new IllegalArgumentException("The domain size must coincide to the number of cells");
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
@@ -1619,17 +1621,19 @@ public class Function implements Cloneable {
 	/**
 	 * Another version of setCells
 	 */
-	public final void setCells(ArrayList<DiscreteVariable> variables,
-			double[] cells) {
+	public final void setCells(ArrayList<DiscreteVariable> variables, double[] cells) {
 		int dimension = getDimension();
 		int domainSize = getDomainSize();
 
-		// argument variables should be exactly what this function involes
+        // argument variables should be exactly what this function involes
         if(!this.containsAll(variables))
             throw new IllegalArgumentException("Illegal set of variables");
 
-        if(dimension != variables.size() || dimension != cells.length)
+        if(dimension != variables.size())
             throw new IllegalArgumentException("Dimension must coincide to the variables size and the cells size");
+
+        if(domainSize != cells.length)
+            throw new IllegalArgumentException("The domain size must coincide to the number of cells");
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];

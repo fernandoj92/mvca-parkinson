@@ -55,7 +55,7 @@ public class DirectedTree extends DirectedAcyclicGraph {
         // Añade un edge desde el nodo index a todos los nodos vecinos
         for(AbstractNode node: root.getNeighbors()){
             if(!visited[undirectedTree.getNodes().indexOf(node)]){
-                addEdge(root, node);
+                addEdge(node, root);
                 addEdgesRecursively(undirectedTree, visited, node);
             }
         }

@@ -357,7 +357,7 @@ public class LTM extends BayesNet {
         while(!queue.isEmpty())
         {
             //removes from front of queue
-            DiscreteVariable r = queue.remove(); 
+            DiscreteVariable r = queue.remove(); //The last element of the queue is the first to be added
 			LatVarsOrdered.add(r);
             for(DiscreteVariable n: getNode(r).getChildrenLatVars()){
             	queue.add(n);
@@ -910,14 +910,9 @@ public class LTM extends BayesNet {
         LTM subTree = new LTM();
         BeliefNode latentVarNode = clonedLTM.getNode(latentVar);
         subTree.addNode(latentVar);
+        // Recursive call to add all the nodes & edges under the latentVarNode
+        recursiveAddChildrenToSubTree(subTree, latentVarNode);
 
-        for (DirectedNode child : latentVarNode.getChildren()) {
-            BeliefNode beliefChild = (BeliefNode) child;
-            subTree.addNode(beliefChild.getVariable());
-            subTree.addEdge(beliefChild, latentVarNode);
-            // Recursively add nodes and edges to the new LTM
-            addToSubTree(subTree, beliefChild);
-        }
         return subTree;
     }
 
@@ -926,12 +921,26 @@ public class LTM extends BayesNet {
      * @param ltm
      * @param node
      */
-    // create subTree recursively
-    private void addToSubTree(LTM ltm, BeliefNode node){
+    // create subTree in a recursive manner
+    private void recursiveAddChildrenToSubTree(LTM ltm, BeliefNode node){
         for (DirectedNode child : node.getChildren()) {
             BeliefNode beliefChild = (BeliefNode) child;
             ltm.addNode(beliefChild.getVariable());
             ltm.addEdge(beliefChild, node);
+			recursiveAddChildrenToSubTree(ltm, beliefChild); // Recursive call
         }
+    }
+
+    /**
+     * For a fast way to create manual LTMs from islands. It will not connect the base LTM with the new LTM, generating a forest
+     * until those connections have been manually made.
+     * @param ltm
+     * @return
+     */
+    public LTM addDisconnectedLTM(LTM ltm){
+        LTM newLTM = this.clone();
+        BeliefNode partitionRoot = ltm.getRoot();
+        recursiveAddChildrenToSubTree(newLTM, partitionRoot);
+        return newLTM;
     }
 }
