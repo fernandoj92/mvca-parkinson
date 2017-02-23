@@ -885,7 +885,8 @@ public final class DiscreteDataSet {
 		name = name.trim();
 
 		// getName cannot be blank
-		asser name.length() > 0;
+		if(name.length() <= 0)
+			throw new IllegalArgumentException("Name cannot be blank");
 
 		_name = name;
 	}

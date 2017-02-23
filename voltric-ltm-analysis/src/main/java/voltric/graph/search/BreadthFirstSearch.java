@@ -55,7 +55,8 @@ public class BreadthFirstSearch {
 	 */
 	public void perform(AbstractNode start, Visitor visitor) {
 		// this graph must contain the argument node
-		asser graph.containsNode(start);
+		if(!graph.containsNode(start))
+		    throw new IllegalArgumentException("The argument node must belong to the graph");
 
 		queue.clear();
 		queue.add(new Pair<AbstractNode, Edge>(start, null));
@@ -84,9 +85,7 @@ public class BreadthFirstSearch {
 	 * Transverses the nodes kept by the queue until the queue is empty. It adds
 	 * the children of a transversed node to the queue when it is first
 	 * discovered.
-	 * 
-	 * @param node
-	 *            the parent node
+	 *
 	 * @param visitor
 	 *            visitor for the children nodes
 	 */

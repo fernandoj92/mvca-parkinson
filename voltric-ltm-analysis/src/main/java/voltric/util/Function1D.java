@@ -117,10 +117,11 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.normailize(Variable) executed");
 
 		// argument variable must be the one involved in this function
-		asser variable == _x;
+		if(!variable.equals(_x))
+            throw new IllegalArgumentException("Argument variable must be the one involved in this function");
 
 		// reduces to normalization over all variable(s)
-		return (normalize() == 0.0 ? true : false);
+		return normalize() == 0.0;
 	}
 
 	/*
@@ -135,10 +136,12 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.project(Variable, int) executed");
 
 		// argument variable must be the one involved in this function
-		asser variable == _x;
+        if(!variable.equals(_x))
+            throw new IllegalArgumentException("Argument variable must be the one involved in this function");
 
 		// state must be valid
-		asser variable.isValid(state);
+        if(!variable.isValid(state))
+            throw new IllegalArgumentException("state is invalid");
 
 		// result is a zero-dimensional function. the only cell is selected by
 		// the argument state.
@@ -161,7 +164,8 @@ public class Function1D extends Function {
 		// System.out.println("Function1D.sumOut(Variable) executed");
 
 		// argument variable must be the one involved in this function
-		asser variable == _x;
+        if(!variable.equals(_x))
+            throw new IllegalArgumentException("Argument variable must be the one involved in this function");
 
 		// result is a zero-dimensional function. the only cell contains the sum
 		// of the cells in this function.

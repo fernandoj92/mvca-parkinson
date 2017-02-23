@@ -5,6 +5,7 @@ import voltric.data.dataset.DiscreteDataCase;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.variables.DiscreteVariable;
 
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
@@ -32,9 +33,7 @@ public class EmpiricalMiComputerForBinaryData{
 	/**
 	 * Computes a the mutual information between each pair of variables. It does
 	 * not contain any valid value on the diagonal.
-	 * 
-	 * @param includeClassVariable
-	 *            whether to include the class variable
+	 *
 	 * @return mutual information for each pair of variables
 	 */
 	public ArrayList<double[]> computerPairwise() {
@@ -74,7 +73,8 @@ public class EmpiricalMiComputerForBinaryData{
 				
 					results.get(i)[j] = mi;
 					results.get(j)[i] = mi;
-				asser !Double.isNaN(mi);
+				if(Double.isNaN(mi))
+					throw new InternalError("The MI value == NaN");
 			}
 		}
 		return results;

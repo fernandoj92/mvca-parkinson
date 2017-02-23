@@ -50,7 +50,8 @@ public class DepthFirstSearch {
      */
     public void perform(AbstractNode start, Visitor visitor) {
         // this graph must contain the argument node
-        asser graph.containsNode(start);
+        if(!graph.containsNode(start))
+            throw new IllegalArgumentException("The argument node must belong to the graph");
         
         if (visitor.discover(start, null)) {
 	        transverseChildren(start, visitor);

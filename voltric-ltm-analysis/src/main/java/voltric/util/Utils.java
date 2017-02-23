@@ -20,16 +20,17 @@ public class Utils {
 	 *            Conditional variable Z.
 	 * @return The conditional mutual information I(X;Y|Z).
 	 */
-	public static double computeConditionalMutualInformation(Function dist,
-			DiscreteVariable condVar) {
+	public static double computeConditionalMutualInformation(Function dist, DiscreteVariable condVar) {
+
 		// ensure the distribution contains three variables
-		asser dist.getDimension() == 3;
-
-		// ensure the distribution contains the conditional variable
-		asser dist.contains(condVar);
-
-		// ensure the distribution sum up to one
-		asser dist.sumUp() == 1.0;
+		if(dist.getDimension() != 3)
+		    throw new IllegalArgumentException("the argument function's dimension must be 3");
+        // ensure the distribution contains the conditional variable
+        if(!dist.contains(condVar))
+            throw new IllegalArgumentException("The argument distribution does not contain the conditional variable");
+		// ensure the distribution probabilities sum up to one
+        if(dist.sumUp() != 1.0)
+            throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// I(X;Y|Z) = sum_X,Y,Z P(X,Y,Z) log P(X,Y|Z)/P(X|Z)P(Y|Z)
 		// = sum_X,Y,Z P(X,Y,Z) log P(X,Y,Z)P(Z)/P(X,Z)P(Y,Z)
@@ -72,11 +73,13 @@ public class Utils {
 	 * @return the pairwise mutual information given the 2D distribution.
 	 */
 	public static double computeMutualInformation(Function dist) {
-		// ensure the distribution contains a pair of variables
-		asser dist.getDimension() == 2;
 
-		// ensure the distribution sum up to one
-		asser dist.sumUp() == 1.0;
+		// ensure the distribution contains a pair of variables
+        if(dist.getDimension() != 2)
+            throw new IllegalArgumentException("the argument function's dimension must be 2");
+        // ensure the distribution probabilities sum up to one
+        if(dist.sumUp() != 1.0)
+            throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// cells of joint and two marginal distributions
 		double[] cells = dist._cells;
@@ -108,11 +111,13 @@ public class Utils {
 	 * @return the pointwise mutual information given the 2D distribution.
 	 */
 	public static double computePointwiseMutualInformation(Function dist) {
-		// ensure the distribution contains a pair of variables
-		asser dist.getDimension() == 2;
 
-		// ensure the distribution sum up to one
-		asser dist.sumUp() == 1.0;
+        // ensure the distribution contains a pair of variables
+        if(dist.getDimension() != 2)
+            throw new IllegalArgumentException("the argument function's dimension must be 2");
+        // ensure the distribution probabilities sum up to one
+        if(dist.sumUp() != 1.0)
+            throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// cells of joint and two marginal distributions
 		double[] cells = dist._cells;
@@ -133,8 +138,10 @@ public class Utils {
 	 * @return the entropy of the specified distribution.
 	 */
 	public static double computeEntropy(Function dist) {
-		// ensure the distribution sum up to one
-		asser dist.sumUp() == 1.0;
+
+        // ensure the distribution probabilities sum up to one
+        if(dist.sumUp() != 1.0)
+            throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// H(X) = - sum_X P(X) log P(X)
 		double ent = 0.0;
@@ -160,7 +167,8 @@ public class Utils {
 	 */
 	public static double computeKl(Function p, Function q) {
 		// ensure two functions over same domain
-		asser Arrays.equals(p._variables, q._variables);
+        if(!Arrays.equals(p._variables, q._variables))
+            throw new IllegalArgumentException("The set of variables from both function must coincide");
 
 		double kl = 0.0;
 		double[] pCells = p.getCells();

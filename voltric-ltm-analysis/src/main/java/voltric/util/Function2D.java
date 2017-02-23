@@ -91,14 +91,14 @@ public class Function2D extends Function {
 		super.setCell(variables, states, value);
 	}
 
-	/**
-	 * Construct an equal hlcm.Function2V of this 2-d function. Note that the
-	 * two hlcm Variables are given not in order.
-	 * 
-	 * @param var2
-	 * @param var2
-	 * @return
-	 */
+//	/**
+//	 * Construct an equal hlcm.Function2V of this 2-d function. Note that the
+//	 * two hlcm Variables are given not in order.
+//	 *
+//	 * @param var2
+//	 * @param var2
+//	 * @return
+//	 */
 //	public Function2V toFunction2V(hlcm.Variable var1, hlcm.Variable var2) {
 //		if (_x.getName().equals(var1.getName())
 //				&& _y.getName().equals(var2.getName()))
@@ -108,14 +108,14 @@ public class Function2D extends Function {
 //
 //	}
 
-	/**
-	 * Construct an equal hlcm.Function2V of this 2-d function. Note that the
-	 * two hlcm Variables are given in order so that _x = var_x and _y = var_y
-	 * 
-	 * @param var_x
-	 * @param var_y
-	 * @return
-	 */
+//	/**
+//	 * Construct an equal hlcm.Function2V of this 2-d function. Note that the
+//	 * two hlcm Variables are given in order so that _x = var_x and _y = var_y
+//	 *
+//	 * @param var_x
+//	 * @param var_y
+//	 * @return
+//	 */
 //	private Function2V toFunction2VInOrder(hlcm.Variable var_x,
 //			hlcm.Variable var_y) {
 //		Function2V fun_hlcm = new Function2V(var_x, var_y);
@@ -137,7 +137,8 @@ public class Function2D extends Function {
 	public final boolean normalize(DiscreteVariable variable) {
 
 		// argument variable must be either of the variables in this function
-		asser variable == _x || variable == _y;
+		if(!variable.equals(_x) && !variable.equals(_y))
+			throw new IllegalArgumentException("Argument variable must be either of the variables in this function");
 
 		boolean hasZero = false;
 
@@ -219,10 +220,12 @@ public class Function2D extends Function {
 		// System.out.println("Function2D.project(Variable, int) executed");
 
 		// argument variable must be either of the variables in this function
-		asser variable == _x || variable == _y;
+        if(!variable.equals(_x) && !variable.equals(_y))
+            throw new IllegalArgumentException("Argument variable must be either of the variables in this function");
 
 		// state must be valid
-		asser variable.isValid(state);
+        if(!variable.isValid(state))
+            throw new IllegalArgumentException("state is invalid");
 
 		// result is an one-dimensional function
 		DiscreteVariable[] variables;
@@ -265,8 +268,10 @@ public class Function2D extends Function {
 		// System.out.println("Function2D.sumOut(Variable) executed");
 
 		// argument variable must be either of the variables in this function
-		asser variable == _x || variable == _y;
-
+        // argument variable must be either of the variables in this function
+        if(!variable.equals(_x) && !variable.equals(_y))
+            throw new IllegalArgumentException("Argument variable must be either of the variables in this function");
+        
 		// result is an one-dimensional function
 		DiscreteVariable[] variables;
 		double[] cells;

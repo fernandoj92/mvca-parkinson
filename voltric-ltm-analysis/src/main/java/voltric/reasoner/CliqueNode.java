@@ -104,8 +104,7 @@ public class CliqueNode extends UndirectedNode {
 	 * 
 	 * @param graph
 	 *            graph to contain this clique.
-	 * @param nodes
-	 *            colletion of Variables to be attached to this clique.
+	 * @param variables colletion of Variables to be attached to this clique.
 	 */
 	CliqueNode(AbstractGraph graph, LinkedHashSet<DiscreteVariable> variables) {
 		super(graph, CLIQUE_PREFIX + graph.getNumberOfNodes());
@@ -133,8 +132,7 @@ public class CliqueNode extends UndirectedNode {
 	 * 
 	 * @param graph
 	 *            graph to contain this clique.
-	 * @param nodes
-	 *            colletion of Variables to be attached to this clique.
+	 * @param variables colletion of Variables to be attached to this clique.
 	 * @param name
 	 *            specify the name of this node.
 	 */
@@ -175,7 +173,7 @@ public class CliqueNode extends UndirectedNode {
 	 * 
 	 * @param edge
 	 *            edge to be attached to this node.
-	 * @see UndirectedGraph#addEdge(AbstractNode, AbstractNode)
+	 * @see voltric.graph.UndirectedGraph#addEdge(AbstractNode, AbstractNode)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -206,7 +204,7 @@ public class CliqueNode extends UndirectedNode {
 	 * 
 	 * @param edge
 	 *            edge to be detached to this node.
-	 * @see UndirectedGraph#removeEdge(AbstractNode, AbstractNode)
+	 * @see voltric.graph.UndirectedGraph#removeEdge(AbstractNode, AbstractNode)
 	 */
 	@Override
 	protected final void detachEdge(Edge edge) {
@@ -440,7 +438,8 @@ public class CliqueNode extends UndirectedNode {
 	@Override
 	public String toString(int amount) {
 		// amount must be non-negative
-		asser amount >= 0;
+		if(amount <= 0)
+			throw new IllegalArgumentException("amount must be positive");
 
 		// prepares white space for indent
 		StringBuffer whiteSpace = new StringBuffer();

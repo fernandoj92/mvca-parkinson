@@ -22,8 +22,11 @@ public class DataInstance<A extends IVariable> implements Comparable<DataInstanc
     }
 
     public int compareTo(DataInstance o) {
-        asser values.length == o.values.length;
-        asser variables == o.variables;
+        if(this.values.length != o.values.length)
+            throw new IllegalArgumentException("The number of columns of the data instances does not coincide");
+
+        if(!variables.equals(o.variables))
+            throw new IllegalArgumentException("The variables object of both data instances does not coincide");
 
         for (int i = 0; i < values.length; i++) {
             if (values[i] != o.values[i])

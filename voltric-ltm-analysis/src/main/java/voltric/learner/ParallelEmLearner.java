@@ -313,7 +313,10 @@ public class ParallelEmLearner {
 				double likelihoodDataCase = ctp.propagate();
 				double loglikelihoodAlternativeDataCase =
 						ctp.getLastLogLikelihood();
-				asser likelihoodDataCase > Double.MIN_NORMAL;
+
+				if(likelihoodDataCase > Double.MIN_NORMAL)
+					throw new InternalError("likelihoodDataCase <= Double.MIN_NORMAL");
+
 				// if (likelihoodDataCase <= 1e-20) {
 				// System.out.printf(
 				// "In ParallelEm, improper loglikelihood in : %e "
@@ -367,8 +370,7 @@ public class ParallelEmLearner {
 	 * inference algorithm and returns the loglikelihood of the BN associated
 	 * with the input CTP.
 	 * 
-	 * @param ctp
-	 *            CTP for the BN to be optimized.
+	 * @param ctps CTPs for the BN to be optimized.
 	 * @param dataSet
 	 *            data set to be used.
 	 * @return the loglikelihood of the BN associated with the input CTP.
@@ -502,8 +504,8 @@ public class ParallelEmLearner {
 	 */
 	public void setLocalMaximaEscapeMethod(String methodOption) {
 
-		asser methodOption.equals("ChickeringHeckerman")
-				|| methodOption.equals("MultipleRestarts");
+		if(methodOption.equals("ChickeringHeckerman") && methodOption.equals("MultipleRestarts"))
+			throw new IllegalArgumentException("Local maxima escape method not supported");
 
 		_localMaximaEscapeMethod = methodOption;
 	}
@@ -515,7 +517,8 @@ public class ParallelEmLearner {
 	 */
 	public void setNumberOfPreSteps(int nPreSteps) {
 		// the number of steps must be positive
-		asser nPreSteps > 0;
+		if(nPreSteps <= 0)
+			throw new IllegalArgumentException("The number of steps must be > 0");
 
 		_nPreSteps = nPreSteps;
 	}
@@ -528,7 +531,8 @@ public class ParallelEmLearner {
 	 */
 	public final void setMaxNumberOfSteps(int nMaxSteps) {
 		// maximum number of steps must be positive
-		asser nMaxSteps > 0;
+		if(nMaxSteps <= 0)
+			throw new IllegalArgumentException("The number of steps must be > 0");
 
 		_nMaxSteps = nMaxSteps;
 	}
@@ -541,7 +545,8 @@ public class ParallelEmLearner {
 	 */
 	public final void setNumberOfRestarts(int nRestarts) {
 		// number of restarts must be positive
-		asser nRestarts > 0;
+		if(nRestarts <= 0)
+			throw new IllegalArgumentException("The number of restarts must be > 0");
 
 		_nRestarts = nRestarts;
 	}
@@ -565,7 +570,8 @@ public class ParallelEmLearner {
 	 */
 	public final void setThreshold(double threshold) {
 		// threshold must be non-negative
-		asser threshold >= 0.0;
+		if(threshold < 0)
+			throw new IllegalArgumentException("Threshold must be >= 0");
 
 		_threshold = threshold;
 	}
@@ -577,7 +583,9 @@ public class ParallelEmLearner {
 	 *            new threshold.
 	 */
 	public final void setNumInitIterations(int numInitIterations) {
-		asser numInitIterations >= 0;
+		if(numInitIterations <= 0)
+			throw new IllegalArgumentException("The number of iterations must be > 0");
+
 		_numInitIterations = numInitIterations;
 	}
 

@@ -101,7 +101,8 @@ public class Function implements Cloneable {
 	 */
 	public final static Function createFunction(DiscreteDataSet dataSet) {
 		// missing values will confuse this conversion
-		asser !dataSet.hasMissingValues();
+		if(dataSet.hasMissingValues())
+			throw new IllegalArgumentException("Missing values are not allowed");
 
 		// passes deep copy so that the function is independent of the data set.
 		// note that the variables in function and data set are in the same
@@ -212,7 +213,8 @@ public class Function implements Cloneable {
 	public final static Function createIndicatorFunction(DiscreteVariable variable,
                                                          int state) {
 		// state must be valid
-		asser variable.isValid(state);
+		if(!variable.isValid(state))
+			throw new IllegalArgumentException("state must be valid");
 
 		Function f = new Function1D(new DiscreteVariable[] { variable });
 		f._cells[state] = 1.0;
@@ -239,15 +241,15 @@ public class Function implements Cloneable {
 	 * Returns a function of variable1 and variable2 so that f( variable1,
 	 * variable2 ) =1 iff variable1 == variable2; otherwise f=0;
 	 * 
-	 * @param variable
-	 *            variable to be involved.
+	 * @param variable1 variable to be involved.
 	 * @return a uniform distribution of the specified variable. The return is
 	 *         actually an instance of Function1D.
 	 */
 	public final static Function createDeterCondDistribution(
 			DiscreteVariable variable1, DiscreteVariable variable2) {
 
-		asser variable1.getCardinality() == variable2.getCardinality();
+		if(variable1.getCardinality() != variable2.getCardinality())
+			throw new IllegalArgumentException("variables cardinality must coincide");
 
 		ArrayList<DiscreteVariable> variables = new ArrayList<DiscreteVariable>(2);
 		variables.add(variable1);
@@ -345,7 +347,8 @@ public class Function implements Cloneable {
 	 */
 	public final Function addVariable(DiscreteVariable variable) {
 		// variable name must be unique in new function
-		asser !contains(variable.getName());
+        if(this.contains(variable.getName()))
+            throw new IllegalArgumentException("Repeated variables are not allowed");
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() + 1;
@@ -445,7 +448,7 @@ public class Function implements Cloneable {
 	 * @param states
 	 *            array of states that specifies a cell.
 	 * @return the index of the cell in the internal one-dimensional array.
-	 * @see times( Function )
+	 * @see Function#times(Function)
 	 */
 	private final int computeIndex(int[] states) {
 		int index = 0;
@@ -474,7 +477,7 @@ public class Function implements Cloneable {
 	 *            cell.
 	 * @param states
 	 *            array of states that corresponds to the cell.
-	 * @see times( Function )
+     * @see Function#times(Function)
 	 */
 	public final void computeStates(int index, int[] states) {
 		int dimension = getDimension();
@@ -500,18 +503,18 @@ public class Function implements Cloneable {
 	 * 
 	 * @param var
 	 *            The original var in this Function
-	 * @param i
-	 *            The first state to be combined
-	 * @param j
-	 *            The second state to be combined
-	 * @param newVar
-	 *            New variable introduced to replace var.
+	 * @param si The first state to be combined
+	 * @param sj The second state to be combined
+	 * @param newVar New variable introduced to replace var.
 	 * @return
 	 */
 	public Function combine(DiscreteVariable var, int si, int sj, DiscreteVariable newVar) {
+        if(!this.contains(var))
+            throw new IllegalArgumentException("Variable 'var' does not belong to this function");
 
-		asser contains(var);
-		asser var.isValid(si) && var.isValid(sj);
+        if(!var.isValid(si) || !var.isValid(sj))
+            throw new IllegalArgumentException("invalid states 'si' || 'sj'");
+
 
 		int dimension = getDimension();
 
@@ -636,20 +639,19 @@ public class Function implements Cloneable {
 	 * Replace the var with a new DiscreteVariable newVar according to the following
 	 * rule...
 	 * 
-	 * @param var
-	 *            The original var in this Function
-	 * @param i
-	 *            The first state to be combined
-	 * @param j
-	 *            The second state to be combined
-	 * @param newVar
-	 *            New variable introduced to replace var.
+	 * @param var The original var in this Function
+	 * @param si The first state to be combined
+	 * @param sj The second state to be combined
+	 * @param newVar New variable introduced to replace var.
 	 * @return
 	 */
 	public Function averageCombine(DiscreteVariable var, int si, int sj, DiscreteVariable newVar) {
 
-		asser contains(var);
-		asser var.isValid(si) && var.isValid(sj);
+        if(!this.contains(var))
+            throw new IllegalArgumentException("Variable 'var' does not belong to this function");
+
+        if(!var.isValid(si) || !var.isValid(sj))
+            throw new IllegalArgumentException("invalid states 'si' || 'sj'");
 
 		int dimension = getDimension();
 
@@ -713,8 +715,11 @@ public class Function implements Cloneable {
 	 */
 	public Function split(DiscreteVariable var, int s, DiscreteVariable newVar) {
 
-		asser contains(var);
-		asser var.isValid(s);
+        if(!this.contains(var))
+            throw new IllegalArgumentException("Variable 'var' does not belong to this function");
+
+        if(!var.isValid(s))
+            throw new IllegalArgumentException("The provided state is invalid");
 
 		int dimension = getDimension();
 
@@ -772,8 +777,11 @@ public class Function implements Cloneable {
 	 */
 	public Function stateCopy(DiscreteVariable var, int s, DiscreteVariable newVar) {
 
-		asser contains(var);
-		asser var.isValid(s);
+        if(!this.contains(var))
+            throw new IllegalArgumentException("Variable 'var' does not belong to this function");
+
+        if(!var.isValid(s))
+            throw new IllegalArgumentException("The provided state is invalid");
 
 		int dimension = getDimension();
 
@@ -828,7 +836,8 @@ public class Function implements Cloneable {
 	 * @return
 	 */
 	public Function replaceVar(DiscreteVariable var, DiscreteVariable newVar) {
-		asser contains(var);
+        if(!this.contains(var))
+            throw new IllegalArgumentException("Variable 'var' does not belong to this function");
 
 		int dimension = getDimension();
 		int indexVar = indexOf(var);
@@ -1016,7 +1025,8 @@ public class Function implements Cloneable {
 		int domainSize = getDomainSize();
 
 		// argument variables should be exactly what this function involes
-		asser containsAll(variables) && dimension == variables.size();
+        if(!this.containsAll(variables) || dimension != variables.size())
+            throw new IllegalArgumentException("Invalid collection of argument variables");
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
@@ -1116,12 +1126,13 @@ public class Function implements Cloneable {
 	 *            collection of variables to be retained in the marginal
 	 *            function.
 	 * @return the marginal function of the specified collection of variables.
-	 * @see org.east.reasoner.CliqueTreePropagation#computeBelief(Collection)
-	 * @see org.east.reasoner.CliqueTreePropagation#computeFamilyBelief(org.latlab.model.BeliefNode)
+	 * @see voltric.reasoner.CliqueTreePropagation#computeBelief(Collection)
+	 * @see voltric.reasoner.CliqueTreePropagation#computeFamilyBelief(DiscreteVariable)
 	 */
 	public final Function marginalize(Collection<DiscreteVariable> variables) {
 		// argument variables must be involved in this function
-		asser containsAll(variables);
+		if(!this.containsAll(variables))
+		    throw new IllegalArgumentException("Invalid collection of argument variables. The y do not belong to the Function");
 
 		if (variables.size() == getDimension()) {
 			// retains all variables
@@ -1151,7 +1162,8 @@ public class Function implements Cloneable {
 		int index = indexOf(variable);
 
 		// argument variable must be involved in this function
-		asser index >= 0;
+		if(index < 0)
+		    throw new IllegalArgumentException("Invalid argument variable");
 
 		if (getDimension() == 1) {
 			// retains the only variable
@@ -1247,7 +1259,8 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		asser variableIndex >= 0;
+        if(variableIndex < 0)
+            throw new IllegalArgumentException("Invalid argument variable");
 
 		int cardinality = variable.getCardinality();
 		int subdomainSize = getDomainSize() / cardinality;
@@ -1321,7 +1334,8 @@ public class Function implements Cloneable {
 	 */
 	public final void plus(Function function) {
 		// two functions must involve the same set of variables
-		asser Arrays.equals(_variables, function._variables);
+        if(!Arrays.equals(_variables, function._variables))
+            throw new IllegalArgumentException("Both function must involve the same set of variables");
 
 		// variables in two functions are both in order of their birthdays. so
 		// simply adds up two one-dimensional arrays of cells.
@@ -1351,10 +1365,12 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		asser variableIndex >= 0;
+        if(variableIndex < 0)
+            throw new IllegalArgumentException("Invalid argument variable");
 
 		// state must be valid
-		asser variable.isValid(state);
+        if(variable.isValid(state))
+            throw new IllegalArgumentException("Invalid state for the argument variable");
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() - 1;
@@ -1424,8 +1440,9 @@ public class Function implements Cloneable {
 	 *         arguments.
 	 */
 	public Function project(ArrayList<DiscreteVariable> vars, ArrayList<Integer> states) {
-		// variables must match states
-		asser vars.size() == states.size();
+		// The number of variables and the numbers of states must coincide
+        if(vars.size() != states.size())
+            throw new IllegalArgumentException("The number of variables and the numbers of states must coincide");
 
 		// repeat projection
 		Function f = this;
@@ -1481,10 +1498,12 @@ public class Function implements Cloneable {
 	 */
 	public int sample() {
 		// can only sample from single-variate function
-		asser getDimension() == 1;
+		if(this.getDimension() != 1)
+		    throw new IllegalStateException("Sampling is only available from single-variate functions");
 
 		// ensure the distribution sum up to one
-		asser sumUp() == 1.0;
+        if(this.sumUp() != 1.0)
+            throw new IllegalArgumentException("Distribution probabilities must sum up to 1.0");
 
 		// randomly generate a double within (0, 1)
 		double rand = rndGenerator.nextDouble();
@@ -1515,19 +1534,23 @@ public class Function implements Cloneable {
 	 * @param cell
 	 *            new value of the cell.
 	 */
-	public final void setCell(ArrayList<DiscreteVariable> variables,
-			ArrayList<Integer> states, double cell) {
+	public final void setCell(ArrayList<DiscreteVariable> variables, ArrayList<Integer> states, double cell) {
 		int dimension = getDimension();
 
 		// argument variables should be exactly what this function involes
-		asser containsAll(variables) && dimension == variables.size()
-				&& dimension == states.size();
+        if(!this.containsAll(variables))
+            throw new IllegalArgumentException("Illegal set of variables");
+
+        if(dimension != variables.size() || dimension != states.size())
+            throw new IllegalArgumentException("Dimension must coincide to the variables size and the states size");
+
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
 		for (int i = 0; i < dimension; i++) {
 			// state must be valid
-			asser variables.get(i).isValid(states.get(i));
+            if(!variables.get(i).isValid(states.get(i)))
+                throw  new InternalError("variable["+i+"].state["+i+"] is invalid");
 
 			map[i] = indexOf(variables.get(i));
 		}
@@ -1559,9 +1582,12 @@ public class Function implements Cloneable {
 		int dimension = getDimension();
 		int domainSize = getDomainSize();
 
-		// argument variables should be exactly what this function involes
-		asser containsAll(variables) && dimension == variables.size()
-				&& domainSize == cells.size();
+        // argument variables should be exactly what this function involes
+        if(!this.containsAll(variables))
+            throw new IllegalArgumentException("Illegal set of variables");
+
+        if(dimension != variables.size() || dimension != cells.size())
+            throw new IllegalArgumentException("Dimension must coincide to the variables size and the cells size");
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
@@ -1599,8 +1625,11 @@ public class Function implements Cloneable {
 		int domainSize = getDomainSize();
 
 		// argument variables should be exactly what this function involes
-		asser containsAll(variables) && dimension == variables.size()
-				&& domainSize == cells.length;
+        if(!this.containsAll(variables))
+            throw new IllegalArgumentException("Illegal set of variables");
+
+        if(dimension != variables.size() || dimension != cells.length)
+            throw new IllegalArgumentException("Dimension must coincide to the variables size and the cells size");
 
 		// maps from argument variables to internal array
 		int[] map = new int[dimension];
@@ -1643,7 +1672,8 @@ public class Function implements Cloneable {
 		int variableIndex = indexOf(variable);
 
 		// argument variable must be involved in this function
-		asser variableIndex >= 0;
+		if(variableIndex < 0)
+		    throw new IllegalArgumentException("Invalid argument variable. It does not belong to this function");
 
 		int cardinality = variable.getCardinality();
 		int newDimension = getDimension() - 1;
@@ -2083,7 +2113,8 @@ public class Function implements Cloneable {
 	 */
 	public String toString(int amount) {
 		// amount must be non-negative
-		asser amount >= 0;
+		if(amount <= 0)
+		    throw new IllegalArgumentException("amount must be positive");
 
 		int dimension = getDimension();
 		int domainSize = getDomainSize();
