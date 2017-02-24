@@ -3,6 +3,7 @@ package parkinson.manual.nms30;
 import ferjorosa.io.newBifWriter;
 import ferjorosa.ltm.creator.FlatLTM_creator;
 import ferjorosa.ltm.learning.parameters.LTM_Learner;
+import ferjorosa.ltm.learning.structure.LTM_CardinalitySearch;
 import org.apache.commons.io.FilenameUtils;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
@@ -20,16 +21,20 @@ import java.util.ArrayList;
  */
 public class nms30DomainsLearn {
 
+    public static void main(String[] args){
+        learnAndSaveAllModels();
+    }
+
     // Los datasets utilizados en este script deberian ser variantes del NMS30 con 12 estados, ya que se da por supuesto
     // que contará con una serie de atributos
 
     public static void learnAndSaveAllModels(){
 
         // Seleccionamos el directorio en el que se van a recoger todos los datasets
-        String input_path = "data/parkinson/nms12";
+        String input_path = "data/parkinson/nms12/";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff")); // 3 archivos
 
-        String output_path = "results/manual_learn/nms12/Domains";
+        String output_path = "results/manual_learn/nms12/Domains/";
 
         for (File inputFile : inputFiles) {
             try {
@@ -46,12 +51,21 @@ public class nms30DomainsLearn {
                     // Produce an island (view) for each domain
                     ArrayList<LTM> domainIslands = createDomainIslands(data);
 
+                    /** FLAT LTM */
+/*
                     // Create a flat LTM and learn its parameters
                     LTM flatLTM = LTM_Learner.learnParameters(createDomainsFlatLTM(domainIslands, data), data);
-
                     // Save it in BIF format
-                    newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "DomSym_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
-                    //writer.write(ltm);
+                    newBifWriter flatLTMwriter = new newBifWriter(new FileOutputStream(output_path + "Flat_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    flatLTMwriter.write(flatLTM);
+                    System.out.println("----- Flat LTM for "+ data.getName() + "has been learned ----- \n");
+*/
+                    /** MULTI-LEVEL LTM */
+                    // Create a multi-level LTM and learn its parameters
+                    LTM multiLevelLTM = LTM_Learner.learnParameters(createManualMultiLevelLTM(domainIslands, data), data);
+                    // Save it in BIF format
+                    newBifWriter multiLevelLTMWriter = new newBifWriter(new FileOutputStream(output_path + "Multilevel_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    multiLevelLTMWriter.write(multiLevelLTM);
                 }
             }catch(Exception e){
                 System.out.println("Error with " + inputFile.getName());
@@ -125,17 +139,17 @@ public class nms30DomainsLearn {
 
         // d8 - Sexual
         ArrayList<DiscreteVariable> d8Variables = new ArrayList<>();
-        d1Variables.add(dataSet.getVariable("d8_sex_drive"));
-        d1Variables.add(dataSet.getVariable("d8_sex_dysfunction"));
+        d8Variables.add(dataSet.getVariable("d8_sex_drive"));
+        d8Variables.add(dataSet.getVariable("d8_sex_dysfunction"));
         LTM d8Island = LTM.createLCM(d8Variables, 2);
         domainIslands.add(d8Island);
 
         // d9 - Miscellaneous
         ArrayList<DiscreteVariable> d9Variables = new ArrayList<>();
-        d2Variables.add(dataSet.getVariable("d9_unexplained_pain"));
-        d2Variables.add(dataSet.getVariable("d9_taste_smell"));
-        d2Variables.add(dataSet.getVariable("d9_weight_change"));
-        d2Variables.add(dataSet.getVariable("d9_sweating"));
+        d9Variables.add(dataSet.getVariable("d9_unexplained_pain"));
+        d9Variables.add(dataSet.getVariable("d9_taste_smell"));
+        d9Variables.add(dataSet.getVariable("d9_weight_change"));
+        d9Variables.add(dataSet.getVariable("d9_sweating"));
         LTM d9Island = LTM.createLCM(d9Variables, 2);
         domainIslands.add(d9Island);
 
@@ -146,31 +160,19 @@ public class nms30DomainsLearn {
     /** ======================== LTM creation Strategies ============================== */
     /** =============================================================================== */
 
-    /**
-     *
-     * @param domainIslands
-     * @param dataSet
-     * @return
-     */
+
     // Chow Liu with best root, flat LTM
     // TODO: ALL THE LVS HAVE CARDINALITY = 2
     private static LTM createDomainsFlatLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         LTM flatLTM = FlatLTM_creator.applyChowLiuWithBestRoot(domainIslands, dataSet);
-
-
-
-        return flatLTM;
+        // Recordar que al ser manual no hay refinamiento del modelo (cambio de nodos entre particiones)
+        return LTM_CardinalitySearch.globalBestCardinalityIncrease(flatLTM, dataSet, 10);
     }
 
-    /**
-     *
-     * @param domainIslands
-     * @return
-     */
     // Basicamente es una multi-level de 2 niveles:
     // El primer nivel es la variable latente maxima cuyos hijos son las LVs del segundo nivel
     // Y el segundo nivel esta formado por las diferentes islas, donde los hijos de cada LV son MVs
-    private static LTM createManualMultiLevelLTM(ArrayList<LTM> domainIslands){
+    private static LTM createManualMultiLevelLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
 
         LTM multiLevelLTM = new LTM();
         DiscreteVariable level1Root = new DiscreteVariable(2); // start with cardinality = 2
@@ -186,10 +188,7 @@ public class nms30DomainsLearn {
         // que va de abajo a arriba, es decir, busca primero la mejor cardinalidad de cada isla por separado
         // y luego busca la mejor cardinalidad del primer nivel
         // TODO: En este caso como no hemos resuelto aun el problema de completar los datos tipo EM, el primer nivel utiliza EM global
-
-
-
-        return multiLevelLTM;
+        return LTM_CardinalitySearch.globalBestCardinalityIncrease(multiLevelLTM, dataSet, 10);
     }
 
     /**

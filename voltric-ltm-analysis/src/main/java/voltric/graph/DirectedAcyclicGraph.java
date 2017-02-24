@@ -44,7 +44,7 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 
 	/**
 	 * Adds an edge that connects the two specified nodes to this graph and
-	 * returns the edge. There is going to be a run time asser exception if the
+	 * returns the edge. There is going to be a run time exception if the
 	 * resulting graph will contain cycle.
 	 * 
 	 * @param head
@@ -218,7 +218,7 @@ public class DirectedAcyclicGraph extends AbstractGraph {
 	public void removeEdge(Edge edge) {
 
 		// this graph must contain the argument edge
-		if(this.containsEdge(edge))
+		if(!this.containsEdge(edge))
 		    throw new IllegalArgumentException("The graph must contain the argument edge");
 
 		// removes edge from the list of edges in this graph

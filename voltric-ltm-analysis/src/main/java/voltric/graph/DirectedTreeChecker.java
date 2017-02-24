@@ -9,12 +9,12 @@ import voltric.util.Caster;
 import java.util.List;
 
 /**
- * Checks whether a graph is a tree.
+ * Checks whether a graph is a DIRECTED tree.
  * 
  * @author leonard
  * 
  */
-public class TreeChecker {
+public class DirectedTreeChecker {
 
     /**
      * Returns whether a tree has a specific node as root.

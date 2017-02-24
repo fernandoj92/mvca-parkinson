@@ -1369,7 +1369,7 @@ public class Function implements Cloneable {
             throw new IllegalArgumentException("Invalid argument variable");
 
 		// state must be valid
-        if(variable.isValid(state))
+        if(!variable.isValid(state))
             throw new IllegalArgumentException("Invalid state for the argument variable");
 
 		int cardinality = variable.getCardinality();
@@ -1502,7 +1502,7 @@ public class Function implements Cloneable {
 		    throw new IllegalStateException("Sampling is only available from single-variate functions");
 
 		// ensure the distribution sum up to one
-        if(this.sumUp() != 1.0)
+        if(!Utils.eqDouble(this.sumUp(), 1.0, 0.0001))
             throw new IllegalArgumentException("Distribution probabilities must sum up to 1.0");
 
 		// randomly generate a double within (0, 1)

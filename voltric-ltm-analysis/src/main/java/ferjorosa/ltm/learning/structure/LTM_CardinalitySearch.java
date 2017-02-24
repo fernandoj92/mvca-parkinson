@@ -1,5 +1,6 @@
 package ferjorosa.ltm.learning.structure;
 
+import ferjorosa.ltm.learning.parameters.LTM_Learner;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.model.LTM;
 import voltric.variables.DiscreteVariable;
@@ -17,27 +18,6 @@ import java.util.List;
 // TODO: Revisar el paper de Liu, el pao final de revisar el flat LTM
 public class LTM_CardinalitySearch {
 
-    public static LTM greedyCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet) {
-        return null;
-    }
-
-    public static LTM greedyCardinalityDecrease(LTM ltm, DiscreteDataSet dataSet) {
-        return null;
-    }
-
-    public static LTM multiLevelBestcardinalityChange(LTM ltm, DiscreteDataSet dataSet){
-
-        // Reverse the latVarsFrom
-        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
-        Collections.reverse(latVarsFrombottom);
-
-        for(DiscreteVariable latentVar: latVarsFrombottom){
-            ltm.getSubTree(latentVar);
-        }
-
-        return null;
-    }
-
     /**
      * From 2 to max. Search for the best cardinality value
      *
@@ -46,9 +26,19 @@ public class LTM_CardinalitySearch {
      * @param max
      * @return
      */
-    public static LTM globalBestCardinalityChange(LTM ltm, DiscreteDataSet dataSet, int max) {
+    public static LTM globalBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet, int max) {
 
-        return null;
+        // Reverse the latVarsFrom
+        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
+        Collections.reverse(latVarsFrombottom);
+
+        LTM bestCardinalityIncreased = ltm.clone();
+
+        for(DiscreteVariable latVar: latVarsFrombottom){
+            bestCardinalityIncreased = bestCardinalityIncrease(bestCardinalityIncreased, latVar, dataSet, max);
+        }
+
+        return bestCardinalityIncreased;
     }
 
     /**
@@ -60,22 +50,86 @@ public class LTM_CardinalitySearch {
      * @param max
      * @return
      */
-    public static LTM localBestCardinalityChange(LTM ltm, DiscreteDataSet dataSet, int max) {
+    public static LTM localBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet, int max) {
 
         return null;
 
     }
 
-    // Busca la mejor cardinalidad para un LCM desde 2 al max
-    private static LTM searchBestCardinalityLCM(LTM lcm, DiscreteDataSet dataSet, int max){
+    public static LTM greedyCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet) {
+        return null;
+    }
+
+    public static LTM greedyCardinalityDecrease(LTM ltm, DiscreteDataSet dataSet) {
+        return null;
+    }
+
+    public static LTM multiLevelBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet){
+
+        // Reverse the latVarsFrom
+        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
+        Collections.reverse(latVarsFrombottom);
+
+        ArrayList<LTM> baseIslands = new ArrayList<>();
+
+        for(DiscreteVariable latentVar: latVarsFrombottom){
+            LTM subTree = ltm.getSubTree(latentVar);
+            if(subTree.getLatVars().size() == 1)
+                baseIslands.add(subTree);
+        }
+
+        ArrayList<LTM> improvedIslands = new ArrayList<>();
+
+        for(LTM island: baseIslands){
+            LTM bestCardinalityIncreaseIsland = bestCardinalityIncreaseLCM(island, dataSet, 10);
+            improvedIslands.add(LTM_Learner.learnParameters(bestCardinalityIncreaseIsland, dataSet));
+        }
+
+
+
+        return null;
+    }
+
+
+    private static LTM bestCardinalityIncrease(LTM ltm, DiscreteVariable latentVar, DiscreteDataSet dataSet, int max){
+
+        if(!ltm.getLatVars().contains(latentVar))
+            throw new IllegalArgumentException("The argument variable should be part of the LTM's latent variables set");
+
+        LTM bestLTM = null;
+
+        for(int i = 0; i <= max - latentVar.getCardinality() ; i++ ){
+
+            LTM newLTM = ltm.increaseCardinality(latentVar, i);
+            newLTM = LTM_Learner.learnParameters(newLTM, dataSet);
+
+            if(bestLTM == null)
+                bestLTM = newLTM;
+            else if(bestLTM.getBICScore(dataSet) > newLTM.getBICScore(dataSet))
+                bestLTM = newLTM;
+        }
+
+        return bestLTM;
+    }
+
+    // TODO: Quizas no merece la pena este metodo porque es un caso especifico del bestCardinalityIncrease
+    // Busca la mejor cardinalidad para un LCM desde su cardinalidad al max
+    private static LTM bestCardinalityIncreaseLCM(LTM lcm, DiscreteDataSet dataSet, int max){
 
         if(lcm.getLatVars().size() > 1)
             throw new IllegalArgumentException("It has to be a LCM. Only 1 latent var allowed (the root)");
 
-        LTM bestLCM = new LTM();
+        DiscreteVariable lcmRoot = lcm.getRoot().getVariable();
+        LTM bestLCM = null;
 
-        for(int i = 2; 2 <= max ; i++ ){
-
+        for(int i = 0; i <= max - lcmRoot.getCardinality() ; i++ ){
+            LTM newLCM = LTM_Learner.learnParameters(lcm.increaseCardinality(lcmRoot, i), dataSet);
+            if(bestLCM == null)
+                bestLCM = newLCM;
+            else if(bestLCM.getBICScore(dataSet) > newLCM.getBICScore(dataSet))
+                bestLCM = newLCM;
         }
+
+        return bestLCM;
     }
 }

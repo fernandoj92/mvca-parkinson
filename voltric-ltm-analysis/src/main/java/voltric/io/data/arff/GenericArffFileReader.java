@@ -60,8 +60,8 @@ public class GenericArffFileReader implements DataFileReader{
         if (!atRelation.isPresent())
             throw new IllegalArgumentException("ARFF file does not start with a @relation line.");
 
-        // Returns the relation
-        return atRelation.get();
+        // Returns the relation name after removing the '@relation' substring
+        return atRelation.get().split(" ")[1];
     }
 
     private <V extends IVariable> VariableCollection<V> getAttributes(Path pathFile, Class<V> dataType) throws IOException, IllegalVariableCastException {

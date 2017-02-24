@@ -62,7 +62,7 @@ public final class CliqueTreePropagation implements Cloneable {
 	 * Constructs a CTP for the specified HLCM. The CliqueTree is the socalled
 	 * natural clique tree for HLCM .
 	 * 
-	 * @param LTM
+	 * @param model
 	 *            model under query.
 	 */
 	public CliqueTreePropagation(LTM model) {
@@ -180,7 +180,7 @@ public final class CliqueTreePropagation implements Cloneable {
 	 * @param source
 	 * @param destination
 	 * @param subtree
-	 * @param standingNodes
+	 * @param standingVars
 	 * @return
 	 */
 	private Function collectMessage(CliqueNode source, CliqueNode destination,
@@ -487,10 +487,11 @@ public final class CliqueTreePropagation implements Cloneable {
 		// computes potential at family covering clique
 		CliqueNode familyClique = _cliqueTree.getFamilyClique(var);
 
-		// times up functions attached to family covering clique
-		for (Function function : familyClique.getFunctions()) {
-			hdnBel = hdnBel.times(function);
-		}
+        // times up functions attached to family covering clique
+        for (Function function : familyClique.getFunctions()) {
+            hdnBel = hdnBel.times(function);
+        }
+
 		// (In the HLCM propogation case)After this, the hdnBel is superior to
 		// any funtion multiplied.
 
@@ -501,6 +502,7 @@ public final class CliqueTreePropagation implements Cloneable {
 			for (AbstractNode neighbor : familyClique.getNeighbors()) {
 				if (!already.contains(neighbor))
 					hdnBel.multiply(((CliqueNode) neighbor).getMessageTo(familyClique));
+                int i = 0; // TODO: help
 			}
 		} else {
 			for (AbstractNode neighbor : familyClique.getNeighbors()) {

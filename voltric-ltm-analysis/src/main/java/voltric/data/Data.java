@@ -15,6 +15,7 @@ public class Data<A extends IVariable> {
     private VariableCollection<A> variables = new VariableCollection<A>();
 
     public Data(String name, VariableCollection<A> variables, DataInstanceCollection<A> instances) {
+        this.name = name;
         this.variables = variables;
         this.instances = instances;
     }

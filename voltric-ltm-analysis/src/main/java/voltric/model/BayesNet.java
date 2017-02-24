@@ -331,13 +331,13 @@ public class BayesNet extends DirectedAcyclicGraph {
 		Set<DiscreteVariable> vars = new HashSet<DiscreteVariable>();
 		BayesNet model = clone();
 		
-		if(TreeChecker.isTree(model))
+		if(DirectedTreeChecker.isTree(model))
 		{
 			for (DiscreteVariable var : getVariables()) {
 				if (!getNode(var).isLeaf())
 					vars.add(var);
 			}
-		}else if(TreeChecker.isBayesNet(model))
+		}else if(DirectedTreeChecker.isBayesNet(model))
 		{
 			//if model is a bayesNet but not a tree, return the roots.
 			List<DirectedNode> roots = Algorithm.filter(model.getNodes(),
@@ -388,13 +388,13 @@ public class BayesNet extends DirectedAcyclicGraph {
 		Set<DiscreteVariable> vars = new HashSet<DiscreteVariable>();
 		BayesNet model = clone();
 		
-		if(TreeChecker.isTree(model))
+		if(DirectedTreeChecker.isTree(model))
 		{
 			for (DiscreteVariable var : getVariables()) {
 				if (getNode(var).isLeaf())
 					vars.add(var);
 			}
-		}else if(TreeChecker.isBayesNet(model))
+		}else if(DirectedTreeChecker.isBayesNet(model))
 		{
 			//if model is a bayesNet but not a tree, return the non-root nodes.
 			List<DirectedNode> roots = Algorithm.filter(model.getNodes(),

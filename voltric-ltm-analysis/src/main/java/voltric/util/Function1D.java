@@ -188,6 +188,8 @@ public class Function1D extends Function {
 	 */
 	@Override
 	public void multiply(Function function) {
+		if(function == null)
+			return; // TODO: help
 		if (function.getDimension() == 0) {
 			multiply(function._cells[0]);
 		} else {

@@ -819,13 +819,15 @@ public class LTM extends BayesNet {
     /******************************************************************************************************************/
     /******************************************************************************************************************/
 
+    // TODO: Revisar bien como se estan añadiendo los neuvos nodos, no sea que al haber mutabilidad se esten pasando referencias y la estemos liando
+
     /**
      *
      * @param latentVar
      * @param amount
      * @return
      */
-	// TODO: Remove edges?
+	// TODO: Remove edges? (done)
 	public LTM increaseCardinality(DiscreteVariable latentVar, int amount) {
 
         int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
@@ -838,20 +840,21 @@ public class LTM extends BayesNet {
         BeliefNode latentVarNode = candModel.getNode(latentVar);
         BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() + amount));
 
+        // Añadimos sus hijos
 		for (DirectedNode child : latentVarNode.getChildren()) {
-			BeliefNode beliefChild = (BeliefNode) child;
-            candModel.removeEdge(child, latentVarNode);
-			candModel.addEdge(beliefChild, newLatentVarNode);
-			// Be careful. ctp need work.
-			// But now I find no need
-			// beliefChild.randomlyParameterize();
+			candModel.addEdge(child, newLatentVarNode);
 		}
-        /** Remove the node after all its edges have been removed */
-        candModel.removeNode(latentVarNode);
-		// Be careful. ctp need work.
-		// But now I find no need
-		// newRootNode.randomlyParameterize();
+		//Añadimos sus padres
+        for (DirectedNode parent : latentVarNode.getParents()) {
+            candModel.addEdge(newLatentVarNode, parent);
+        }
 
+        /** Remove the node after all its edges have been removed */
+        // It will also remove all the old edges
+        candModel.removeNode(latentVarNode);
+
+        // TODO: Es esta la Solucion para el nullPointerException?
+        candModel.randomlyParameterize();
 		return candModel;
 	}
 
@@ -861,7 +864,7 @@ public class LTM extends BayesNet {
      * @param amount
      * @return
      */
-    // TODO: Remove edges?
+    // TODO: Remove edges? (done)
 	public LTM decreaseCardinality(DiscreteVariable latentVar, int amount) {
         int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
 
@@ -873,25 +876,32 @@ public class LTM extends BayesNet {
 		LTM candModel = this.clone();
 
 		BeliefNode latentVarNode = candModel.getNode(latentVar);
-		BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() - amount));
+        BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() - amount));
 
+        // Añadimos a sus hijos
 		for (DirectedNode child : latentVarNode.getChildren()) {
-			BeliefNode beliefChild = (BeliefNode) child;
-            candModel.removeEdge(child, latentVarNode);
-			candModel.addEdge(beliefChild, newLatentVarNode);
-			// Be careful. ctp need work.
-			// But now I find no need
-			// beliefChild.randomlyParameterize();
+			candModel.addEdge(child, newLatentVarNode);
 		}
-		/** Remove the node after all its edges have been removed */
-        candModel.removeNode(latentVarNode);
-		// Be careful. ctp need work.
-		// But now I find no need
-		// newRootNode.randomlyParameterize();
 
+		//Añadimos sus padres
+        for (DirectedNode parent : latentVarNode.getParents()) {
+            candModel.addEdge(newLatentVarNode, parent);
+        }
+
+		/** Remove the node after all its edges have been removed */
+		// It will also remove the old edges
+        candModel.removeNode(latentVarNode);
+
+        // TODO: Es esta la Solucion para el nullPointerException?
+        candModel.randomlyParameterize();
 		return candModel;
 	}
 
+	/******************************************************************************************************************/
+	// TODO: revisar estos tres metodos, seguramente se esta creando mal el LTM
+
+    // NO VALE CON UNICAMENTE COPIAR EL LTM Y AÑADIR NODOS DE OTRO LTM, hay que crear dichos nodos
+    // en el nuevo ltm Y AÑADIR SUS EQUIVALENTES UTILIZANDO LAS VARIABLES
     /**
      *
      * @param latentVar
@@ -909,9 +919,12 @@ public class LTM extends BayesNet {
         LTM clonedLTM = this.clone();
         LTM subTree = new LTM();
         BeliefNode latentVarNode = clonedLTM.getNode(latentVar);
-        subTree.addNode(latentVar);
+
         // Recursive call to add all the nodes & edges under the latentVarNode
         recursiveAddChildrenToSubTree(subTree, latentVarNode);
+
+        // Randomly parametrize the tree
+        subTree.randomlyParameterize();
 
         return subTree;
     }
@@ -921,13 +934,20 @@ public class LTM extends BayesNet {
      * @param ltm
      * @param node
      */
-    // create subTree in a recursive manner
+    // create subTree in a recursive manner from top to bottom
     private void recursiveAddChildrenToSubTree(LTM ltm, BeliefNode node){
+
+        // Dado que 'node' no pertenece a este arbol, tenemos que obtener su equivalente en el nuevo arbol 'ltm'
+        BeliefNode nodeEquivalent = ltm.addNode(node.getVariable());
+
         for (DirectedNode child : node.getChildren()) {
             BeliefNode beliefChild = (BeliefNode) child;
-            ltm.addNode(beliefChild.getVariable());
-            ltm.addEdge(beliefChild, node);
-			recursiveAddChildrenToSubTree(ltm, beliefChild); // Recursive call
+            // Añaidmos un equivalente del child
+            BeliefNode childEquivalent = ltm.addNode(beliefChild.getVariable());
+            // añdimos un aroc del nodeEquivalent a su hijo equivalente (ambos son nuevos)
+            ltm.addEdge(childEquivalent, nodeEquivalent);
+            // Recursive call
+			recursiveAddChildrenToSubTree(ltm, beliefChild);
         }
     }
 
@@ -937,9 +957,11 @@ public class LTM extends BayesNet {
      * @param ltm
      * @return
      */
+    // TODO: Revisar la forma que tiene el newLTM porque dice que estoy añadiendo variables repetidas
     public LTM addDisconnectedLTM(LTM ltm){
         LTM newLTM = this.clone();
         BeliefNode partitionRoot = ltm.getRoot();
+
         recursiveAddChildrenToSubTree(newLTM, partitionRoot);
         return newLTM;
     }

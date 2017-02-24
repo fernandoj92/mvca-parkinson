@@ -33,8 +33,12 @@ public class FunctionIterator {
 
 		// initialize the index map
 		List<DiscreteVariable> originalOrder = function.getVariables();
+		/*
 		if(order.size() >= originalOrder.size())
 		    throw new IllegalArgumentException("order.size() has to be < originalOrder.size()");
+		*/
+
+		assert order.size() < originalOrder.size();
 
 		indexMap = new int[order.size()];
 		for (int i = 0; i < order.size(); i++) {

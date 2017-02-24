@@ -29,7 +29,7 @@ public class Utils {
         if(!dist.contains(condVar))
             throw new IllegalArgumentException("The argument distribution does not contain the conditional variable");
 		// ensure the distribution probabilities sum up to one
-        if(dist.sumUp() != 1.0)
+		if(!Utils.eqDouble(dist.sumUp(), 1.0, 0.0001))
             throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// I(X;Y|Z) = sum_X,Y,Z P(X,Y,Z) log P(X,Y|Z)/P(X|Z)P(Y|Z)
@@ -78,7 +78,7 @@ public class Utils {
         if(dist.getDimension() != 2)
             throw new IllegalArgumentException("the argument function's dimension must be 2");
         // ensure the distribution probabilities sum up to one
-        if(dist.sumUp() != 1.0)
+        if(!Utils.eqDouble(dist.sumUp(), 1.0, 0.0001))
             throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// cells of joint and two marginal distributions
@@ -116,7 +116,7 @@ public class Utils {
         if(dist.getDimension() != 2)
             throw new IllegalArgumentException("the argument function's dimension must be 2");
         // ensure the distribution probabilities sum up to one
-        if(dist.sumUp() != 1.0)
+        if(!Utils.eqDouble(dist.sumUp(), 1.0, 0.0001))
             throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// cells of joint and two marginal distributions
@@ -140,7 +140,7 @@ public class Utils {
 	public static double computeEntropy(Function dist) {
 
         // ensure the distribution probabilities sum up to one
-        if(dist.sumUp() != 1.0)
+        if(!Utils.eqDouble(dist.sumUp(), 1.0, 0.0001))
             throw new IllegalArgumentException("The argument distribution's probabilities must sum up to 1.0");
 
 		// H(X) = - sum_X P(X) log P(X)
@@ -227,6 +227,14 @@ public class Utils {
         });
         
         return list;
+	}
+
+	public static boolean eqDouble(double a, double b, double epsilon){
+		return Math.abs(a-b) < epsilon;
+	}
+
+	public static boolean eqDouble(double a, double b){
+		return eqDouble(a, b, 1.11e-14);
 	}
 
 }

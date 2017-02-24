@@ -98,13 +98,15 @@ public class FlatLTM_creator {
         MWST mwst = new MWST(islands, dataSet);
         UndirectedGraph chowLiuTree = mwst.learnMWST();
 
-        LTM bestLTM = new LTM();
+        LTM bestLTM = null;
 
         // All the possible roots for the new LTM are evaluated (N-1 nodes => N-1 executions)
         for(AbstractNode node : chowLiuTree.getNodes()){
             DirectedTree dTree = new DirectedTree(chowLiuTree, (UndirectedNode) node);
             LTM tempLTM = createFromIslands(islands, dTree, dataSet); // The parameters of the returned LTM have been properly learned to have BIC score
-            if(bestLTM.getBICScore(dataSet) > tempLTM.getBICScore(dataSet))
+            if(bestLTM == null)
+                bestLTM = tempLTM;
+            else if(bestLTM.getBICScore(dataSet) > tempLTM.getBICScore(dataSet))
                 bestLTM = tempLTM;
         }
 
