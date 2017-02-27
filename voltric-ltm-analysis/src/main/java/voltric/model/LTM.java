@@ -910,6 +910,7 @@ public class LTM extends BayesNet {
 	// A new ltm is created with cloned nodes where only the variables under the provided latentVar (and the latentVar)
     // are contained
     // TODO: Inefficient because of a full LTM clone
+    // TODO: En principio pinta mal, revisar ya que usa el antiguo addToSubTreeRecursively
 	public LTM getSubTree(DiscreteVariable latentVar){
         int latentVarIndex = this.getLatVarsfromTop().indexOf(latentVar);
 
@@ -951,6 +952,28 @@ public class LTM extends BayesNet {
         }
     }
 
+    private void addChildrenToSubTree(LTM ltm, BeliefNode root){
+		// Dado que 'node' no pertenece a este arbol, tenemos que obtener su equivalente en el nuevo arbol 'ltm'
+		BeliefNode rootEquivalent = ltm.addNode(root.getVariable());
+
+		for (DirectedNode child : root.getChildren()) {
+            BeliefNode beliefChild = (BeliefNode) child;
+            addChildrenToSubTreeRecursive(ltm, rootEquivalent, beliefChild);
+		}
+	}
+
+	private void addChildrenToSubTreeRecursive(LTM ltm, BeliefNode nodeEquivalent, BeliefNode child){
+        // Añaidmos un equivalente del child
+        BeliefNode childEquivalent = ltm.addNode(child.getVariable());
+        // añdimos un aroc del nodeEquivalent a su hijo equivalente (ambos son nuevos)
+        ltm.addEdge(childEquivalent, nodeEquivalent);
+        // -----
+        for (DirectedNode newChild : child.getChildren()) {
+            BeliefNode beliefNewChild = (BeliefNode) newChild;
+            addChildrenToSubTreeRecursive(ltm, childEquivalent, beliefNewChild);
+        }
+	}
+
     /**
      * For a fast way to create manual LTMs from islands. It will not connect the base LTM with the new LTM, generating a forest
      * until those connections have been manually made.
@@ -962,7 +985,7 @@ public class LTM extends BayesNet {
         LTM newLTM = this.clone();
         BeliefNode partitionRoot = ltm.getRoot();
 
-        recursiveAddChildrenToSubTree(newLTM, partitionRoot);
+        addChildrenToSubTree(newLTM, partitionRoot);
         return newLTM;
     }
 }

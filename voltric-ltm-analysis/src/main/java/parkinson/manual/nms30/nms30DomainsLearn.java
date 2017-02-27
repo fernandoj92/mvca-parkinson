@@ -52,20 +52,27 @@ public class nms30DomainsLearn {
                     ArrayList<LTM> domainIslands = createDomainIslands(data);
 
                     /** FLAT LTM */
-/*
+
                     // Create a flat LTM and learn its parameters
                     LTM flatLTM = LTM_Learner.learnParameters(createDomainsFlatLTM(domainIslands, data), data);
                     // Save it in BIF format
                     newBifWriter flatLTMwriter = new newBifWriter(new FileOutputStream(output_path + "Flat_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
                     flatLTMwriter.write(flatLTM);
                     System.out.println("----- Flat LTM for "+ data.getName() + "has been learned ----- \n");
-*/
+                    System.out.println("The resulting BIC score is: "+ flatLTM.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ flatLTM.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ flatLTM.getLoglikelihood(data) +" \n");
+
                     /** MULTI-LEVEL LTM */
                     // Create a multi-level LTM and learn its parameters
                     LTM multiLevelLTM = LTM_Learner.learnParameters(createManualMultiLevelLTM(domainIslands, data), data);
                     // Save it in BIF format
                     newBifWriter multiLevelLTMWriter = new newBifWriter(new FileOutputStream(output_path + "Multilevel_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
                     multiLevelLTMWriter.write(multiLevelLTM);
+                    System.out.println("----- Multi-level LTM for "+ data.getName() + "has been learned ----- \n");
+                    System.out.println("The resulting BIC score is: "+ multiLevelLTM.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ multiLevelLTM.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ multiLevelLTM.getLoglikelihood(data) +" \n");
                 }
             }catch(Exception e){
                 System.out.println("Error with " + inputFile.getName());
@@ -179,9 +186,9 @@ public class nms30DomainsLearn {
         BeliefNode level1RootBeliefNode = multiLevelLTM.addNode(level1Root);
 
         for(LTM island: domainIslands) {
-            multiLevelLTM.addDisconnectedLTM(island);
+            multiLevelLTM = multiLevelLTM.addDisconnectedLTM(island);
             String islandRootName = island.getRoot().getName();
-            multiLevelLTM.addEdge(multiLevelLTM.getNode(islandRootName), level1RootBeliefNode);
+            multiLevelLTM.addEdge(multiLevelLTM.getNode(islandRootName), multiLevelLTM.getNode(level1RootBeliefNode.getName()));
         }
 
         // Una vez ya hemos generado el LTM multi-level, aplicamos una búsqueda local de la cardinalidad

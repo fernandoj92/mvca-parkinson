@@ -105,8 +105,9 @@ public class LTM_CardinalitySearch {
 
             if(bestLTM == null)
                 bestLTM = newLTM;
-            else if(bestLTM.getBICScore(dataSet) > newLTM.getBICScore(dataSet))
+            else if(bestLTM.getBICScore(dataSet) < newLTM.getBICScore(dataSet)) { // BIC score is a negative score
                 bestLTM = newLTM;
+            }
         }
 
         return bestLTM;
