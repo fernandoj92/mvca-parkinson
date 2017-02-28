@@ -169,7 +169,7 @@ public class nms30DomainsLearn {
 
 
     // Chow Liu with best root, flat LTM
-    // TODO: ALL THE LVS HAVE CARDINALITY = 2
+    // TODO: ALL THE LVS HAVE CARDINALITY = 2 initially
     private static LTM createDomainsFlatLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         LTM flatLTM = FlatLTM_creator.applyChowLiuWithBestRoot(domainIslands, dataSet);
         // Recordar que al ser manual no hay refinamiento del modelo (cambio de nodos entre particiones)

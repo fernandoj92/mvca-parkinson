@@ -18,14 +18,8 @@ import java.util.List;
 // TODO: Revisar el paper de Liu, el pao final de revisar el flat LTM
 public class LTM_CardinalitySearch {
 
-    /**
-     * From 2 to max. Search for the best cardinality value
-     *
-     * @param ltm
-     * @param dataSet
-     * @param max
-     * @return
-     */
+    // Best cardinality increase from 2 to max for all the variables of the LTM
+    // But with each increase, the full LTM is relearned (its parameters)
     public static LTM globalBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet, int max) {
 
         // Reverse the latVarsFrom
@@ -41,56 +35,8 @@ public class LTM_CardinalitySearch {
         return bestCardinalityIncreased;
     }
 
-    /**
-     * From 2 to max. Search for the best cardinality value updating its value on batch, to avoid multiple full-EM
-     * executions.
-     *
-     * @param ltm
-     * @param dataSet
-     * @param max
-     * @return
-     */
-    public static LTM localBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet, int max) {
-
-        return null;
-
-    }
-
-    public static LTM greedyCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet) {
-        return null;
-    }
-
-    public static LTM greedyCardinalityDecrease(LTM ltm, DiscreteDataSet dataSet) {
-        return null;
-    }
-
-    public static LTM multiLevelBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet){
-
-        // Reverse the latVarsFrom
-        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
-        Collections.reverse(latVarsFrombottom);
-
-        ArrayList<LTM> baseIslands = new ArrayList<>();
-
-        for(DiscreteVariable latentVar: latVarsFrombottom){
-            LTM subTree = ltm.getSubTree(latentVar);
-            if(subTree.getLatVars().size() == 1)
-                baseIslands.add(subTree);
-        }
-
-        ArrayList<LTM> improvedIslands = new ArrayList<>();
-
-        for(LTM island: baseIslands){
-            LTM bestCardinalityIncreaseIsland = bestCardinalityIncreaseLCM(island, dataSet, 10);
-            improvedIslands.add(LTM_Learner.learnParameters(bestCardinalityIncreaseIsland, dataSet));
-        }
-
-
-
-        return null;
-    }
-
-
+    // Best cardinality increase from 2 to max for the specific variable of the LTM
+    // But with each increase, the full LTM is relearned (its parameters)
     private static LTM bestCardinalityIncrease(LTM ltm, DiscreteVariable latentVar, DiscreteDataSet dataSet, int max){
 
         if(!ltm.getLatVars().contains(latentVar))
@@ -133,4 +79,47 @@ public class LTM_CardinalitySearch {
 
         return bestLCM;
     }
+
+    // From 2 to max. Search for the best cardinality value updating its value on batch, to avoid multiple full-EM executions.
+    public static LTM localBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet, int max) {
+
+        return null;
+
+    }
+
+    public static LTM greedyCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet) {
+        return null;
+    }
+
+    public static LTM greedyCardinalityDecrease(LTM ltm, DiscreteDataSet dataSet) {
+        return null;
+    }
+
+    public static LTM multiLevelBestCardinalityIncrease(LTM ltm, DiscreteDataSet dataSet){
+
+        // Reverse the latVarsFrom
+        List<DiscreteVariable> latVarsFrombottom = new ArrayList<>(ltm.getLatVarsfromTop());
+        Collections.reverse(latVarsFrombottom);
+
+        ArrayList<LTM> baseIslands = new ArrayList<>();
+
+        for(DiscreteVariable latentVar: latVarsFrombottom){
+            LTM subTree = ltm.getSubTree(latentVar);
+            if(subTree.getLatVars().size() == 1)
+                baseIslands.add(subTree);
+        }
+
+        ArrayList<LTM> improvedIslands = new ArrayList<>();
+
+        for(LTM island: baseIslands){
+            LTM bestCardinalityIncreaseIsland = bestCardinalityIncreaseLCM(island, dataSet, 10);
+            improvedIslands.add(LTM_Learner.learnParameters(bestCardinalityIncreaseIsland, dataSet));
+        }
+
+
+
+        return null;
+    }
+
+
 }

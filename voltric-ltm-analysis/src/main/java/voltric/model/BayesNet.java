@@ -1044,5 +1044,107 @@ public class BayesNet extends DirectedAcyclicGraph {
 
 		return stringBuffer.toString();
 	}
+    /******************************************************************************************************************/
+    /******************************************************************************************************************/
+    /******************************************************************************************************************/
 
+    public BayesNet increaseCardinality(DiscreteVariable latentVar, int amount) {
+
+        if(this.containsVar(latentVar))
+            throw new IllegalArgumentException("The latent variable doesn't belong to this BayesNet");
+
+        BayesNet candModel = this.clone();
+
+        BeliefNode latentVarNode = candModel.getNode(latentVar);
+        BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() + amount));
+
+        // Añadimos sus hijos
+        for (DirectedNode child : latentVarNode.getChildren()) {
+            candModel.addEdge(child, newLatentVarNode);
+        }
+        //Añadimos sus padres
+        for (DirectedNode parent : latentVarNode.getParents()) {
+            candModel.addEdge(newLatentVarNode, parent);
+        }
+
+        /** Remove the node after all its edges have been removed */
+        // It will also remove all the old edges
+        candModel.removeNode(latentVarNode);
+
+        // TODO: Es esta la Solucion para el nullPointerException?
+        candModel.randomlyParameterize();
+        return candModel;
+    }
+
+    public BayesNet decreaseCardinality(DiscreteVariable latentVar, int amount) {
+
+        if(this.containsVar(latentVar))
+            throw new IllegalArgumentException("The latent variable doesn't belong to this BayesNet");
+
+        if((latentVar.getCardinality() - amount) < 2)
+            throw new IllegalArgumentException("The resulting cardinality cannot be lower than 2");
+
+        BayesNet candModel = this.clone();
+
+        BeliefNode latentVarNode = candModel.getNode(latentVar);
+        BeliefNode newLatentVarNode = candModel.addNode(new DiscreteVariable(latentVar.getCardinality() - amount));
+
+        // Añadimos a sus hijos
+        for (DirectedNode child : latentVarNode.getChildren()) {
+            candModel.addEdge(child, newLatentVarNode);
+        }
+
+        //Añadimos sus padres
+        for (DirectedNode parent : latentVarNode.getParents()) {
+            candModel.addEdge(newLatentVarNode, parent);
+        }
+
+        /** Remove the node after all its edges have been removed */
+        // It will also remove the old edges
+        candModel.removeNode(latentVarNode);
+
+        // TODO: Es esta la Solucion para el nullPointerException?
+        candModel.randomlyParameterize();
+        return candModel;
+    }
+
+	/*******************/
+	/*** SHARED LTMs ***/
+	/*******************/
+
+	// TODO: en principio no vale ya que daria error al intentar crear nodos que ya existen y saltarian excepciones por ello.
+    // seguramente haya que crear shared ltms de forma 100% manual hasta mas adelante en que comprobasemos que merecen la pena
+
+	/*
+	private void addLTMChildrenToBayesNet(BayesNet newBayesNet, BeliefNode root){
+		// Dado que 'node' no pertenece a este arbol, tenemos que obtener su equivalente en el nuevo arbol 'ltm'
+		BeliefNode rootEquivalent = newBayesNet.addNode(root.getVariable());
+
+		for (DirectedNode child : root.getChildren()) {
+			BeliefNode beliefChild = (BeliefNode) child;
+            addLTMChildrenToBayesNetRecursive(newBayesNet, rootEquivalent, beliefChild);
+		}
+	}
+
+	private void addLTMChildrenToBayesNetRecursive(BayesNet newBayesNet, BeliefNode nodeEquivalent, BeliefNode child){
+		// Añaidmos un equivalente del child
+		BeliefNode childEquivalent = newBayesNet.addNode(child.getVariable());
+		// añdimos un arco del nodeEquivalent a su hijo equivalente (ambos son nuevos)
+        newBayesNet.addEdge(childEquivalent, nodeEquivalent);
+		// -----
+		for (DirectedNode newChild : child.getChildren()) {
+			BeliefNode beliefNewChild = (BeliefNode) newChild;
+            addLTMChildrenToBayesNetRecursive(newBayesNet, childEquivalent, beliefNewChild);
+		}
+	}
+
+	// TODO: Revisar la forma que tiene el newLTM porque dice que estoy añadiendo variables repetidas
+	public BayesNet addDisconnectedLTM(LTM ltm){
+		BayesNet newBayesNet = this.clone();
+		BeliefNode partitionRoot = ltm.getRoot();
+
+        addLTMChildrenToBayesNet(newBayesNet, partitionRoot);
+		return newBayesNet;
+	}
+	*/
 }
