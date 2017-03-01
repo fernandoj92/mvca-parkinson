@@ -1,6 +1,6 @@
-package ferjorosa.ltm.learning.structure;
+package ferjorosa.learning.structure;
 
-import ferjorosa.ltm.learning.parameters.LTM_Learner;
+import ferjorosa.learning.parameters.LTM_Learner;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.model.LTM;
 import voltric.variables.DiscreteVariable;

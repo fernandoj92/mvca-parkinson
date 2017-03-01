@@ -1,7 +1,7 @@
 package ferjorosa.ltm.creator;
 
 import ferjorosa.ltm.MWST;
-import ferjorosa.ltm.learning.parameters.LTM_Learner;
+import ferjorosa.learning.parameters.LTM_Learner;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.graph.*;
 import voltric.model.BeliefNode;

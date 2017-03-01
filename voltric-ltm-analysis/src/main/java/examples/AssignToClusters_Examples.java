@@ -2,8 +2,7 @@ package examples;
 
 
 import ferjorosa.analysis.AssignToClusters;
-import ferjorosa.ltm.learning.parameters.LTM_Learner;
-import scala.Array;
+import ferjorosa.learning.parameters.LTM_Learner;
 import voltric.clustering.BridgedIslands;
 import voltric.data.dataset.DiscreteDataCase;
 import voltric.data.dataset.DiscreteDataSet;

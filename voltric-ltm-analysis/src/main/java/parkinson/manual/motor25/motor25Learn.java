@@ -1,9 +1,11 @@
 package parkinson.manual.motor25;
 
 import ferjorosa.io.newBifWriter;
+import ferjorosa.learning.parameters.BayesNet_Learner;
+import ferjorosa.learning.structure.BayesNet_CardinalitySearch;
 import ferjorosa.ltm.creator.FlatLTM_creator;
-import ferjorosa.ltm.learning.parameters.LTM_Learner;
-import ferjorosa.ltm.learning.structure.LTM_CardinalitySearch;
+import ferjorosa.learning.parameters.LTM_Learner;
+import ferjorosa.learning.structure.LTM_CardinalitySearch;
 import org.apache.commons.io.FilenameUtils;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
@@ -33,7 +35,7 @@ public class motor25Learn {
         String input_path = "data/parkinson/motor/";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff")); // 3 archivos
 
-        String output_path = "results/manual_learn/manual/Domains/";
+        String output_path = "results/manual_learn/motor/Domains/";
 
         for (File inputFile : inputFiles) {
             try {
@@ -49,30 +51,66 @@ public class motor25Learn {
 
                     // Produce an island (view) for each domain
                     ArrayList<LTM> domain2Islands = create2DomainIslands(data);
-                    ArrayList<LTM> domain3Islands = create2DomainIslands(data);
+                    ArrayList<LTM> domain3Islands = create3DomainIslands(data);
 
-                    /** FLAT LTM */
+                    /** FLAT LTM 2 Domain islands */
 
                     // Create a flat LTM and learn its parameters
-                    LTM flatLTM = LTM_Learner.learnParameters(createDomainsFlatLTM(domain2Islands, data), data);
+                    LTM flatLTM_2D = LTM_Learner.learnParameters(createDomainsFlatLTM(domain2Islands, data), data);
                     // Save it in BIF format
-                    newBifWriter flatLTMwriter = new newBifWriter(new FileOutputStream(output_path + "Flat_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
-                    flatLTMwriter.write(flatLTM);
-                    System.out.println("----- Flat LTM for "+ data.getName() + "has been learned ----- \n");
-                    System.out.println("The resulting BIC score is: "+ flatLTM.getBICScore(data) +" \n");
-                    System.out.println("The resulting AIC score is: "+ flatLTM.getAICcScore(data) +" \n");
-                    System.out.println("The resulting LL score is: "+ flatLTM.getLoglikelihood(data) +" \n");
+                    newBifWriter flatLTMwriter_2D = new newBifWriter(new FileOutputStream(output_path + "Flat_2D_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    flatLTMwriter_2D.write(flatLTM_2D);
+                    System.out.println("----- Flat LTM for "+ data.getName() + "has been learned with 2D islands ----- \n");
+                    System.out.println("The resulting BIC score is: "+ flatLTM_2D.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ flatLTM_2D.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ flatLTM_2D.getLoglikelihood(data) +" \n");
 
-                    /** MULTI-LEVEL LTM */
+                    /** MULTI-LEVEL LTM 3 Domain islands */
+
                     // Create a multi-level LTM and learn its parameters
-                    LTM multiLevelLTM = LTM_Learner.learnParameters(createManualMultiLevelLTM(domain2Islands, data), data);
+                    LTM multiLevelLTM_2D = LTM_Learner.learnParameters(createManualMultiLevelLTM(domain2Islands, data), data);
                     // Save it in BIF format
-                    newBifWriter multiLevelLTMWriter = new newBifWriter(new FileOutputStream(output_path + "Multilevel_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
-                    multiLevelLTMWriter.write(multiLevelLTM);
-                    System.out.println("----- Multi-level LTM for "+ data.getName() + "has been learned ----- \n");
-                    System.out.println("The resulting BIC score is: "+ multiLevelLTM.getBICScore(data) +" \n");
-                    System.out.println("The resulting AIC score is: "+ multiLevelLTM.getAICcScore(data) +" \n");
-                    System.out.println("The resulting LL score is: "+ multiLevelLTM.getLoglikelihood(data) +" \n");
+                    newBifWriter multiLevelLTMWriter_2D = new newBifWriter(new FileOutputStream(output_path + "Multilevel_2D_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    multiLevelLTMWriter_2D.write(multiLevelLTM_2D);
+                    System.out.println("----- Multi-level LTM for "+ data.getName() + "has been learned with 2D islands ----- \n");
+                    System.out.println("The resulting BIC score is: "+ multiLevelLTM_2D.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ multiLevelLTM_2D.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ multiLevelLTM_2D.getLoglikelihood(data) +" \n");
+
+                    /** FLAT LTM 3 Domain islands */
+
+                    // Create a flat LTM and learn its parameters
+                    LTM flatLTM_3D = LTM_Learner.learnParameters(createDomainsFlatLTM(domain3Islands, data), data);
+                    // Save it in BIF format
+                    newBifWriter flatLTMwriter_3D = new newBifWriter(new FileOutputStream(output_path + "Flat_3D_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    flatLTMwriter_3D.write(flatLTM_3D);
+                    System.out.println("----- Flat LTM for "+ data.getName() + "has been learned with 3D islands----- \n");
+                    System.out.println("The resulting BIC score is: "+ flatLTM_3D.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ flatLTM_3D.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ flatLTM_3D.getLoglikelihood(data) +" \n");
+
+                    /** MULTI-LEVEL LTM 3 Domain islands */
+
+                    // Create a multi-level LTM and learn its parameters
+                    LTM multiLevelLTM_3D = LTM_Learner.learnParameters(createManualMultiLevelLTM(domain3Islands, data), data);
+                    // Save it in BIF format
+                    newBifWriter multiLevelLTMWriter_3D = new newBifWriter(new FileOutputStream(output_path + "Multilevel_3D_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    multiLevelLTMWriter_3D.write(multiLevelLTM_3D);
+                    System.out.println("----- Multi-level LTM for "+ data.getName() + "has been learned with 3D islands----- \n");
+                    System.out.println("The resulting BIC score is: "+ multiLevelLTM_3D.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ multiLevelLTM_3D.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ multiLevelLTM_3D.getLoglikelihood(data) +" \n");
+
+                    /** SHARED LTM */
+                    // Create a shared LTM and learn its parameters
+                    BayesNet sharedLTM = BayesNet_Learner.learnParameters(createMySharedLTM(data), data);
+                    // Save it in BIF format
+                    newBifWriter sharedLTMWriter = new newBifWriter(new FileOutputStream(output_path + "Shared_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    sharedLTMWriter.write(sharedLTM);
+                    System.out.println("----- Shared LTM for "+ data.getName() + "has been learned ----- \n");
+                    System.out.println("The resulting BIC score is: "+ sharedLTM.getBICScore(data) +" \n");
+                    System.out.println("The resulting AIC score is: "+ sharedLTM.getAICcScore(data) +" \n");
+                    System.out.println("The resulting LL score is: "+ sharedLTM.getLoglikelihood(data) +" \n");
                 }
             }catch(Exception e){
                 System.out.println("Error with " + inputFile.getName());
@@ -184,7 +222,7 @@ public class motor25Learn {
     private static LTM createDomainsFlatLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
         LTM flatLTM = FlatLTM_creator.applyChowLiuWithBestRoot(domainIslands, dataSet);
         // Recordar que al ser manual no hay refinamiento del modelo (cambio de nodos entre particiones)
-        return LTM_CardinalitySearch.globalBestCardinalityIncrease(flatLTM, dataSet, 10);
+        return LTM_CardinalitySearch.globalBestCardinalityIncrease(flatLTM, dataSet, 6);
     }
 
     private static LTM createManualMultiLevelLTM(ArrayList<LTM> domainIslands, DiscreteDataSet dataSet){
@@ -202,7 +240,7 @@ public class motor25Learn {
         // que va de abajo a arriba, es decir, busca primero la mejor cardinalidad de cada isla por separado
         // y luego busca la mejor cardinalidad del primer nivel
         // TODO: En este caso como no hemos resuelto aun el problema de completar los datos tipo EM, el primer nivel utiliza EM global
-        return LTM_CardinalitySearch.globalBestCardinalityIncrease(multiLevelLTM, dataSet, 4);
+        return LTM_CardinalitySearch.globalBestCardinalityIncrease(multiLevelLTM, dataSet, 6);
     }
 
     // Crea un 'LTM' donde las LVs tienen variables manifiestas compartidas
@@ -242,6 +280,11 @@ public class motor25Learn {
         BeliefNode armLV = sharedLTM.addNode(new DiscreteVariable(2));
         BeliefNode mouthLV = sharedLTM.addNode(new DiscreteVariable(2));
         BeliefNode legLV = sharedLTM.addNode(new DiscreteVariable(2));
+        // 3.1 - Las añadimos a la coleccion de variables latentes
+        ArrayList<DiscreteVariable> latentNodes = new ArrayList<>();
+        latentNodes.add(armLV.getVariable());
+        latentNodes.add(mouthLV.getVariable());
+        latentNodes.add(legLV.getVariable());
 
         // 4. Creamos los edges que van desde las LVs a las MVs
 
@@ -290,9 +333,9 @@ public class motor25Learn {
         sharedLTM.addEdge(scm21fsv, legLV);
 
         // 5. Parametrización aleatoria y aprendizaje de parametros
-
-
-        return sharedLTM;
+        sharedLTM.randomlyParameterize();
+        sharedLTM = BayesNet_Learner.learnParameters(sharedLTM, dataSet);
+        return BayesNet_CardinalitySearch.globalBestCardinalityIncrease(sharedLTM, latentNodes, dataSet, 6);
     }
 
 

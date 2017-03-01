@@ -1,4 +1,4 @@
-package ferjorosa.ltm.learning.parameters;
+package ferjorosa.learning.parameters;
 
 
 import voltric.data.dataset.DiscreteDataSet;

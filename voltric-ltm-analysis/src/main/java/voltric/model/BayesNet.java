@@ -1050,7 +1050,7 @@ public class BayesNet extends DirectedAcyclicGraph {
 
     public BayesNet increaseCardinality(DiscreteVariable latentVar, int amount) {
 
-        if(this.containsVar(latentVar))
+        if(!this.containsVar(latentVar))
             throw new IllegalArgumentException("The latent variable doesn't belong to this BayesNet");
 
         BayesNet candModel = this.clone();
@@ -1078,7 +1078,7 @@ public class BayesNet extends DirectedAcyclicGraph {
 
     public BayesNet decreaseCardinality(DiscreteVariable latentVar, int amount) {
 
-        if(this.containsVar(latentVar))
+        if(!this.containsVar(latentVar))
             throw new IllegalArgumentException("The latent variable doesn't belong to this BayesNet");
 
         if((latentVar.getCardinality() - amount) < 2)

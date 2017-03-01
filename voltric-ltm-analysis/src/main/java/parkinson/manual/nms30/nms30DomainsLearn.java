@@ -2,8 +2,8 @@ package parkinson.manual.nms30;
 
 import ferjorosa.io.newBifWriter;
 import ferjorosa.ltm.creator.FlatLTM_creator;
-import ferjorosa.ltm.learning.parameters.LTM_Learner;
-import ferjorosa.ltm.learning.structure.LTM_CardinalitySearch;
+import ferjorosa.learning.parameters.LTM_Learner;
+import ferjorosa.learning.structure.LTM_CardinalitySearch;
 import org.apache.commons.io.FilenameUtils;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
