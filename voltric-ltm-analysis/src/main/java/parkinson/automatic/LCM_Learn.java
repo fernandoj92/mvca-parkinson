@@ -18,6 +18,10 @@ import java.io.FileOutputStream;
  */
 public class LCM_Learn {
 
+    public static void main(String[] args){
+        learnAndSaveAllModels();
+    }
+
     //  TODO: do not use until it is able to choose the best cardinality
     public static void learnAndSaveAllModels(){
         // Seleccionamos el directorio en el que se van a recoger todos los

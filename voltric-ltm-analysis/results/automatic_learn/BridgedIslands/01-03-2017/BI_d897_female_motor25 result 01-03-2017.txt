@@ -1,0 +1,81 @@
+Input Parameters:
+Data: ./data/parkinson-data/d897_female_motor25.arff
+Output folder: ./result
+
+Number of restarts for local EM: 40
+Number of maximum steps for local EM: 80
+
+Number of restarts for fist full-EM: 40
+Number of maximum steps for fisrt full-EM: 80
+
+Number of restarts for final full-EM: 50
+Number of maximum steps for final full-EM: 100
+
+EM threshold: 0.01
+UD-test threshold: 3.0
+
+=== Initialization ===
+======================= Learn Island : 1 , number of variables left: 25  =================================
+Consider:  scm20fpr scm18dpr scm19dsv scm21fsv
+======================= Learn Island : 2 , number of variables left: 23  =================================
+Consider:  scm18dpr scm19dsv scm9free scm14hyg
+======================= Learn Island : 3 , number of variables left: 21  =================================
+Consider:  scm12fee scm15cha scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm5rise scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm7gait scm5rise scm13dre scm14hyg
+======================= Learn Island : 4 , number of variables left: 17  =================================
+Consider:  scm11spe scm7gait scm16wal scm8spee
+======================= Learn Island : 5 , number of variables left: 15  =================================
+Consider:  scm7gait scm5rise scm16wal scm6post
+Consider:  scm7gait scm17han scm5rise scm16wal scm6post
+Consider:  scm7gait scm17han scm3rue scm5rise scm16wal scm6post
+Consider:  scm4rue scm7gait scm17han scm3rue scm5rise scm16wal scm6post
+======================= Learn Island : 6 , number of variables left: 10  =================================
+Consider:  scm4rue scm4lue scm3lue scm3rue
+======================= Learn Island : 7 , number of variables left: 8  =================================
+Consider:  scm2lue scm2rue scm1rue scm1lue
+======================= Learn Island : 8 , number of variables left: 6  =================================
+Consider:  scm4lue scm2lue scm3lue scm1lue
+======================= Learn Island : 9 , number of variables left: 4  =================================
+Consider:  scm10swa scm2lue scm9free scm1lue
+======================= Learn Island : 10 , number of variables left: 2  =================================
+Optimize the model before refinement...
+BIC score before re-considering the structure and cardinality:-7691.092134113616
+--- Update statistics for all latent varaibles ---
+--- Elapsed Time: 128 ms ---
+
+  Begin to do all SI in one time! This may take a while, please wait...
+=== Local EM in SI, Elapsed Time: 391 ms ===
+    SI: (variable106) BIC=-7706.894015571677;  LL=-6876.689000269963
+=== Local EM in SI, Elapsed Time: 311 ms ===
+    SI: (variable53) BIC=-7708.710527268697;  LL=-6881.418512020673
+=== Local EM in SI, Elapsed Time: 323 ms ===
+    SI: (variable187) BIC=-7708.339445772084;  LL=-6881.0474305240605
+=== Local EM in SI, Elapsed Time: 899 ms ===
+    SI: (variable92) BIC=-7711.43050420343;  LL=-6846.269488257433
+=== Local EM in SI, Elapsed Time: 501 ms ===
+    SI: (variable158) BIC=-7698.877366342942;  LL=-6859.933350880157
+=== Local EM in SI, Elapsed Time: 310 ms ===
+    SI: (variable200) BIC=-7699.6375700309745;  LL=-6869.43255472926
+=== Local EM in SI, Elapsed Time: 557 ms ===
+    SI: (variable143) BIC=-7684.592832474866;  LL=-6828.17081668994
+=== Local EM in SI, Elapsed Time: 652 ms ===
+    SI: (variable143) BIC=-7711.141168802262;  LL=-6799.372151997221
+=== Local EM in SI, Elapsed Time: 418 ms ===
+    SI: (variable40) BIC=-7703.233509993682;  LL=-6867.202494584587
+=== Local EM in SI, Elapsed Time: 387 ms ===
+    SI: (variable172) BIC=-7687.8372238394195;  LL=-6857.632208537705
+=== Local EM in SI, Elapsed Time: 402 ms ===
+    SI: (variable172) BIC=-7706.664433280443;  LL=-6847.329417441826
+=== Local EM in SI, Elapsed Time: 289 ms ===
+    SI: (variable198) BIC=-7691.022949825554;  LL=-6866.64393463122
+SI: variable143(3) ->variable214(4)
+SI: variable172(2) ->variable215(3)
+Begin to do structure adjustment! This may take a while, please wait....
+End of structure adjustment!
+=== Refine Parameters ===
+
+Results on training data:
+LogLikelihood (base e) on the training data: -6805.238437093127
+BIC Score on the training data: -7690.790453414955
+--- Total Time: 30436 ms ---

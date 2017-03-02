@@ -1,0 +1,136 @@
+Input Parameters:
+Data: ./data/parkinson-data/d897_female_motor_nms55.arff
+Output folder: ./result
+
+Number of restarts for local EM: 40
+Number of maximum steps for local EM: 80
+
+Number of restarts for fist full-EM: 40
+Number of maximum steps for fisrt full-EM: 80
+
+Number of restarts for final full-EM: 50
+Number of maximum steps for final full-EM: 100
+
+EM threshold: 0.01
+UD-test threshold: 3.0
+
+=== Initialization ===
+======================= Learn Island : 1 , number of variables left: 55  =================================
+Consider:  scm20fpr scm18dpr scm19dsv scm21fsv
+======================= Learn Island : 2 , number of variables left: 53  =================================
+Consider:  scm18dpr scm19dsv scm9free scm14hyg
+======================= Learn Island : 3 , number of variables left: 51  =================================
+Consider:  scm12fee scm15cha scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm5rise scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm7gait scm5rise scm13dre scm14hyg
+======================= Learn Island : 4 , number of variables left: 47  =================================
+Consider:  d5_forget_explicit d2_fatigue d5_forget_implicit d5_loss_concentration
+Consider:  d3_loss_activities d5_forget_explicit d2_fatigue d5_forget_implicit d5_loss_concentration
+Consider:  d3_loss_activities d5_forget_explicit d3_loss_interest d2_fatigue d5_forget_implicit d5_loss_concentration
+======================= Learn Island : 5 , number of variables left: 44  =================================
+Consider:  scm11spe scm7gait scm16wal scm8spee
+======================= Learn Island : 6 , number of variables left: 42  =================================
+Consider:  scm7gait scm5rise scm16wal scm6post
+Consider:  scm7gait scm17han scm5rise scm16wal scm6post
+Consider:  scm7gait scm17han scm3rue scm5rise scm16wal scm6post
+Consider:  scm4rue scm7gait scm17han scm3rue scm5rise scm16wal scm6post
+======================= Learn Island : 7 , number of variables left: 37  =================================
+Consider:  d3_loss_pleasure d3_loss_activities d3_loss_interest d3_depression
+Consider:  d3_loss_pleasure d3_loss_activities d3_anxiety d3_loss_interest d3_depression
+Consider:  d3_loss_pleasure d3_loss_activities d3_anxiety d3_loss_interest d3_flat_affect d3_depression
+Consider:  d3_loss_pleasure d3_loss_activities d3_anxiety d3_loss_interest d2_fatigue d3_flat_affect d3_depression
+Consider:  d3_loss_pleasure d3_loss_activities d3_anxiety d3_loss_interest d2_fatigue d7_nocturia d3_flat_affect d3_depression
+======================= Learn Island : 8 , number of variables left: 31  =================================
+Consider:  d7_nocturia d2_fatigue d7_urinary_urgency d7_urinary_frequency
+Consider:  d7_nocturia d2_fatigue d7_urinary_urgency d2_insomnia d7_urinary_frequency
+Consider:  d7_nocturia d2_fatigue d7_urinary_urgency d2_insomnia d7_urinary_frequency d9_unexplained_pain
+======================= Learn Island : 9 , number of variables left: 28  =================================
+Consider:  scm4rue scm4lue scm3lue scm3rue
+======================= Learn Island : 10 , number of variables left: 26  =================================
+Consider:  scm10swa d6_drooling d1_lightheaded d6_swallowing
+Consider:  scm10swa d2_fatigue d6_drooling d1_lightheaded d6_swallowing
+Consider:  scm10swa d2_fatigue d2_insomnia d6_drooling d1_lightheaded d6_swallowing
+Consider:  scm10swa d2_fatigue d2_insomnia d6_drooling d1_lightheaded d9_unexplained_pain d6_swallowing
+======================= Learn Island : 11 , number of variables left: 23  =================================
+Consider:  scm2lue scm2rue scm1rue scm1lue
+======================= Learn Island : 12 , number of variables left: 21  =================================
+Consider:  scm4lue scm2lue scm3lue scm1lue
+======================= Learn Island : 13 , number of variables left: 19  =================================
+Consider:  d8_sex_drive d9_sweating d6_constipation d8_sex_dysfunction
+Consider:  d8_sex_drive d2_fatigue d9_sweating d6_constipation d8_sex_dysfunction
+======================= Learn Island : 14 , number of variables left: 17  =================================
+Consider:  scm2lue d1_fainting d1_lightheaded scm1lue
+======================= Learn Island : 15 , number of variables left: 15  =================================
+Consider:  d2_fatigue d2_insomnia d9_unexplained_pain d2_drowsiness
+Consider:  d2_fatigue d9_sweating d2_insomnia d9_unexplained_pain d2_drowsiness
+Consider:  d2_fatigue d9_sweating d4_hallucination d2_insomnia d9_unexplained_pain d2_drowsiness
+Consider:  d2_fatigue d9_sweating d4_hallucination d2_rls d2_insomnia d9_unexplained_pain d2_drowsiness
+Consider:  d2_fatigue d9_sweating d4_hallucination d2_rls d2_insomnia d9_unexplained_pain d2_drowsiness d1_lightheaded
+Consider:  d1_fainting d2_fatigue d9_sweating d4_hallucination d2_rls d2_insomnia d9_unexplained_pain d2_drowsiness d1_lightheaded
+======================= Learn Island : 16 , number of variables left: 9  =================================
+Consider:  d1_fainting d9_sweating d6_constipation d1_lightheaded
+Consider:  d9_weight_change d1_fainting d9_sweating d6_constipation d1_lightheaded
+Consider:  d9_weight_change d1_fainting d9_sweating d6_constipation d9_taste_smell d1_lightheaded
+Consider:  d9_weight_change d1_fainting d4_diplopia d9_sweating d6_constipation d9_taste_smell d1_lightheaded
+Consider:  d9_weight_change d1_fainting d4_diplopia d9_sweating d6_constipation d9_taste_smell d1_lightheaded d4_delusion
+Consider:  d9_weight_change d1_fainting d4_diplopia d9_sweating d6_constipation d9_taste_smell scm9free d1_lightheaded d4_delusion
+Optimize the model before refinement...
+BIC score before re-considering the structure and cardinality:-22441.55126218856
+--- Update statistics for all latent varaibles ---
+--- Elapsed Time: 468 ms ---
+
+  Begin to do all SI in one time! This may take a while, please wait...
+=== Local EM in SI, Elapsed Time: 470 ms ===
+    SI: (variable82) BIC=-22463.568411172422;  LL=-19501.047356569463
+=== Local EM in SI, Elapsed Time: 554 ms ===
+    SI: (variable262) BIC=-22494.121503990493;  LL=-19470.427448260038
+=== Local EM in SI, Elapsed Time: 435 ms ===
+    SI: (variable307) BIC=-22492.000554892973;  LL=-19479.95849937728
+=== Local EM in SI, Elapsed Time: 616 ms ===
+    SI: (variable150) BIC=-22461.882621678033;  LL=-19490.622566914004
+=== Local EM in SI, Elapsed Time: 658 ms ===
+    SI: (variable189) BIC=-22436.249811027305;  LL=-19444.598755887444
+=== Local EM in SI, Elapsed Time: 772 ms ===
+    SI: (variable189) BIC=-22462.955337106905;  LL=-19415.95728094693
+=== Local EM in SI, Elapsed Time: 386 ms ===
+    SI: (variable318) BIC=-22442.213221931932;  LL=-19482.605167382662
+=== Local EM in SI, Elapsed Time: 411 ms ===
+    SI: (variable276) BIC=-22437.572243315924;  LL=-19472.138188659275
+=== Local EM in SI, Elapsed Time: 516 ms ===
+    SI: (variable276) BIC=-22455.821448871862;  LL=-19461.257393678312
+=== Local EM in SI, Elapsed Time: 603 ms ===
+    SI: (variable244) BIC=-22449.042904266153;  LL=-19474.869849448434
+=== Local EM in SI, Elapsed Time: 571 ms ===
+    SI: (variable69) BIC=-22456.772065684872;  LL=-19482.599010867154
+=== Local EM in SI, Elapsed Time: 774 ms ===
+    SI: (variable136) BIC=-22503.624738862185;  LL=-19450.80068259483
+=== Local EM in SI, Elapsed Time: 499 ms ===
+    SI: (variable291) BIC=-22458.675901660332;  LL=-19496.154847057373
+=== Local EM in SI, Elapsed Time: 889 ms ===
+    SI: (variable121) BIC=-22469.65125849155;  LL=-19472.17420324431
+=== Local EM in SI, Elapsed Time: 953 ms ===
+    SI: (variable342) BIC=-22592.87434953224;  LL=-19441.00829143942
+=== Local EM in SI, Elapsed Time: 1278 ms ===
+    SI: (variable359) BIC=-22664.44041326598;  LL=-19431.01035366983
+=== Local EM in SI, Elapsed Time: 1129 ms ===
+    SI: (variable210) BIC=-22562.14681133436;  LL=-19401.541753080466
+=== Local EM in SI, Elapsed Time: 595 ms ===
+    SI: (variable229) BIC=-22503.35113502175;  LL=-19456.35307886177
+SI: variable189(3) ->variable380(4)
+SI: variable276(2) ->variable381(3)
+Begin to do structure adjustment! This may take a while, please wait....
+Relocate manifest variable: d9_weight_change from variable359 to variable380
+Relocate manifest variable: d4_diplopia from variable359 to variable210
+Relocate manifest variable: d4_hallucination from variable342 to variable136
+Relocate manifest variable: d6_constipation from variable359 to variable121
+Relocate manifest variable: d9_taste_smell from variable359 to variable82
+Relocate manifest variable: d6_drooling from variable262 to variable121
+Relocate manifest variable: scm9free from variable359 to variable121
+Relocate manifest variable: d4_delusion from variable359 to variable121
+End of structure adjustment!
+=== Refine Parameters ===
+
+Results on training data:
+LogLikelihood (base e) on the training data: -19266.854217457658
+BIC Score on the training data: -22619.717279255106
+--- Total Time: 96757 ms ---

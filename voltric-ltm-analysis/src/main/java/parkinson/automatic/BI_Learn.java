@@ -1,12 +1,15 @@
 package parkinson.automatic;
 
+import clustering.BridgedIslands;
 import ferjorosa.io.newBifWriter;
 import org.apache.commons.io.FilenameUtils;
-import voltric.clustering.BridgedIslands;
+import org.latlab.io.bif.BifWriter;
+import org.latlab.model.LTM;
+import org.latlab.util.DataSet;
+import org.latlab.util.DataSetLoader;
 import voltric.data.dataset.DiscreteDataSet;
 import voltric.io.data.DataFileLoader;
 import voltric.learner.ParallelEmLearner;
-import voltric.model.LTM;
 import voltric.variables.DiscreteVariable;
 
 import java.io.File;
@@ -19,7 +22,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class BI_Learn {
 
-    public static void learnAndSaveAllModels() {
+    public static void main(String[] args){
+        learnAndSaveAllModelsOld();
+    }
+
+    public static void learnAndSaveAllModelsOld() {
         // Seleccionamos el directorio en el que se van a recoger todos los
         String input_path = "data/automatic_learn";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff"));
@@ -30,13 +37,13 @@ public class BI_Learn {
             try {
                 if (inputFile.isFile()) {
                     //Create the DiscreteDataSet
-                    DiscreteDataSet data = new DiscreteDataSet(DataFileLoader.loadData(input_path + "/" + inputFile.getName(), DiscreteVariable.class));
+                    DataSet data = DataSetLoader.load(input_path + "/" + inputFile.getName());
 
                     // Learn the LTM
-                    LTM ltm = learnBIModel(data);
+                    LTM ltm = learnBIModelOld(data);
 
                     // Save it in BIF format
-                    newBifWriter writer = new newBifWriter(new FileOutputStream(output_path + "BI_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
+                    BifWriter writer = new BifWriter(new FileOutputStream(output_path + "BI_" + FilenameUtils.removeExtension(inputFile.getName()) + ".bif"), false);
                     writer.write(ltm);
                 }
             }catch(Exception e){
@@ -46,13 +53,13 @@ public class BI_Learn {
         }
     }
 
-    private static LTM learnBIModel(DiscreteDataSet dataSet) throws FileNotFoundException, UnsupportedEncodingException {
+    private static LTM learnBIModelOld(DataSet dataSet) throws FileNotFoundException, UnsupportedEncodingException {
 
         BridgedIslands bi = new BridgedIslands();
-        LTM ltm = bi.learnLTM(dataSet);
+        LTM ltm = bi.learnLatentTreeModel(dataSet, "", 5, 50, 25, 50, 5, 50, 0.01, 3.0D);
 
         // Learn the parameters one more time (for the scores and sheet)
-        ltm = learnParameters(ltm, dataSet);
+        //ltm = learnParameters(ltm, dataSet);
 
         // Scores and sheet
         System.out.println(ltm.toString(1));
@@ -62,21 +69,21 @@ public class BI_Learn {
 
         return ltm;
     }
-
+/*
     private static void saveModel(LTM ltm, String fileName) throws FileNotFoundException, UnsupportedEncodingException{
         String outputPath = "results/" + fileName + ".bif";
         //ltm.saveAsBif(outputPath);
 
         newBifWriter writer = new newBifWriter(new FileOutputStream(outputPath), false);
         writer.write(ltm);
-    }
+    }*/
 
     // TODO: Preguntar a Poon, creo que todavia no se puede.
     private static LTM loadModel(String fileName){
         return null;
     }
 
-    private static LTM learnParameters(LTM ltm, DiscreteDataSet data){
+    /*private static LTM learnParameters(LTM ltm, DiscreteDataSet data){
 
         int _EmMaxSteps = 50;
         int _EmNumRestarts = 5;
@@ -91,5 +98,5 @@ public class BI_Learn {
         emLearner.setThreshold(_EmThreshold);
 
         return (LTM) emLearner.em(ltm, data);
-    }
+    }*/
 }

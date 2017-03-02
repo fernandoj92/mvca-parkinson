@@ -1,0 +1,41 @@
+############## d897_female_motor25 ##############
+
+----- Flat LTM for d897_female_motor25has been learned with 2D islands -----
+
+The resulting BIC score is: -8418.100071319952
+
+The resulting AIC score is: -8491.628201667274
+
+The resulting LL score is: -7739.37105881013
+
+----- Multi-level LTM for d897_female_motor25has been learned with 2D islands -----
+
+The resulting BIC score is: -8436.88121517084
+
+The resulting AIC score is: -8517.989202607328
+
+The resulting LL score is: -7755.2392026073285
+
+----- Flat LTM for d897_female_motor25has been learned with 3D islands-----
+
+The resulting BIC score is: -8192.767411570841
+
+The resulting AIC score is: -9045.424922799677
+
+The resulting LL score is: -7374.214396483888
+
+----- Multi-level LTM for d897_female_motor25has been learned with 3D islands-----
+
+The resulting BIC score is: -8239.975654087604
+
+The resulting AIC score is: -9443.330638517438
+
+The resulting LL score is: -7395.205638517438
+
+----- Shared LTM for d897_female_motor25has been learned -----
+
+The resulting BIC score is: -8789.653665079719
+
+The resulting AIC score is: -9088.344675485096
+
+The resulting LL score is: -8046.838651388711

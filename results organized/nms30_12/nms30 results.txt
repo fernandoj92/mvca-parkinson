@@ -1,0 +1,17 @@
+############## d897_nms30 ############## 
+
+----- Flat LTM for d897_nms30has been learned ----- 
+
+The resulting BIC score is: -36071.846239277 
+
+The resulting AIC score is: -37724.18660693852 
+
+The resulting LL score is: -33566.39415410833 
+
+----- Multi-level LTM for d897_nms30has been learned ----- 
+
+The resulting BIC score is: -35983.27528653039 
+
+The resulting AIC score is: -38007.457437617944 
+
+The resulting LL score is: -33437.02886618937 

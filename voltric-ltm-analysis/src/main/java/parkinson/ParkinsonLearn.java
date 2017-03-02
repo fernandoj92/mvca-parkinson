@@ -15,7 +15,7 @@ public class ParkinsonLearn {
     }
 
     private static void learnAndSaveAllAutomaticModels(){
-        BI_Learn.learnAndSaveAllModels();
+        BI_Learn.learnAndSaveAllModelsOld();
         LCM_Learn.learnAndSaveAllModels();
     }
 

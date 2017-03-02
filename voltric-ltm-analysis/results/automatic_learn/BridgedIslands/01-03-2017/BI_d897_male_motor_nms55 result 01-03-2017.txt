@@ -1,0 +1,197 @@
+Input Parameters:
+Data: ./data/parkinson-data/d897_male_motor25.arff
+Output folder: ./result
+
+Number of restarts for local EM: 40
+Number of maximum steps for local EM: 80
+
+Number of restarts for fist full-EM: 40
+Number of maximum steps for fisrt full-EM: 80
+
+Number of restarts for final full-EM: 50
+Number of maximum steps for final full-EM: 100
+
+EM threshold: 0.01
+UD-test threshold: 3.0
+
+=== Initialization ===
+======================= Learn Island : 1 , number of variables left: 25  =================================
+Consider:  scm20fpr scm18dpr scm19dsv scm21fsv
+======================= Learn Island : 2 , number of variables left: 23  =================================
+Consider:  scm7gait scm18dpr scm19dsv scm9free
+======================= Learn Island : 3 , number of variables left: 21  =================================
+Consider:  scm12fee scm15cha scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm16wal scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm7gait scm16wal scm13dre scm14hyg
+======================= Learn Island : 4 , number of variables left: 17  =================================
+Consider:  scm11spe scm7gait scm16wal scm8spee
+======================= Learn Island : 5 , number of variables left: 15  =================================
+Consider:  scm2lue scm2rue scm1rue scm1lue
+======================= Learn Island : 6 , number of variables left: 13  =================================
+Consider:  scm7gait scm5rise scm16wal scm6post
+Consider:  scm7gait scm5rise scm16wal scm6post scm9free
+Consider:  scm7gait scm17han scm5rise scm16wal scm6post scm9free
+Consider:  scm7gait scm3lue scm17han scm5rise scm16wal scm6post scm9free
+Consider:  scm7gait scm4lue scm3lue scm17han scm5rise scm16wal scm6post scm9free
+======================= Learn Island : 7 , number of variables left: 7  =================================
+Consider:  scm4rue scm4lue scm3lue scm3rue
+======================= Learn Island : 8 , number of variables left: 5  =================================
+Consider:  scm4rue scm2lue scm3rue scm1lue
+======================= Learn Island : 9 , number of variables left: 3  =================================
+Consider:  scm4rue scm10swa scm3rue
+Optimize the model before refinement...
+BIC score before re-considering the structure and cardinality:-11833.49628499979
+--- Update statistics for all latent varaibles ---
+--- Elapsed Time: 176 ms ---
+
+  Begin to do all SI in one time! This may take a while, please wait...
+=== Local EM in SI, Elapsed Time: 666 ms ===
+    SI: (variable128) BIC=-11855.774961612962;  LL=-10821.742271263618
+=== Local EM in SI, Elapsed Time: 1546 ms ===
+    SI: (variable187) BIC=-11856.141070426584;  LL=-10768.351328896999
+=== Local EM in SI, Elapsed Time: 488 ms ===
+    SI: (variable112) BIC=-11839.25568125273;  LL=-10802.060811422194
+=== Local EM in SI, Elapsed Time: 846 ms ===
+    SI: (variable203) BIC=-11853.905226549023;  LL=-10804.061638793724
+=== Local EM in SI, Elapsed Time: 676 ms ===
+    SI: (variable222) BIC=-11850.01966546618;  LL=-10806.500436673263
+=== Local EM in SI, Elapsed Time: 668 ms ===
+    SI: (variable219) BIC=-11844.634355735152;  LL=-10804.277306423426
+=== Local EM in SI, Elapsed Time: 1013 ms ===
+    SI: (variable95) BIC=-11855.250134775628;  LL=-10792.757829095568
+=== Local EM in SI, Elapsed Time: 507 ms ===
+    SI: (variable54) BIC=-11860.710527932133;  LL=-10826.677837582789
+=== Local EM in SI, Elapsed Time: 629 ms ===
+    SI: (variable40) BIC=-11839.545769429731;  LL=-10796.026540636814
+Begin to do structure adjustment! This may take a while, please wait....
+Relocate manifest variable: scm10swa from variable222 to variable112
+End of structure adjustment!
+=== Refine Parameters ===
+
+Results on training data:
+LogLikelihood (base e) on the training data: -10790.182287371208
+BIC Score on the training data: -11795.755362389837
+--- Total Time: 49710 ms ---
+
+C:\Users\equipo\Desktop\Zhang\BI>java -Xmx2048M -cp BI.jar clustering/BridgedIslands  ./data/parkinson-data/d897_male_motor_nms55.arff  ./result
+Input Parameters:
+Data: ./data/parkinson-data/d897_male_motor_nms55.arff
+Output folder: ./result
+
+Number of restarts for local EM: 40
+Number of maximum steps for local EM: 80
+
+Number of restarts for fist full-EM: 40
+Number of maximum steps for fisrt full-EM: 80
+
+Number of restarts for final full-EM: 50
+Number of maximum steps for final full-EM: 100
+
+EM threshold: 0.01
+UD-test threshold: 3.0
+
+=== Initialization ===
+======================= Learn Island : 1 , number of variables left: 55  =================================
+Consider:  scm20fpr scm18dpr scm19dsv scm21fsv
+======================= Learn Island : 2 , number of variables left: 53  =================================
+Consider:  scm7gait scm18dpr scm19dsv scm9free
+======================= Learn Island : 3 , number of variables left: 51  =================================
+Consider:  d3_loss_pleasure d3_loss_activities d3_loss_interest d3_depression
+Consider:  d3_loss_pleasure d3_loss_activities d3_anxiety d3_loss_interest d3_depression
+======================= Learn Island : 4 , number of variables left: 48  =================================
+Consider:  scm12fee scm15cha scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm16wal scm13dre scm14hyg
+Consider:  scm12fee scm15cha scm7gait scm16wal scm13dre scm14hyg
+======================= Learn Island : 5 , number of variables left: 44  =================================
+Consider:  d5_forget_explicit d2_fatigue d5_forget_implicit d5_loss_concentration
+Consider:  d5_forget_explicit d2_fatigue d5_forget_implicit d2_drowsiness d5_loss_concentration
+======================= Learn Island : 6 , number of variables left: 41  =================================
+Consider:  scm11spe scm7gait scm16wal scm8spee
+======================= Learn Island : 7 , number of variables left: 39  =================================
+Consider:  scm2lue scm2rue scm1rue scm1lue
+======================= Learn Island : 8 , number of variables left: 37  =================================
+Consider:  scm7gait scm5rise scm16wal scm6post
+Consider:  scm7gait scm5rise scm16wal scm6post scm9free
+Consider:  scm7gait scm17han scm5rise scm16wal scm6post scm9free
+Consider:  scm7gait scm17han scm5rise scm16wal scm6post scm9free d6_drooling
+Consider:  scm7gait scm17han d7_urinary_urgency scm5rise scm16wal scm6post scm9free d6_drooling
+======================= Learn Island : 9 , number of variables left: 31  =================================
+Consider:  scm4rue scm4lue scm3lue scm3rue
+======================= Learn Island : 10 , number of variables left: 29  =================================
+Consider:  scm2lue d2_fatigue d2_drowsiness scm1lue
+======================= Learn Island : 11 , number of variables left: 27  =================================
+Consider:  d8_sex_drive d7_nocturia d8_sex_dysfunction d7_urinary_frequency
+======================= Learn Island : 12 , number of variables left: 25  =================================
+Consider:  d7_nocturia d7_urinary_urgency d7_urinary_frequency d6_drooling
+Consider:  d7_nocturia d7_urinary_urgency d7_urinary_frequency d6_drooling d2_drowsiness
+Consider:  d7_nocturia d2_fatigue d7_urinary_urgency d7_urinary_frequency d6_drooling d2_drowsiness
+======================= Learn Island : 13 , number of variables left: 22  =================================
+Consider:  d3_anxiety d2_fatigue d3_flat_affect d3_depression
+Consider:  d3_anxiety d2_fatigue d3_flat_affect d3_depression d2_drowsiness
+======================= Learn Island : 14 , number of variables left: 19  =================================
+Consider:  scm4rue d2_fatigue scm3rue d2_insomnia
+======================= Learn Island : 15 , number of variables left: 17  =================================
+Consider:  scm10swa d2_fatigue d6_drooling d6_swallowing
+======================= Learn Island : 16 , number of variables left: 15  =================================
+Consider:  d2_fatigue d2_rls d2_insomnia d2_drowsiness
+Consider:  d2_fatigue d2_rls d6_constipation d2_insomnia d2_drowsiness
+Consider:  d2_fatigue d2_rls d6_constipation d2_insomnia d2_drowsiness d9_unexplained_pain
+Consider:  d2_fatigue d2_rls d6_constipation d2_insomnia d6_drooling d2_drowsiness d9_unexplained_pain
+Consider:  d2_fatigue d2_rls d6_constipation d2_insomnia d6_drooling d2_drowsiness d9_unexplained_pain d1_lightheaded
+Consider:  d2_fatigue d2_rls d6_constipation d4_hallucination d2_insomnia d6_drooling d2_drowsiness d9_unexplained_pain d1_lightheaded
+Consider:  d2_fatigue d2_rls d6_constipation d4_hallucination d2_insomnia d6_drooling d2_drowsiness d9_unexplained_pain d1_lightheaded d4_delusion
+======================= Learn Island : 17 , number of variables left: 7  =================================
+Consider:  d4_diplopia d9_sweating d4_hallucination d4_delusion
+Consider:  d9_weight_change d4_diplopia d9_sweating d4_hallucination d4_delusion
+Consider:  d9_weight_change d4_diplopia d9_sweating d4_hallucination d9_taste_smell d4_delusion
+Consider:  d9_weight_change d1_fainting d4_diplopia d9_sweating d4_hallucination d9_taste_smell d4_delusion
+Optimize the model before refinement...
+BIC score before re-considering the structure and cardinality:-34282.63047942204
+--- Update statistics for all latent varaibles ---
+--- Elapsed Time: 873 ms ---
+
+  Begin to do all SI in one time! This may take a while, please wait...
+=== Local EM in SI, Elapsed Time: 1160 ms ===
+    SI: (variable96) BIC=-34323.38174030087;  LL=-30867.11956735949
+=== Local EM in SI, Elapsed Time: 1832 ms ===
+    SI: (variable153) BIC=-34326.33388892922;  LL=-30876.396074950215
+=== Local EM in SI, Elapsed Time: 1235 ms ===
+    SI: (variable273) BIC=-34315.0193568218;  LL=-30903.027696617086
+=== Local EM in SI, Elapsed Time: 1172 ms ===
+    SI: (variable312) BIC=-34296.1376158923;  LL=-30937.903006867822
+=== Local EM in SI, Elapsed Time: 1594 ms ===
+    SI: (variable300) BIC=-34347.014265545;  LL=-30893.914272084807
+=== Local EM in SI, Elapsed Time: 1015 ms ===
+    SI: (variable84) BIC=-34300.83108864159;  LL=-30942.596479617117
+=== Local EM in SI, Elapsed Time: 2610 ms ===
+    SI: (variable236) BIC=-34306.27059260618;  LL=-30894.278932401467
+=== Local EM in SI, Elapsed Time: 1484 ms ===
+    SI: (variable70) BIC=-34291.19355714052;  LL=-30920.310230191277
+=== Local EM in SI, Elapsed Time: 1156 ms ===
+    SI: (variable321) BIC=-34313.45679901662;  LL=-30926.76257466143
+=== Local EM in SI, Elapsed Time: 3204 ms ===
+    SI: (variable359) BIC=-34495.53547643575;  LL=-30893.81304735959
+=== Local EM in SI, Elapsed Time: 1297 ms ===
+    SI: (variable184) BIC=-34304.974454510004;  LL=-30946.73984548553
+=== Local EM in SI, Elapsed Time: 1767 ms ===
+    SI: (variable264) BIC=-34293.62258812986;  LL=-30929.063620143002
+=== Local EM in SI, Elapsed Time: 2397 ms ===
+    SI: (variable137) BIC=-34305.252726833285;  LL=-30918.558502478092
+=== Local EM in SI, Elapsed Time: 4364 ms ===
+    SI: (variable348) BIC=-34500.93189308491;  LL=-30851.776771790897
+=== Local EM in SI, Elapsed Time: 1797 ms ===
+    SI: (variable168) BIC=-34290.482633196756;  LL=-30925.9236652099
+=== Local EM in SI, Elapsed Time: 2063 ms ===
+    SI: (variable288) BIC=-34346.87324149845;  LL=-30893.773248038255
+=== Local EM in SI, Elapsed Time: 1759 ms ===
+    SI: (variable252) BIC=-34298.68642286267;  LL=-30924.640916432243
+Begin to do structure adjustment! This may take a while, please wait....
+Relocate manifest variable: d9_weight_change from variable359 to variable137
+Relocate manifest variable: d9_taste_smell from variable359 to variable137
+End of structure adjustment!
+=== Refine Parameters ===
+
+Results on training data:
+LogLikelihood (base e) on the training data: -30924.008009504647
+BIC Score on the training data: -34405.56761829556
+--- Total Time: 1794258 ms ---

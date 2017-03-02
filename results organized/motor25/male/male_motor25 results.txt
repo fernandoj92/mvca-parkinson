@@ -1,0 +1,41 @@
+############## d897_male_motor25 ##############
+
+----- Flat LTM for d897_male_motor25has been learned with 2D islands -----
+
+The resulting BIC score is: -13122.624408600774
+
+The resulting AIC score is: -12852.860186075304
+
+The resulting LL score is: -12126.537872025718
+
+----- Multi-level LTM for d897_male_motor25has been learned with 2D islands -----
+
+The resulting BIC score is: -13208.413173943263
+
+The resulting AIC score is: -13148.24458642153
+
+The resulting LL score is: -12035.24458642153
+
+----- Flat LTM for d897_male_motor25has been learned with 3D islands-----
+
+The resulting BIC score is: -12911.254156182205
+
+The resulting AIC score is: -12670.55190061547
+
+The resulting LL score is: -11877.221465832861
+
+----- Multi-level LTM for d897_male_motor25has been learned with 3D islands-----
+
+The resulting BIC score is: -12827.001655486874
+
+The resulting AIC score is: -12537.894056580868
+
+The resulting LL score is: -11862.536913723725
+
+----- Shared LTM for d897_male_motor25has been learned -----
+
+The resulting BIC score is: -13829.328910585904
+
+The resulting AIC score is: -15891.238400652008
+
+The resulting LL score is: -12305.158400652008
