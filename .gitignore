@@ -18,7 +18,6 @@ ltm-analysis/.settings/org.scala-ide.sdt.core.prefs
 ltm-analysis/.settings/org.eclipse.jdt.core.prefs
 ltm-analysis/exp/
 ltm-analysis/samples
-ltm-analysis/data
 ltm-analysis/data-description.txt
 
 ltm-analysis/.idea/
@@ -45,7 +44,6 @@ pltm-analysis/.settings/org.scala-ide.sdt.core.prefs
 pltm-analysis/.settings/org.eclipse.jdt.core.prefs
 pltm-analysis/exp/
 pltm-analysis/samples
-pltm-analysis/data
 pltm-analysis/data-description.txt
 
 pltm-analysis/.idea/
@@ -72,7 +70,6 @@ new-ltm-analysis/.settings/org.scala-ide.sdt.core.prefs
 new-ltm-analysis/.settings/org.eclipse.jdt.core.prefs
 new-ltm-analysis/exp/
 new-ltm-analysis/samples
-new-ltm-analysis/data
 new-ltm-analysis/data-description.txt
 
 new-ltm-analysis/.idea/
@@ -99,7 +96,6 @@ voltric-ltm-analysis/.settings/org.scala-ide.sdt.core.prefs
 voltric-ltm-analysis/.settings/org.eclipse.jdt.core.prefs
 voltric-ltm-analysis/exp/
 voltric-ltm-analysis/samples
-voltric-ltm-analysis/data
 voltric-ltm-analysis/data-description.txt
 
 voltric-ltm-analysis/.idea/

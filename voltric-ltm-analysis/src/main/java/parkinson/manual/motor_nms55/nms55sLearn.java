@@ -10,6 +10,14 @@ public class nms55sLearn {
     }
 
     public static void learnAndSaveAllModels(){
-        
+
     }
+
+    /**
+     *  Los modelos que se van a crear son los siguientes:
+     *  - Motor MultiLevel & NMS MultiLevel
+     *  - MultiLevel formado por 2 flat-LTMS a cada lado
+     */
+
+
 }
