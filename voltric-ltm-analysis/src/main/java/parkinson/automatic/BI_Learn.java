@@ -1,22 +1,5 @@
 package parkinson.automatic;
 
-import clustering.BridgedIslands;
-import ferjorosa.io.newBifWriter;
-import org.apache.commons.io.FilenameUtils;
-import org.latlab.io.bif.BifWriter;
-import org.latlab.model.LTM;
-import org.latlab.util.DataSet;
-import org.latlab.util.DataSetLoader;
-import voltric.data.dataset.DiscreteDataSet;
-import voltric.io.data.DataFileLoader;
-import voltric.learner.ParallelEmLearner;
-import voltric.variables.DiscreteVariable;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-
 /**
  * Created by equipo on 08/02/2017.
  */
@@ -27,6 +10,7 @@ public class BI_Learn {
     }
 
     public static void learnAndSaveAllModelsOld() {
+        /*
         // Seleccionamos el directorio en el que se van a recoger todos los
         String input_path = "data/automatic_learn";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff"));
@@ -50,10 +34,10 @@ public class BI_Learn {
                 System.out.println("Error with " + inputFile.getName());
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
-    private static LTM learnBIModelOld(DataSet dataSet) throws FileNotFoundException, UnsupportedEncodingException {
+   /* private static LTM learnBIModelOld(DataSet dataSet) throws FileNotFoundException, UnsupportedEncodingException {
 
         BridgedIslands bi = new BridgedIslands();
         LTM ltm = bi.learnLatentTreeModel(dataSet, "", 5, 50, 25, 50, 5, 50, 0.01, 3.0D);
@@ -77,11 +61,11 @@ public class BI_Learn {
         newBifWriter writer = new newBifWriter(new FileOutputStream(outputPath), false);
         writer.write(ltm);
     }*/
-
+/*
     // TODO: Preguntar a Poon, creo que todavia no se puede.
     private static LTM loadModel(String fileName){
         return null;
-    }
+    }*/
 
     /*private static LTM learnParameters(LTM ltm, DiscreteDataSet data){
 

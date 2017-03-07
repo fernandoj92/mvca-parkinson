@@ -1,0 +1,9 @@
+############## d897_motor_nms55 ##############
+
+----- Multi-level LTM for d897_motor_nms55has been learned -----
+
+The resulting BIC score is: -56037.383868948746
+
+The resulting AIC score is: -48629.48125372185
+
+The resulting LL score is: -51777.77537136891
