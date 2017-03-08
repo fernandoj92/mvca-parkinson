@@ -15,8 +15,8 @@ if (!require("foreign")) {
   library(foreign)
 }
 
-input_directory = "networks/input_BIF/"
-output_directory = "networks/output_NET/"
+input_directory = "networks/input_BIF/reunion 08-03/"
+output_directory = "networks/output_NET/reunion 08-03/"
 
 for(fileName in list.files(input_directory)){
   write.net(
