@@ -28,7 +28,7 @@ public class nms55sLearn {
         String input_path = "data/parkinson/";
         File[] inputFiles = new File(input_path).listFiles(x -> x.getName().endsWith(".arff")); // 3 archivos
 
-        String output_path = "results/manual_learn/";
+        String output_path = "results/manual_learn/motor_nms12/";
 
         for (File inputFile : inputFiles) {
             try {
